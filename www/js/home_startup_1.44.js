@@ -562,8 +562,10 @@ function viewIdAjax(id){
 			$('#pageviewloadinto').html(data); // PGA Android Softbar/Softbuttons (oftast height 25dp) MÅSTE vi ha det så här med extra 40px (25dp). Mycket bättre än alternativen som kan bugga fult med white bar i slutet. Läs: http://stackoverflow.com/questions/3407256/height-of-status-bar-in-android
 			// $('#pageviewloadinto').trigger("updatelayout"); 
 			
-			$('#pageviewloadinto').trigger("create");
-			$('#pageviewloadinto').trigger("refresh"); 
+			$('#pageviewloadinto').trigger("create").trigger("refresh").trigger("updatelayout");
+
+			// $('#pageviewloadinto').trigger("create");
+			// $('#pageviewloadinto').trigger("refresh"); 
 			// $('#pageviewloadinto').trigger("update"); 
 			
 			// var pageviewloadintocontentheight = screen.height+135;
@@ -573,7 +575,13 @@ function viewIdAjax(id){
 			
 			// ADDED 2015-10-17:
 			setTimeout(function () { 
-				jQuery.mobile.navigate("#pageview",{ transition : "slide"}) 
+				// jQuery.mobile.navigate("#pageview",{ transition : "slide"}) 
+				// jQuery.mobile.navigate("#pageview");
+				// $.mobile.navigate("#pageview");
+				// $( ":mobile-pagecontainer" ).pagecontainer( "change", "#pageview", { role: "dialog" } );
+				$( ":mobile-pagecontainer" ).pagecontainer( "change", "#pageview",{ transition: "slide", allowSamePageTransition: true });
+				$('#pageviewloadinto').trigger("create").trigger("refresh").trigger("updatelayout");
+
 			},300);
 
 			

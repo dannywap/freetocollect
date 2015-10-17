@@ -1,0 +1,42 @@
+		.ui-link.adviewtitle {
+			color: red; 
+			margin:5px 5px 5px 5px !important;
+			text-decoration: none !important;
+		}
+		.ui-body a.adviewtitle:active {
+			color: green; 	
+			text-decoration: underline !important;
+		}
+		/* .ui-link-active { */
+		.ui-body-a .ui-link:active {
+			color: green !important; 	
+			text-decoration: underline !important;
+		}
+		a.ui-link:active {
+			color: #2489ce /*{a-bar-link-active}*/;
+		}
+		.ui-body-c .ui-link:active {
+			color: #2489ce /*{a-body-link-active}*/;
+		}
+
+		.ui-link-inherit {
+			color: 	#f0f /*{a-body-color}*/;
+		}
+		.ui-link:active {
+			color: #2489ce /*{a-body-link-active}*/;
+		}
+		
+		
+		
+		
+		adviewtitle2:link {
+			color: blue; 
+			margin:5px 5px 5px 5px !important;
+			text-decoration: none !important;
+		}
+		adviewtitle2:active {
+			color: red; 
+			margin:5px 5px 5px 5px !important;
+			text-decoration: none !important;
+		}
+		
