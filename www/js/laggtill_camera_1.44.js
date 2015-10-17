@@ -50,12 +50,11 @@
 
 	
 	function getKategorier(){
-		alert("hej0");
 		// $("#dwglaggtillkategorier").attr('data-native-menu',true);
 
 		var katSelect = document.getElementById('dwglaggtillkategorier');
-		$("#dwglaggtillkategorier").selectmenu("destroy").empty(); // destory it - NECESSARY TO EMPTY IT WHEN IT IS A SELECT WITH data-native-menu="false"
-		// $("#dwglaggtillkategorier").empty(); // .selectmenu( "refresh", true );
+		// $("#dwglaggtillkategorier").selectmenu("destroy").empty(); // destory it - NECESSARY TO EMPTY IT WHEN IT IS A SELECT WITH data-native-menu="false"
+		$("#dwglaggtillkategorier").empty(); // .selectmenu( "refresh", true );
 		katSelect.options.length = 0;
 
 		var nocachex=dwgguid();
@@ -67,7 +66,6 @@
 				// alert("11 första id: "+kats[key].id);
 			// }
 		// };
-		alert("hej1");
 
 		$.ajax({
 			type: "GET",
@@ -75,17 +73,16 @@
 			//url: "<?=L::app_weburl;?>/include/ajaxpostnr.php?postnr=" + postnr,  <-- NEJ DETTA SKAPAR CROSS SITE SCRIPTING PROBLEMS I RÄTT KONFADE BROWSERS! 
 			url: weburl+"/include/get_kategori_ajax.php?nocachex="+nocachex,
 			success: function (data) {
-				alert("hej2");
 
 				// alert("json:"+ data);
 				var opt = document.createElement('option');
 				opt.disabled = true;
 				opt.selected = true;
 				opt.value = 0;
-				opt.innerHTML = $.t("add.2valjkategori");
+				opt.innerHTML = $.t("add.2bvaljkategori");
 				// katSelect.empty().appendChild(opt);
 				// $("#dwglaggtillkategorier").append(opt);
-				var opt2 = '<option value="0">'+$.t("add.2valjkategori")+'</option>';
+				var opt2 = '<option value="0">'+$.t("add.2bvaljkategori")+'</option>';
 				
 				for(var key in data) {
 					// if (data.hasOwnProperty(key)) {
@@ -114,7 +111,6 @@
 					// // }
 
 				};
-				alert("hej3");
 
 				// var lanen=data.split('|');
 				// for (i=1; i<lanen.length; i++) {
@@ -127,11 +123,10 @@
 				// katSelect.appendChild(opt2);
 				// $("#dwglaggtillkategorier").attr('data-native-menu',false);
 
-				alert("hej done");
 				$("#dwglaggtillkategorier").append(opt2).selectmenu('refresh', true);
 				// $('#dwglaggtillkategorier').selectmenu('refresh', true);
-				$(currentPage).trigger('create');
-				setTimeout(function(){ $("#laggtill").trigger("create").trigger("refresh"); },1600); // .selectmenu('refresh', true);;
+				// $(currentPage).trigger('create');
+				// setTimeout(function(){ $("#laggtill").trigger("create").trigger("refresh"); },1600); // .selectmenu('refresh', true);;
 				// $('#dwglaggtillkategorier').selectmenu('refresh', true);
 			}, // --end success
 			error: function (jqXHR, textStatus, errorThrown) {
