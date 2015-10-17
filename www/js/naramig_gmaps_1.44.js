@@ -163,7 +163,8 @@ function dwgaddMarker(lat,lng,pinannonsid,foto,kategoriid) {
 				seaofthumbslat=this.lat;
 				seaofthumbslng=this.lon;
 				seaofthumbsboundary='';
-				jQuery.mobile.navigate("#pageseaofthumbs");
+				// jQuery.mobile.navigate("#pageseaofthumbs");
+				$.mobile.pageContainer.pagecontainer( "change", "#pageseaofthumbs",{ allowSamePageTransition: true });
 			});
 			
 			dwgClustersArray.push(dwgmarker79); // Då dessa skall rensas på helt andra tider så blir det korkat och buggigt långsamt med att försöka få splice att fungera mot en stor array istället för att ha en liten array man kan tömma snabbare och oftare.
@@ -204,7 +205,8 @@ function showSeaOfThumbsBoundaries(){
 	var swlatlng = sw.lat() + ";" + sw.lng();
 	var nelatlng = ne.lat() + ";" + ne.lng();	
 	seaofthumbsboundary="&boundaries="+swlatlng+";"+nelatlng; // (går nerifrån vänster upp höger eftersom uppåt norr är ++ på skalan likaså är öster ++ på skalan)
-	jQuery.mobile.navigate("#pageseaofthumbs");
+	// jQuery.mobile.navigate("#pageseaofthumbs");
+	$.mobile.pageContainer.pagecontainer( "change", "#pageseaofthumbs",{ allowSamePageTransition: true });
 }
 
 function hideMarkersButThisCategory(kat,clicked){
@@ -539,7 +541,7 @@ function lasaAnvandarVillkor(){
 function villeLasaAnvandarvillkoren(btn){
 	// alert("Du klickade knapp nr: "+btn);
 	if(btn==2){	// Öppna extern webläsare precis som vid tweet, fb etc fast nu till google användarvillkor.
-		urlenattlasa="https://www.google.com/intl/sv_se/help/terms_maps.html";
+		urlenattlasa="https://www.google.com/intl/sv_se/help/terms_maps.html"; // https://www.google.com/intl/en_us/help/terms_maps.html
 		openExtLink(urlenattlasa);
 	}
 }

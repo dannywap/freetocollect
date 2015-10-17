@@ -579,7 +579,9 @@ function viewIdAjax(id){
 				// jQuery.mobile.navigate("#pageview");
 				// $.mobile.navigate("#pageview");
 				// $( ":mobile-pagecontainer" ).pagecontainer( "change", "#pageview", { role: "dialog" } );
-				$( ":mobile-pagecontainer" ).pagecontainer( "change", "#pageview",{ transition: "slide", allowSamePageTransition: true });
+				// $( ":mobile-pagecontainer" ).pagecontainer( "change", "#pageview",{ transition: "slide", allowSamePageTransition: true });
+				// $.mobile.pageContainer.pagecontainer("change", "#page", { options });    (,reverse: true)
+				$.mobile.pageContainer.pagecontainer( "change", "#pageview",{ allowSamePageTransition: true });
 				$('#pageviewloadinto').trigger("create").trigger("refresh").trigger("updatelayout");
 
 			},300);
@@ -827,7 +829,9 @@ $(function(){  // Bind the swipeleftHandler callback function to the swipe event
 
 function showFullScreenPhoto(fotot){
 	htmlgrejs='<img onClick="dblclckzoomphoto();" id="zoomfullscreenphoto" src="'+weburl+'/foton/'+fotot+'" style="width: 100% !important; height: auto !important; position:absolute !important; top:0 !important; bottom:0 !important; margin:auto !important;">';
-	jQuery.mobile.navigate("#pagefullscreenphoto");
+	// jQuery.mobile.navigate("#pagefullscreenphoto");
+	$.mobile.pageContainer.pagecontainer( "change", "#pagefullscreenphoto",{ allowSamePageTransition: true });
+
 	// screenheight=$(window).height() + "px";
 	//screenheight=screen.height + "px";
 	$( "#pagefullscreenphotomain" ).html(htmlgrejs);
@@ -1323,7 +1327,8 @@ $(document).on('pageshow', '#pageskickamail', function (event) {
 	if(dwgempty(useremail)){
 		$("#pageskickamailsubmit").attr("disabled", "disabled");
 		dwgalert($.t("home.msg_please_first_register3")); //"Vänligen fyll först i din email i din profil (knappen 'Min profil') innan du svarar på annonser.");
-		jQuery.mobile.navigate("#mittkonto");
+		// jQuery.mobile.navigate("#mittkonto");
+		$.mobile.pageContainer.pagecontainer( "change", "#mittkonto",{ allowSamePageTransition: true });
 	}else{
 		$("#pageskickamailsubject").text('Svar på: '+skickamailrubrik);
 		document.getElementById('skickamailid').value =			skickamailid;
@@ -1521,7 +1526,8 @@ function AutoUpdateIfOldData(){
 	var currentTimeInMs=tmpdate.getTime(); // Get it in Ms
 	var timeDiffSinceLastUpdate=currentTimeInMs-lastViewAdsUpdate;
 	if(timeDiffSinceLastUpdate>1000*60*60*1){  // Om mer än en timma sedan
-		jQuery.mobile.navigate("#home");
+		// jQuery.mobile.navigate("#home");
+		$.mobile.pageContainer.pagecontainer( "change", "#home",{ allowSamePageTransition: true });
 		// setTimeout( function() { viewAds2(); },500);
 		setTimeout( function() { window.location.reload(true); },500);  // Då tidigare inte fungerade provar vi detta. PS. "true" betyder töm cache.  <)
 	}

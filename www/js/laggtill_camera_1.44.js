@@ -672,7 +672,8 @@ $(document).on('pageshow', '#laggtill', function (event) {
 			}else{
 				dwgalert($.t("add.msg_please_first_register6")); //"Vänligen, fyll först i kontaktuppgifter under 'Min Profil' eller kontakta support@bortskankes.se om du har fortsatta problem.");
 			}
-			jQuery.mobile.navigate("#mittkonto");
+			// jQuery.mobile.navigate("#mittkonto");
+			$.mobile.pageContainer.pagecontainer( "change", "#mittkonto",{ allowSamePageTransition: true });
 		}else{
 			if($('#laggtilldivhiddenuntilphoto').is(':visible')) {
 				$('#laggtillresetbtn').closest('.ui-btn').show();
