@@ -95,7 +95,7 @@
 						opt.innerHTML = data[key].huvudkategori + ":";
 						//katSelect.appendChild(opt);
 						// $("#dwglaggtillkategorier").append(opt);
-						opt2 = opt2+'<option value="'+ data[key].id +'">'+data[key].huvudkategori + ':' + '</option>';
+						opt2 = opt2+'<option  disabled="disabled" value="'+ data[key].id +'">'+data[key].huvudkategori + ':' + '</option>';
 					}else{
 						var opt = document.createElement('option');
 						opt.disabled = false; // Man skall kunna välja dessa
@@ -260,7 +260,7 @@
 
 	
 // While typing check some stuff....
-	function onChangeCheckLaggTill(autoselectcategory){
+	function onChangeCheckLaggTill(autoselect){
 		laggtSubject=document.getElementById('dwgrubrik').value.toLowerCase();
 		laggtDetails=document.getElementById('dwgbeskrivning').value.toLowerCase();
 		// categorySelection=document.getElementById('dwglaggtillkategorier').value();
@@ -277,10 +277,11 @@
 		// }
 		
 		// for (var i = 0; i < autoSelCategory.length; i++) {
-		for (var key in autoselcategory) {
-			if(laggtSubject.indexOf(key)>-1){ $('#dwglaggtillkategorier').val(autoselcategory[key]).selectmenu('refresh'); }
+		if(autoselect==true){
+			for (var key in autoselcategory) {
+				if(laggtSubject.indexOf(key)>-1){ $('#dwglaggtillkategorier').val(autoselcategory[key]).selectmenu('refresh'); }
+			}
 		}
-		
 		
 		if(laggtSubject.length > 3 && laggtDetails.length > 8 && categorySelection>1){
 			$('#laggtillklarbtn').prop('disabled', false);
@@ -655,7 +656,7 @@
 	}
 	
 $(document).on('pageshow', '#laggtill', function (event) {
-	getKategorier();
+	// getKategorier();
 
 	// Ofta blir bara knappen grön men man kommer inte hit. Provar att ge den lite tid att jobba.
 	setTimeout(function(){
@@ -675,8 +676,6 @@ $(document).on('pageshow', '#laggtill', function (event) {
 		}else{
 			if($('#laggtilldivhiddenuntilphoto').is(':visible')) {
 				$('#laggtillresetbtn').closest('.ui-btn').show();
-				// setTimeout(function () { getKategorier(); },1000);
-
 			}else{
 				$('#laggtillresetbtn').closest('.ui-btn').hide();
 			}

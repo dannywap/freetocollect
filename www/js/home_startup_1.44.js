@@ -1394,7 +1394,7 @@ $(document).ready(function () {   // <--- Denna sker bara en gång <) pageshow-s
 	
 	// GETCONFIG hämtar maxlat, minpostnr, visaort etc från GLOBAL CONFIG
 	setTimeout(function () { getconfig(); },1000); // För att ge mer responskänsla i navbar
-	// setTimeout(function () { getKategorier(); },1300); // Hämta alla kategorier som skall visas i Lägg till selecten endast en gång vid uppstart. Då den är statisk. För att ge mer responskänsla i navbar
+	setTimeout(function () { getKategorier(); },1300); // Hämta alla kategorier som skall visas i Lägg till selecten endast en gång vid uppstart. Då den är statisk. För att ge mer responskänsla i navbar
 	
 				
 
