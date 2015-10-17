@@ -1,0 +1,1299 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="format-detection" content="telephone=no" />
+	<!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+	<!--
+		Fick aldrig detta att fungera....
+		/* The initial-scale, minimum-scale, and maximum-scale properties. The properties are translated into 'zoom', 'min-zoom', and 'max-zoom' respectively with the following translations of values. */
+
+		<style>
+			/* iPhone 6 */
+			@media only screen 
+				and (min-device-width : 375px) 
+				and (max-device-width : 667px) 
+				and (-webkit-min-device-pixel-ratio : 2)
+			{ 
+				@viewport {
+					zoom: 1.2;
+					min-zoom: 1.2;
+					max-zoom: 1.2;
+					user-zoom: fixed;
+				}
+			}
+			@media screen and (device-aspect-ratio: 667/375) {
+				@-webkit-viewport,
+				@-moz-viewport,
+				@-ms-viewport,
+				@-o-viewport,
+				@viewport{
+					width:300;
+					zoom: 1
+					min-zoom: 1
+					max-zoom: 1;
+					user-zoom: fixed;
+				}
+			}
+		</style> 
+	-->
+	<title>Mobile</title>
+	
+	
+	<!-- WARNING: Webkit-cache!!! -->
+	<link rel="stylesheet" charset="utf-8" href="css/jquery.mobile-1.4.2_1.44.css" />
+	<!-- <link rel="stylesheet" charset="utf-8" href="css/jquery.mobile.custom.structure1.4.2.css" />
+	<link rel="stylesheet" charset="utf-8" href="css/jquery.mobile.custom.theme1.4.2.css" /> -->
+	
+	<!--
+	<link rel="stylesheet" charset="utf-8" href="css/jquery.mobile.iscrollview_NOTHX.css"/>   De förstörde och härjade i gui.
+    <link rel="stylesheet" charset="utf-8" href="css/jquery.mobile.iscrollview-pull_NOTHX.css"/>
+	-->
+	<!-- <link rel="stylesheet" charset="utf-8" href="css/dannys.css" /> -->
+	<style>
+		/* 
+		/ All jQuery effects, including .fadeIn(), can be turned off globally by setting jQuery.fx.off = true, which effectively sets the duration to 0. For more information, see jQuery.fx.off. 
+		*/ 
+		
+		.has-odd-thumb li a {
+			padding-left: 100px !important;
+		}
+		.thumbContainer {
+			position: absolute;
+			left: 0; top: 0; bottom: 0;
+			width: 90px;
+			background: url("img/loadingicon.png") no-repeat center;
+			background-size: 100% auto; background-position: center top;
+		}
+		.thumbContainer img {
+			position: absolute;
+			margin: auto;
+			bottom: 0; left: 0; top: 0; right: 0;
+			width: 90px;
+			height: 90px;
+		}	
+		
+		 /* Get rid of shadows for performance */
+		.ui-bar-a 
+		.ui-shadow,
+		.ui-btn-up-a,
+		.ui-btn-hover-a,
+		.ui-btn-down-a,
+		.ui-body-b,
+		.ui-btn-up-b,
+		.ui-btn-hover-b,
+		.ui-btn-down-b,
+		.ui-bar-c,
+		.ui-body-c,
+		.ui-btn-up-c,
+		.ui-btn-hover-c,
+		.ui-btn-down-c,
+		.ui-bar-c,
+		.ui-body-d,
+		.ui-btn-up-d,
+		.ui-btn-hover-d,
+		.ui-btn-down-d,
+		.ui-bar-d,
+		.ui-body-e,
+		.ui-btn-up-e,
+		.ui-btn-hover-e,
+		.ui-btn-down-e,
+		.ui-bar-e,
+		.ui-overlay-shadow,
+		.ui-shadow,
+		.ui-btn-active,
+		.ui-body-a {
+			text-shadow: none !important;
+			box-shadow: none !important;
+			-webkit-box-shadow: none !important;
+		}
+
+		html head + body .ui-btn.ui-btn-a:active {
+			background-color: #60915e /*{a-bdown-background-color}*/;
+			border-color: #659563 /*{a-bdown-border}*/;
+			color: #cbe0ca /*{a-bdown-color}*/;
+			text-shadow: 0 /*{a-bdown-shadow-x}*/ 1px /*{a-bdown-shadow-y}*/ 0 /*{a-bdown-shadow-radius}*/ #f3f3f3 /*{a-bdown-shadow-color}*/;
+			-webkit-box-shadow: 0px 2px 8px 0px rgba(0, 122, 0, 0.4) !important;
+			-moz-box-shadow:    0px 2px 8px 0px rgba(0, 122, 0, 0.4) !important;
+			box-shadow:         0px 2px 8px 0px rgba(0, 122, 0, 0.4) !important;
+		}
+		
+		.fadein, .fadeout {
+			opacity: 0;
+			-moz-transition: opacity 0.2s ease-in-out;
+			-o-transition: opacity 0.2s ease-in-out;
+			-webkit-transition: opacity 0.2s ease-in-out;
+			transition: opacity 0.2s ease-in-out;
+		}
+		.fadein {
+			opacity: 1;
+		}
+		
+		
+/*		.ui-panel.ui-panel-open {
+			position:fixed;
+		}
+		.ui-panel-inner {
+			position: absolute;
+			top: 1px;
+			left: 0;
+			right: 0;
+			bottom: 0px;
+			overflow: scroll;
+			-webkit-overflow-scrolling: touch;
+			-webkit-scrollbar { width: 3px !important;}
+		}
+*/
+		.ui-panel-inner { padding: 0 !important }  /* VIKTIGT: För att iscrollview skall funka med Panels */
+		
+		/* jQuery Mobile Text shadow Remove:
+		Fix:
+		By adding this to your CSS for the text */
+		
+		body .ui-body-c, body .ui-overlay-c, body {
+			text-shadow: 0 0 0 !important;
+		}
+		
+		
+		.dwginputok {
+			background: #dbf8d6 !important;
+		}
+		.dwginputerror {
+			background-color: #f8d6d6 !important;
+		}
+		.dwginputwaiting {
+			background-color: #fff0cc !important;
+		}
+		
+		
+		.dwgfooter {
+			border: 0px 1px 0px 0px !important; padding: 0px !important; margin 0px !important;
+			border-color: #eaeaea !important;  // dfdfdf
+		}
+		.dwgnavbar {
+			border: 0 !important;
+		}
+		.dwgnavbarul {
+			border: 0 !important;
+			text-shadow: none !important;
+			box-shadow: none !important;
+			-webkit-box-shadow: none !important;
+			background-color: #c8edc2;
+		}	
+		.dwgnavbarbtn {
+			border: 0 !important;
+			/ * font-size: 12px !important; * /
+			text-shadow: none !important;
+			box-shadow: none !important;
+			-webkit-box-shadow: none !important;
+		}
+		
+		.dwgbtnMinannonser .ui-btn a,.dwgbtnMinannonser .ui-btn a:visited {
+			background-color: 			#c7ecc1 /*{a-bup-background-color}*/ !important;
+			border-color:	 		#c8edc2 /*{a-bup-border}*/ !important;
+			color: 					#20411a /*{a-bup-color}*/ !important;
+			text-shadow: 0 /*{a-bup-shadow-x}*/ 1px /*{a-bup-shadow-y}*/ 0 /*{a-bup-shadow-radius}*/ #f3f3f3 /*{a-bup-shadow-color}*/ !important;
+		}
+		.dwgbtnMinannonser .ui-btn a:active {
+			background-color: 			#dcf8d8 /*{a-bup-background-color}*/ !important;
+			border-color:	 		#c8edc2 /*{a-bup-border}*/ !important;
+			color: 					#20411a /*{a-bup-color}*/ !important;
+			text-shadow: 0 /*{a-bup-shadow-x}*/ 1px /*{a-bup-shadow-y}*/ 0 /*{a-bup-shadow-radius}*/ #f3f3f3 /*{a-bup-shadow-color}*/ !important;
+		}
+		
+		.ui-btn-a2 a,.ui-btn-a2 a:visited {
+			background-color: 			#c7ecc1 /*{a-bup-background-color}*/ !important;
+			border-color:	 		#ee2222 /*{a-bup-border}*/ !important;
+			color: 					#20411a /*{a-bup-color}*/ !important;
+			text-shadow: 0 /*{a-bup-shadow-x}*/ 1px /*{a-bup-shadow-y}*/ 0 /*{a-bup-shadow-radius}*/ #f3f3f3 /*{a-bup-shadow-color}*/ !important;
+		}
+		.ui-btn2 a:active {
+			background-color: 			#dcf8d8 /*{a-bup-background-color}*/ !important;
+			border-color:	 		#00ee00 /*{a-bup-border}*/ !important;
+			color: 					#20411a /*{a-bup-color}*/ !important;
+			text-shadow: 0 /*{a-bup-shadow-x}*/ 1px /*{a-bup-shadow-y}*/ 0 /*{a-bup-shadow-radius}*/ #f3f3f3 /*{a-bup-shadow-color}*/ !important;
+		}
+		
+		/* BLUE BUTTON */
+		.ui-btn.dwgbtnblue,.ui-btn.dwgbtnblue:visited {
+			background-color: #3498DB;
+			border-top: 0px;
+			border-bottom: 3px solid #2980B9;
+			text-shadow: 0px -2px #2980B9;
+			color: 					#eee /*{a-bup-color}*/;
+		}
+		.ui-btn.dwgbtnblue:active {
+			background-color: #3078bB;
+			border-top: 3px solid #20589B;
+			border-bottom: 0px;
+			text-shadow: 0px -2px #2980B9;
+			color: 					#cce /*{a-bup-color}*/;
+		}
+
+		
+		.ui-icon-dwgtrashbin:after {
+			background-image: url("img/trashbin_white.svg");
+			background-size: cover;
+		}
+		/* Fallback */
+		/* .ui-nosvg .ui-icon-dwgtrashbin:after {
+			background-image: url("trashbin2.png");
+		} */
+		
+		/*
+		#ios7statusbar{
+			width:100%;
+			height:20px;
+			background-color:white;
+			position:fixed;
+			z-index:100;
+		}
+		.ios7 .ui-page{
+			margin-top: 20px;
+		}
+		*/
+		
+		
+		
+		.blur-filter {
+			-webkit-filter: blur(2px);
+			-moz-filter: blur(2px);
+			-o-filter: blur(2px);
+			-ms-filter: blur(2px);
+			filter: blur(2px);
+		}
+		.blur-filter-exclude {
+			-webkit-filter: blur(0px) !important;
+			-moz-filter: blur(0px) !important;
+			-o-filter: blur(0px) !important;
+			-ms-filter: blur(0px) !important;
+			filter: blur(0px) !important;
+		}
+		
+*.ui-listview *.ui-btn-a,
+*.ui-listview *.ui-bar-a,
+*.ui-listview *.ui-btn,
+*.ui-listview *.ui-btn-up-a,
+*.ui-listview *.ui-btn-down-a,
+*.ui-listview *.ui-btn-hover-a,
+*.ui-listview *.ui-btn-up,
+*.ui-listview *.ui-btn-down,
+*.ui-listview *.ui-btn-hover,
+*.ui-listview *.ui-btn-up-b,
+*.ui-listview *.ui-btn-down-b,
+*.ui-listview *.ui-btn-hover-b
+  {
+  /* Copy your .ui-btn-up styles here */
+		text-shadow: none !important;
+  }		
+  
+  
+   
+  /* 
+	#dwgmap div img[src^='http://www.bortskankes.se/']{  /* Images srcs starting with bortskankes.se/  */
+		width: 38px !important; height: 38px !important;
+		border: 0px solid #ffc000; overflow:hidden;
+        -moz-border-radius: 20px 20px 20px 20px;
+		-webkit-border-radius: 20px 20px 20px 20px;
+		border-radius: 20px;
+	}
+	#dwgmap div < img[src^='http://www.bortskankes.se/']{  /* Only the DIV containing this /  */
+		width: 48px !important; height: 38px !important;
+		border: 2px solid #ffc000; overflow:hidden;
+        -moz-border-radius: 20px 20px 20px 20px;
+		-webkit-border-radius: 20px 20px 20px 20px;
+		border-radius: 20px;
+	}
+	*/ 
+	
+	#over_map div {
+		-moz-box-shadow: 0 0 5px #888 !important;
+		-webkit-box-shadow: 0 0 5px #888 !important;
+		box-shadow: 0 0 5px #888 !important;
+	}
+
+	
+	/* ******************************* PULSING ME Marker ************************ */
+	/* your custom CSS \*/
+	@-moz-keyframes pulsate {
+		from {
+			-moz-transform: scale(1.0);
+			opacity: 1.0;
+		}
+		90% {
+			-moz-transform: scale(5.0);
+			opacity: 0;
+		}
+		to {
+			-moz-transform: scale(1.1);
+			opacity: 0;
+		}
+	}
+	@-webkit-keyframes pulsate {
+		from {
+			-webkit-transform: scale(1.0);
+			opacity: 1.0;
+		}
+		90% {
+			-webkit-transform: scale(5.0);
+			opacity: 0;
+		}
+		to {
+			-webkit-transform: scale(1.1);
+			opacity: 0;
+		}
+	}
+	/* Fade in the thumbs on map: */
+	@-moz-keyframes dwgfadein {
+		from {
+			-moz-transform: scale(0.2); opacity: 0.1;
+		}
+		to {
+			-moz-transform: scale(1.0);	opacity: 1.0;
+		}
+	}
+	@-webkit-keyframes dwgfadein {
+		from {
+			-webkit-transform: scale(0.2);	opacity: 0.1;
+		}
+		to {
+			-webkit-transform: scale(1.0);	opacity: 1.0;
+		}
+	}
+	.mapthumb{
+		/* -moz-border-radius: 20px 20px 20px 20px; -webkit-border-radius: 20px 20px 20px 20px; border-radius: 20px; */
+		-moz-border-radius: 40%; -webkit-border-radius: 40%; border-radius: 40%;
+		-moz-animation: dwgfadein 0.2s ease-in; -webkit-animation: dwgfadein 0.2s ease-in;
+	}
+	
+	@-moz-keyframes dwgrotation {
+		from {
+			-moz-transform: rotate(0deg);
+		}
+		to { 
+			-moz-transform: rotate(360deg);
+		}	
+	}
+	@-webkit-keyframes dwgrotation {
+		from {
+			-webkit-transform: rotate(0deg);
+		}
+		to { 
+			-webkit-transform: rotate(360deg);
+		}	
+	}
+
+	.ui-loader .ui-icon-loading {
+		background-color: transparent;
+	}
+	.ui-icon-loading {
+		background: url("img/recycle_icon.png");
+		no-repeat center; background-size: 100% auto; background-position: center top;
+		-moz-animation: dwgrotation 3s linear infinite; -webkit-animation: dwgrotation 3s linear infinite;
+	}
+	
+	/* Remove styling of Google links from their map as it look terrible when clicked: */
+	/* https://code.google.com/ p /gmaps-api-issues/issues/ detail?  id = 3866  */
+	.gm-rev
+	{
+		display:none;
+	}
+	.gm-website
+	{
+		display:none;
+	}
+	.gm-wsv
+	{
+		display:none;
+	}
+	
+	
+	@-moz-keyframes seathumbzoom {
+		from {
+			-moz-transform: rotate(0deg);
+			-moz-transform: scale(1.0);	opacity: 1;
+		}
+		to { 
+			-moz-transform: rotate(360deg);
+			-moz-transform: scale(5.0);	opacity: 0;
+		}	
+	}
+	@-webkit-keyframes seathumbzoom {
+		/* from {
+			-webkit-transform: scale(1.0);
+			opacity: 1.0;
+			-webkit-box-shadow: 0px 2px 4px 0px rgba(50, 50, 50, 0.3);
+
+		}
+		40% {
+			-webkit-transform-origin: 0px 0px;
+			-webkit-transform: scale(3.0);
+			opacity: 1.0;
+			-webkit-box-shadow: 0px 5px 10px 0px rgba(50, 50, 50, 0.2);
+
+		}
+		to {
+			-webkit-transform: scale(1.1);
+			opacity: 1.0;
+		} */
+
+		from {
+			-webkit-transform: scale(1.0);	
+			opacity: 1;
+		}
+		to { 
+			-webkit-transform: scale(0.1);	
+			opacity: 0; 
+		}
+	}
+	.seathumb{
+		float:left; width: 25%; 
+		-webkit-box-shadow: 0px 2px 4px 0px rgba(50, 50, 50, 0.3);-moz-box-shadow: 0px 2px 4px 0px rgba(50, 50, 50, 0.3);box-shadow: 0px 2px 4px 0px rgba(50, 50, 50, 0.3);
+		border: 0px solid green !important;
+	  -webkit-transition: all 1s ease;
+		 -moz-transition: all 1s ease;
+		   -o-transition: all 1s ease;
+		  -ms-transition: all 1s ease;
+			  transition: all 1s ease;
+	}
+	.seathumbclick{
+		/* -moz-animation: seathumbzoom 2s ease-out; -webkit-animation: seathumbzoom 2s ease-out; */
+		/* -webkit-transform: scale(3.0); */
+		-webkit-transform: scale(0.1, 0.1); // This is the enlarged size scale of the image.
+		-webkit-transition-duration: 1000ms;
+		-webkit-transition-timing-function: ease-out;
+	}
+	/*	.seathumb:focus{
+		border: 3px solid red !important;
+	} */
+	
+	.shrink img {
+	  width: 400px;
+	}
+	
+	
+	
+	
+	#divshowclosedswitch .ui-slider-switch { width: 10em !important; }
+	
+	#annonstypselectswitchstyler .ui-flipswitch.ui-flipswitch-active {
+	  background-image: -webkit-gradient(linear,left top,left bottom,from( #FF6863 ),to( #BE0000 ));
+	  background-image: -webkit-linear-gradient( #FF6863,#BE0000 );
+	  background-image: -moz-linear-gradient( #FF6863,#BE0000 );
+	  background-image: -ms-linear-gradient( #FF6863,#BE0000 );
+	  background-image: -o-linear-gradient( #FF6863,#BE0000 );
+	  background-image: linear-gradient( #FF6863,#BE0000 );
+	  
+	  border-color: #BC8F93/*{a-active-border}*/;  // Annars är det grön ring runt den!! ;) http://code.jquery.com/mobile/1.4.4/jquery.mobile-1.4.4.css
+	}
+	#annonstypselectswitchstyler .ui-flipswitch .ui-flipswitch-on {  text-indent: -3.8em; }
+	#annonstypselectswitchstyler .ui-flipswitch .ui-flipswitch-off { text-indent: -0.2em; }
+	
+	
+	
+	.highlightdiv {
+		-webkit-animation: highlightdivanim 1.5s; /* Chrome, Safari, Opera */
+		animation: highlightdivanim 1.5s;
+	}
+	@-webkit-keyframes highlightdivanim {  	/* Chrome, Safari, Opera */
+		0%   {background:white;}
+		50%  {background:#baf8a9;}
+		100% {background:white;}
+	}
+	@keyframes highlightdivanim {		/* Standard syntax */
+		0%   {background:white;}
+		50%  {background:#baf8a9;}
+		100% {background:white;}
+	}
+	
+	.alert {
+		margin:0px !important; 
+		padding:0 !important; 
+		color: silver !important; 
+		font-size:12px !important;
+	}
+	.alert-success {
+	 /*  background-image: -webkit-linear-gradient(top, #dff0d8 0%, #c8e5bc 100%);
+	  background-image:      -o-linear-gradient(top, #dff0d8 0%, #c8e5bc 100%);
+	  background-image: -webkit-gradient(linear, left top, left bottom, from(#dff0d8), to(#c8e5bc));
+	  background-image:         linear-gradient(to bottom, #dff0d8 0%, #c8e5bc 100%);
+	  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffdff0d8', endColorstr='#ffc8e5bc', GradientType=0);
+	  background-repeat: repeat-x;
+	  border-color: #b2dba1; */
+	  color: #338833 !important;
+	}
+	.alert-info {
+	  background-image: -webkit-linear-gradient(top, #d9edf7 0%, #b9def0 100%);
+	  background-image:      -o-linear-gradient(top, #d9edf7 0%, #b9def0 100%);
+	  background-image: -webkit-gradient(linear, left top, left bottom, from(#d9edf7), to(#b9def0));
+	  background-image:         linear-gradient(to bottom, #d9edf7 0%, #b9def0 100%);
+	  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffd9edf7', endColorstr='#ffb9def0', GradientType=0);
+	  background-repeat: repeat-x;
+	  border-color: #9acfea;
+	  color: #333388 !important;
+	}
+	.alert-warning {
+	  background-image: -webkit-linear-gradient(top, #fcf8e3 0%, #f8efc0 100%);
+	  background-image:      -o-linear-gradient(top, #fcf8e3 0%, #f8efc0 100%);
+	  background-image: -webkit-gradient(linear, left top, left bottom, from(#fcf8e3), to(#f8efc0));
+	  background-image:         linear-gradient(to bottom, #fcf8e3 0%, #f8efc0 100%);
+	  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fffcf8e3', endColorstr='#fff8efc0', GradientType=0);
+	  background-repeat: repeat-x;
+	  border-color: #f5e79e;
+	  color: #883333 !important;
+	}
+	.alert-danger {
+	  /* background-image: -webkit-linear-gradient(top, #f2dede 0%, #e7c3c3 100%);
+	  background-image:      -o-linear-gradient(top, #f2dede 0%, #e7c3c3 100%);
+	  background-image: -webkit-gradient(linear, left top, left bottom, from(#f2dede), to(#e7c3c3));
+	  background-image:         linear-gradient(to bottom, #f2dede 0%, #e7c3c3 100%);
+	  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fff2dede', endColorstr='#ffe7c3c3', GradientType=0);
+	  background-repeat: repeat-x;
+	  border-color: #dca7a7; */
+	  color: #883333 !important;
+	}
+
+		
+	</style>
+
+	
+
+	<script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+	<script type="text/javascript" charset="utf-8" src="js/jquery-1.10.2.js"></script>
+	<script type="text/javascript" charset="utf-8" src="js/i18next-1.8.0.js"></script>
+	<script>
+		var weburl='';
+		$( document ).on( "mobileinit", function() {
+			var i18nOpts = { resGetPath: 'locales/en/translation.json' };
+			i18n.init(i18nOpts).done(function(){
+				// weburl=$.t("app.weburl");
+				// var thebase = document.getElementByID("basen123"); 
+				// thebase.href = weburl;
+			
+				// PGA iOS9 bugg (data-native-menu=false på select i lägg till (kategorin) gör att den hoppar ut till home när man klickar och den öppnas. Typ auto back-history. Samma problem finns i popups
+				// $.mobile.hashListeningEnabled = false;
+			});
+		});
+	</script>
+	<access origin="*"/>
+	<meta http-equiv="Access-Control-Allow-Origin" content="*"/>
+	
+	
+	<script type="text/javascript" charset="utf-8" src="js/jquery.mobile-1.4.2.js"></script> 
+	
+
+	<script type="text/javascript" charset="utf-8" src="js/home_startup_1.44.js"></script>
+
+	<script type="text/javascript" charset="utf-8" src="js/iscroll.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/jquery.mobile.iscrollview.js"></script>
+
+ 	<!-- <script type="text/javascript" charset="UTF-8" src="http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=7.0"></script>     
+	<script type="text/javascript" charset="utf-8" src="js/naramig_bing.js"></script> -->
+
+	<script type="text/javascript" src='https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyDMwcQ3Ng5jpIOmUD0Gahe3TFKCKEDa2ag&libraries=drawing'></script>
+	<script type="text/javascript" charset="utf-8" src="js/naramig_gmaps_1.44.js"></script>
+	
+	<!-- https://developers.google.com/maps/documentation/javascript/libraries?hl=FR -->
+	<!-- <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&libraries=places"></script> -->
+	<!-- <script type="text/javascript" src='http://maps.google.com/maps/api/js?sensor=false&libraries=drawing,visualization'></script>  Så laddar man två bibbor -->
+	<!-- <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=visualization&sensor=true_or_false"></script> -->
+	<!-- <script type="text/javascript" src='http://maps.google.com/maps/api/js?sensor=false&libraries=drawing'></script> -->
+		
+	<!-- WARNING: Webkit-cache!!! -->
+	<script type="text/javascript" charset="utf-8" src="js/laggtill_camera_1.44.js"></script>
+	<script type="text/javascript" charset="utf-8" src="js/mittkonto_storedata_1.44.js"></script>
+	<script type="text/javascript" charset="utf-8" src="js/roundthumb_1.44.js"></script>
+	<!-- <script type="text/javascript" charset="utf-8" src="js/markerclusterer_plus_212_unconuscated_dwg.js"></script> -->
+
+	<script type="text/javascript" charset="utf-8" src="http://www.bortskankes.se/phonegap1/generic_functions.js"></script>
+
+	<script id="panel-init">
+		$(function() {
+			$( "body>[data-role='panel']" ).panel();
+		});
+	</script>
+	
+	
+
+</head>
+<body id="thebody" onload="onLoad()"> 
+
+<!-- page home --------------------------------------------------------------------------- -->
+		<div id="home" data-role="page" style="background: none; width: 100%;">
+		
+			<div data-role="popup" id="dwgpopup8738">
+				<div id="dwgmap54" 
+					style="display:block;
+							overflow:hidden;
+							position:relative;
+							border:1px solid #aaaaaa;
+							width: 100%;
+							min-height: 85%;
+							background: white;">
+				</div>
+			</div>
+			
+			<!-- "A panel must be a sibling to the header,content and footer INSIDE the page element: https://api.jquerymobile.com/panel/#entry-examples -->
+			<div data-role="panel" id="panelplatser" data-iscroll-fixed="" data-position-fixed="true" transition="slide" data-swipe-close="true" data-position="left" data-display="overlay" style="background-color: rgba(255,255,255,0.9);">
+				<div id="panelplatserwrapper" data-i18n="[html]home.panelplatser" data-iscroll="" style="padding: 0px !important;">
+					<p>
+						<!-- <a href="#" onclick="doupdatelankat2('latlong',adkat);" data-rel="close" data-role="button" data-icon="navigation" data-iconpos="notext" data-inline="true">NäraMig</a>  -->
+						<a href="#" onclick="doupdatelankat2('0',adkat);" data-rel="close" data-role="button">Hela Sverige</a> 
+					</p>
+					<p>
+						<a href="#" onclick="doupdatelankat2('latlong',adkat);" data-rel="close" data-role="button" data-icon="navigation" data-iconpos="left">Närmast mig</a>
+					</p>
+					<p>
+						<ul data-role="listview" data-inset="true">
+							<li><a href="#" onclick="doupdatelankat2(10,adkat);" data-rel="close">Nära Stockholm</a></li>
+							<li><a href="#" onclick="doupdatelankat2(15,adkat);" data-rel="close">Nära Göteborg</a></li>
+							<li><a href="#" onclick="doupdatelankat2(21,adkat);" data-rel="close">Nära Malmö</a></li>
+						</ul>
+					</p>
+					<p>
+						<ul data-role="listview" data-inset="true">
+							<li><a href="#" onclick="doupdatelankat2(20,adkat);" data-rel="close">Blekinge län</a></li>
+							<li><a href="#" onclick="doupdatelankat2(6,adkat);" data-rel="close">Dalarnas län</a></li>
+							<li><a href="#" onclick="doupdatelankat2(5,adkat);" data-rel="close">Gävleborgs län</a></li>
+							<li><a href="#" onclick="doupdatelankat2(16,adkat);" data-rel="close">Gotlands län</a></li>
+							<li><a href="#" onclick="doupdatelankat2(19,adkat);" data-rel="close">Hallands län</a></li>
+							<li><a href="#" onclick="doupdatelankat2(3,adkat);" data-rel="close">Jämtlands län</a></li>
+							<li><a href="#" onclick="doupdatelankat2(14,adkat);" data-rel="close">Jönköpings län</a></li>
+							<li><a href="#" onclick="doupdatelankat2(18,adkat);" data-rel="close">Kalmar län</a></li>
+							<li><a href="#" onclick="doupdatelankat2(17,adkat);" data-rel="close">Kronobergs län</a></li>
+							<li><a href="#" onclick="doupdatelankat2(1,adkat);" data-rel="close">Norrbottens län</a></li>
+							<li><a href="#" onclick="doupdatelankat2(11,adkat);" data-rel="close">Örebro län</a></li>
+							<li><a href="#" onclick="doupdatelankat2(13,adkat);" data-rel="close">Östergötlands län</a></li>
+							<li><a href="#" onclick="doupdatelankat2(21,adkat);" data-rel="close">Skåne län</a></li>
+							<li><a href="#" onclick="doupdatelankat2(12,adkat);" data-rel="close">Södermanlands län</a></li>
+							<li><a href="#" onclick="doupdatelankat2(10,adkat);" data-rel="close">Stockholms län</a></li>
+							<li><a href="#" onclick="doupdatelankat2(7,adkat);" data-rel="close">Uppsala län</a></li>
+							<li><a href="#" onclick="doupdatelankat2(8,adkat);" data-rel="close">Värmlands län</a></li>
+							<li><a href="#" onclick="doupdatelankat2(2,adkat);" data-rel="close">Västerbottens län</a></li>
+							<li><a href="#" onclick="doupdatelankat2(4,adkat);" data-rel="close">Västernorrlands län</a></li>
+							<li><a href="#" onclick="doupdatelankat2(9,adkat);" data-rel="close">Västmanlands län</a></li>
+							<li><a href="#" onclick="doupdatelankat2(15,adkat);" data-rel="close">Västra Götalands län</a></li>
+						</ul>
+					</p>
+				</div>	
+			</div>
+			
+			<div data-role="panel" id="panelkategorier" data-iscroll-fixed="" data-position-fixed="true" transition="slide" data-swipe-close="true" data-position="right" data-display="overlay" data-theme="a" style="background-color: rgba(255,255,255,0.9);">
+				<!-- <div data-role="content"> NOPE Didn't work --> 	
+				<div id="panelkategorierwrapper" data-iscroll="" data-i18n="[html]home.panelkategorier">
+					<a href="#" onclick="doupdatelankat2(adlan,'0');" data-rel="close" data-inset="true"  class="ui-btn ui-icon-bullets ui-btn-icon-left">Alla kategorier</a>
+					<div data-role="collapsibleset" data-collapsed-icon="carat-r" data-expanded-icon="carat-d" data-inset="true" >
+						<div data-role="collapsible">
+							<h3 id="katsfordon">Fordon</h3>
+							<ul data-role="listview">
+								<li><a href="#" onclick="doupdatelankat2(adlan,'1000');" data-rel="close">Alla fordon</a></li>
+								<li><a href="#" onclick="doupdatelankat2(adlan,'1100');" data-rel="close">Cyklar och mopeder</a></li>
+								<li><a href="#" onclick="doupdatelankat2(adlan,'1200');" data-rel="close">Bilar</a></li>
+								<li><a href="#" onclick="doupdatelankat2(adlan,'1300');" data-rel="close">Båtar</a></li>
+								<li><a href="#" onclick="doupdatelankat2(adlan,'1400');" data-rel="close">Reservdelar</a></li>
+								<li><a href="#" onclick="doupdatelankat2(adlan,'1900');" data-rel="close">Övrigt / Blandat</a></li>
+							</ul>
+						</div>
+						<div data-role="collapsible">
+							<h3>Elektronik</h3>
+							<ul data-role="listview">
+								<li><a href="#" onclick="doupdatelankat2(adlan,'2000');" data-rel="close">All elektronik</a></li>
+								<li><a href="#" onclick="doupdatelankat2(adlan,'2100');" data-rel="close">TV / Video</a></li>
+								<li><a href="#" onclick="doupdatelankat2(adlan,'2200');" data-rel="close">Spelkonsoler</a></li>
+								<li><a href="#" onclick="doupdatelankat2(adlan,'2300');" data-rel="close">Dator och tillbehör</a></li>
+								<li><a href="#" onclick="doupdatelankat2(adlan,'2400');" data-rel="close">Hifi  och musikspelare</a></li>
+								<li><a href="#" onclick="doupdatelankat2(adlan,'2500');" data-rel="close">Telefoner</a></li>
+								<li><a href="#" onclick="doupdatelankat2(adlan,'2900');" data-rel="close">Övrigt / Blandat</a></li>
+							</ul>
+						</div>
+						<div data-role="collapsible">
+							<h3>Hem och hushåll</h3>
+							<ul data-role="listview">
+								<li><a href="#" onclick="doupdatelankat2(adlan,'3000');" data-rel="close">Alla hem och hushåll</a></li>
+								<li><a href="#" onclick="doupdatelankat2(adlan,'3100');" data-rel="close">Möbler</a></li>
+								<li><a href="#" onclick="doupdatelankat2(adlan,'3200');" data-rel="close">Vitvaror</a></li>
+								<li><a href="#" onclick="doupdatelankat2(adlan,'3300');" data-rel="close">Byggmaterial</a></li>
+								<li><a href="#" onclick="doupdatelankat2(adlan,'3400');" data-rel="close">Verktyg</a></li>
+								<li><a href="#" onclick="doupdatelankat2(adlan,'3500');" data-rel="close">Virke</a></li>
+								<li><a href="#" onclick="doupdatelankat2(adlan,'3900');" data-rel="close">Övrigt / Blandat</a></li>
+							</ul>
+						</div>
+						<div data-role="collapsible">
+							<h3>Kläder och leksaker</h3>
+							<ul data-role="listview">
+								<li><a href="#" onclick="doupdatelankat2(adlan,'5000');" data-rel="close">Alla kläder och leksaker</a></li>
+								<li><a href="#" onclick="doupdatelankat2(adlan,'5100');" data-rel="close">Herrkläder</a></li>
+								<li><a href="#" onclick="doupdatelankat2(adlan,'5200');" data-rel="close">Damkläder</a></li>
+								<li><a href="#" onclick="doupdatelankat2(adlan,'5300');" data-rel="close">Barnkläder</a></li>
+								<li><a href="#" onclick="doupdatelankat2(adlan,'5400');" data-rel="close">Leksaker och barnartiklar</a></li>
+								<li><a href="#" onclick="doupdatelankat2(adlan,'5900');" data-rel="close">Övrigt / Blandat</a></li>
+							</ul>
+						</div>
+						<div data-role="collapsible">
+							<h3>Sport och fritid</h3>
+							<ul data-role="listview">
+								<li><a href="#" onclick="doupdatelankat2(adlan,'4000');" data-rel="close">All sport och Fritid</a></li>
+								<li><a href="#" onclick="doupdatelankat2(adlan,'4100');" data-rel="close">Sport</a></li>
+								<li><a href="#" onclick="doupdatelankat2(adlan,'4200');" data-rel="close">Musik</a></li>
+								<li><a href="#" onclick="doupdatelankat2(adlan,'4300');" data-rel="close">Film</a></li>
+								<li><a href="#" onclick="doupdatelankat2(adlan,'4400');" data-rel="close">Böcker</a></li>
+								<li><a href="#" onclick="doupdatelankat2(adlan,'4500');" data-rel="close">Spel</a></li>
+								<li><a href="#" onclick="doupdatelankat2(adlan,'4600');" data-rel="close">Samlarsaker</a></li>
+								<li><a href="#" onclick="doupdatelankat2(adlan,'4900');" data-rel="close">Övrigt / Blandat</a></li>
+							</ul>
+						</div>
+						<div data-role="collapsible">
+							<h3>Djur och tillbehör</h3>
+							<ul data-role="listview">
+								<li><a href="#" onclick="doupdatelankat2(adlan,'6000');" data-rel="close">Alla djur och tillbehör</a></li>
+								<li><a href="#" onclick="doupdatelankat2(adlan,'6010');" data-rel="close">Fiskar</a></li>
+								<li><a href="#" onclick="doupdatelankat2(adlan,'6020');" data-rel="close">Fåglar</a></li>
+								<li><a href="#" onclick="doupdatelankat2(adlan,'6030');" data-rel="close">Gnagare</a></li>
+								<li><a href="#" onclick="doupdatelankat2(adlan,'6040');" data-rel="close">Hundar</a></li>
+								<li><a href="#" onclick="doupdatelankat2(adlan,'6050');" data-rel="close">Hästar</a></li>
+								<li><a href="#" onclick="doupdatelankat2(adlan,'6060');" data-rel="close">Illrar</a></li>
+								<li><a href="#" onclick="doupdatelankat2(adlan,'6070');" data-rel="close">Insekter</a></li>
+								<li><a href="#" onclick="doupdatelankat2(adlan,'6080');" data-rel="close">Kaniner</a></li>
+								<li><a href="#" onclick="doupdatelankat2(adlan,'6090');" data-rel="close">Katter</a></li>
+								<li><a href="#" onclick="doupdatelankat2(adlan,'6100');" data-rel="close">Marsvin</a></li>
+								<li><a href="#" onclick="doupdatelankat2(adlan,'6110');" data-rel="close">Reptiler</a></li>
+								<li><a href="#" onclick="doupdatelankat2(adlan,'6120');" data-rel="close">Svin</a></li>
+								<li><a href="#" onclick="doupdatelankat2(adlan,'6900');" data-rel="close">Övrigt</a></li>
+							</ul>
+						</div>
+						<br><br>
+					</div><!-- /collapsible set -->
+					<div style="text-align: center; background-color: #4CA5FF; color: #eee; padding: 5px;">
+						<label for="showclosedadsselectswitch" style="margin-bottom: -7px !important;"><b><i>Visa dolda annonser:</i></b></label>
+						<select id="showclosedadsselectswitch" data-role="flipswitch" name="showclosedadsselectswitch"  onchange="doshowhideclosed();">
+							<option value="off">Av</option>
+							<option value="on">På</option>
+						</select>
+					</div>
+					
+				</div> <!-- /content div wrapper - To be able to do inset=false -->
+			</div><!-- /panel -->
+
+
+		
+			<!-- <divvv data-role="header" data-id="headerbortskankes" style="overflow:hidden;color: #3e5706; border-top: 0px; border-bottom: 2px solid #3e5706;text-shadow: 1px 1px 1px rgba(255,255,255, .2);background: #a5cd4e;background: -moz-linear-gradient(top,  #a5cd4e 0%, #6b8f1a 100%);background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#a5cd4e), color-stop(100%,#6b8f1a));  background: -webkit-linear-gradient(top,  #a5cd4e 0%,#6b8f1a 100%);    background: -o-linear-gradient(top,  #a5cd4e 0%,#6b8f1a 100%);background: -ms-linear-gradient(top,  #a5cd4e 0%,#6b8f1a 100%);background: linear-gradient(top,  #a5cd4e 0%,#6b8f1a 100%);"> -->
+			<!-- <div data-role="header" class="dwgheader">
+				<h1><img src="img/logo.png" class="ui-btn-left" style="height: 3em;" />
+				Bortskänkes.se</h1>
+			</div> -->
+			<!-- /header -->		
+
+			<div id="homeadlist" class="ui-content_nothx_as_i_get_unwanted_padding">
+				<div id="iscrollwrapper" data-iscroll='{"pullDownResetText":"Dra ner för att uppdatera...","pullDownPulledText":"Släpp för att uppdatera...","pullDownLoadingText":"Uppdaterar...","pullUpResetText":" ","pullUpPulledText":"Släpp så skall jag leta fler...","pullUpLoadingText":"Letar..."}'>
+				<!-- <div id="iscrollwrapper"> -->
+					<div class="iscroll-pulldown" style="color: silver !important; padding: 15px !important; border: 1px solid silver; width: 85% !important; text-align: center; margin: auto !important; -moz-border-radius: 10px; border-radius: 10px;">
+						<span class="iscroll-pull-icon"></span>
+						<span class="iscroll-pull-label"></span>
+					</div>
+					<div id="annonser">
+						<h3 style="color: silver !important; margin:15px 5px 5px 5px !important;">Laddar annonser...</h3>
+					</div><!-- /annonser -->
+					<div class="iscroll-pullup" style="color: gray !important; width: 100%; height: 30px; text-align: center;">
+						<span class="iscroll-pull-icon"></span>
+						<span class="iscroll-pull-label" style="margin-bottom: 100px !important;"></span>
+					</div>
+				</div><!-- iscroll wrapper -->
+			</div><!-- /content -->
+			
+			<div data-role="footer" data-id="footerbtns" data-position="fixed" data-theme="a" class="dwgfooter" id="annonserfooter">
+				<div data-role="navbar" class="dwgnavbar">
+					<ul class="dwgnavbarul">
+						<!-- <li><a href="#laggtill" data-transition="slide" data-direction="reverse"  data-icon="edit" class="dwgnavbarbtn">Lägg till</a></li> To have transition of these -->
+						<!-- <li><a href="#laggtill" data-icon="edit" class="dwgnavbarbtn" data-i18n="[html]navbar.add">Lägg till</a></li> -->
+						<li><a href="#laggtill" data-icon="edit" class="dwgnavbarbtn" data-i18n="[html]navbar.add">Lägg till</a></li>
+						<!-- <li><a href="#home" data-icon="search" class="dwgnavbarbtnclick ui-btn-active ui-state-persist">Annonser</a></li> -->
+						<li><a href="#home" data-icon="search" class="dwgnavbarbtn ui-btn-active ui-state-persist"  data-i18n="[html]navbar.home">Annonser</a></li>
+						<li><a href="#naramig" id="navnaramigbtn" data-icon="location" class="dwgnavbarbtn" data-i18n="[html]navbar.map">På karta</a></li>
+						<li><a href="#mittkonto" data-icon="user" class="dwgnavbarbtn" data-i18n="[html]navbar.profile">Min profil</a></li>
+					</ul>
+				</div><!-- /navbar -->
+			</div><!-- /footer -->
+
+			
+			<script type="text/javascript">
+				app.initialize();
+			</script>
+
+			<script type="text/javascript">
+				
+			</script>
+				
+		</div><!-- /page home -->
+			
+			
+			
+<!-- page laggtill --------------------------------------------------------------------------- -->
+		<div id="laggtill" data-role="page">
+			<div data-role="header">
+				<h1 data-i18n="[html]add.1title">Ny annons</h1>
+				<a href="#" id="laggtillresetbtn" onClick="laggtillBorjaOm();" class="ui-btn-left ui-btn ui-corner-all ui-btn-icon-notext ui-icon-delete"></a>
+				<!-- <a href="#" id="laggtillresetbtn" onClick="laggtillBorjaOm();" class="ui-btn-left ui-btn ui-btn-icon-notext ui-corner-all ui-shadow ui-icon-dwgtrashbin"></a> -->
+				<!-- <a href="#" id="laggtillresetbtn" onClick="laggtillBorjaOm();"><img border=0 src="img/trashbin.svg" width=32 height=32></a> -->
+			</div><!-- /header -->		
+
+			<div role="main" class="ui-content">
+				<div id="laggtilldivfirstbuttons" style="width: 100%; height: 100% !important; vertical-align: middle !mportant;">
+				<!--	<button class=" ui-btn ui-btn-a ui-shadow ui-corner-all" data-theme="a" data-form="ui-btn-up-a" onclick="getPhoto(Camera.PictureSourceType.CAMERA);">Ta nytt foto med kamera</button>
+					<button class=" ui-btn ui-btn-a ui-shadow ui-corner-all" data-theme="a" data-form="ui-btn-up-a" onclick="getPhoto(Camera.PictureSourceType.PHOTOLIBRARY);">Välj ett befintligt foto</button> -->
+					<button class=" ui-btn dwgbtnblue ui-shadow ui-corner-all ui-icon-camera ui-btn-icon-left" data-theme="a" data-form="ui-btn-up-a" onclick="getPhoto(Camera.PictureSourceType.CAMERA);" data-i18n="[html]add.1phototakenew">Ta nytt foto med kamera</button>
+					<button class=" ui-btn dwgbtnblue ui-shadow ui-corner-all ui-icon-grid ui-btn-icon-left" data-theme="a" data-form="ui-btn-up-a" onclick="getPhoto(Camera.PictureSourceType.PHOTOLIBRARY);" data-i18n="[html]add.1photoselectalbum">Välj ett befintligt foto</button>
+					
+					<p id="laggtillfototext" style="font-style: italic !important; color: lightgray !important; margin-top: 30px !important;" data-i18n="[html]add.1poetsayingsdefault">"En annons utan foto är likt en blomma utan dess kronblad."<br>
+					<div style="width: 95% !important; text-align: right !important; font-style: italic !important; color: lightgray !important;" data-i18n="[html]add.1thepoet">-Okänd på Bortskänkes.se </div></p>
+					<!-- En annons utan foto är som en blomma utan blad.
+						En annons utan foto är som en blomma utan blad eller doft.
+						En annons utan foto är som en vacker blomma utan vare sig blad eller doft.
+						En annons utan foto är som en vacker blomma utan blad eller doft.
+						En annons utan foto är som en vacker blomma utan vare sig blad eller doft.
+						En annons utan foto är som en blomma utan sina blad eller doft.
+						En annons utan foto är som en blomma utan dess blad eller doft.
+						En annons utan foto är som en blomma utan dess blad och doft.
+						En annons utan foto är som en blomma utan blad eller doft planterad i skuggan.
+						En annons utan foto är likt en blomma utan dess blad.
+						En annons utan foto är likt en blomma utan dess kronblad.
+					-->
+				</div>
+				
+				<div id="laggtilldivhiddenuntilphoto">
+					<!--<div id="laggtillfotoram" style="border: 1px solid silver; margin-left: auto !important; margin-right: auto !important; padding 0px !important; display: inline-block;">-->
+					<div id="laggtillfotoram" style="border: 0px solid silver; margin-left: auto !important; margin-right: auto !important; padding 0px !important; display: table-cell; vertical-align: middle; text-align: center;">
+						<a href="#laggtillpopupMenu" data-rel="popup" data-transition="slidedown" data-position-to="window"><img style="display:none; width:100%; margin: auto !important; border: 1px solid silver;" id="dwgImage" src="" /></a>
+					</div>
+					
+					<!-- <a href="#" onClick="rotatePhoto90deg();">rotera</a>  Vi behöver inte denna nu men kanske senare. Hela JS-koden finns... PHP Behövs -->
+					
+					<div class="ui-grid-a" style="margin: -1px !important;">
+						<div class="ui-block-a" id="rubrikwidth" style="width: calc(100% - 100px) !important;">
+							<input name="dwgrubrik" id="dwgrubrik" maxlength="64" data-i18n="[placeholder]add.2rubrik" placeholder="Fyll i en rubrik..." value="" type="text" onBlur="typevalidation()" onKeyup="onChangeCheckLaggTill(true);" required>
+						</div>
+						<div class="ui-block-b" style="width: 100px; text-align: right !important; padding-top: 3px !important;">
+							<div id="annonstypselectswitchstyler">
+							
+								<select id="annonstypselectswitch" name="annonstypselectswitch" onchange="annonstypflipped()" data-role="flipswitch" data-i18n="[html]add.2typ">
+									<option value="1" selected>skänkes</option>
+									<option value="2">önskas</option>
+								</select>
+								
+							</div>
+						</div>
+					</div>
+
+					<textarea name="dwgbeskrivning" id="dwgbeskrivning"  maxlength="1520" data-i18n="[placeholder]add.2beskrivning" placeholder="Beskrivning såsom färg, mått och vikt..." onBlur="typevalidation()" onKeyup="onChangeCheckLaggTill();"></textarea>
+					
+					<!-- <a href="#" onclick="laggtillvaljkat();" class="ui-btn ui-icon-carat-d ui-btn-icon-left">Välj kategori</a> -->
+					<!-- <select name="select-custom-20" id="select-custom-20" data-native-menu="false"> -->
+					<!-- <select name="dwglaggtillkategorier" id="dwglaggtillkategorier" data-native-menu="false" data-history="false" onChange="onChangeCheckLaggTill();" data-i18n="[html]add.2valjkategori"> -->
+					<select name="dwglaggtillkategorier" id="dwglaggtillkategorier" data-native-menu="false" data-history="false" onChange="onChangeCheckLaggTill();">
+						<option value="0">Välj också en kategori...</option>
+						<option value="" disabled="disabled"></option>
+						<option value="" disabled="disabled">Fordon</option>
+							<option value="1100">Cyklar och mopeder</option>
+							<option style="background-color: blue !important; color: red !important;" value="1200">Bilar</option>
+							<option value="1300">Båtar</option>
+							<option value="1400">Reservdelar</option>
+							<option value="1900">Övrigt / Blandat</option>
+						<option value="" disabled="disabled"></option>
+						<option value="" disabled="disabled">Elektronik</option>
+							<option value="2100">TV / Video</option>
+							<option value="2200">Spelkonsoler</option>
+							<option value="2300">Dator och tillbehör</option>
+							<option value="2400">Hifi  och musikspelare</option>
+							<option value="2500">Telefoner</option>
+							<option value="2900">Övrigt / Blandat</option>
+						<option value="" disabled="disabled"></option>
+						<option value="" disabled="disabled">Hem och hushåll</option>
+							<option value="3100">Möbler</option>
+							<option value="3200">Vitvaror</option>
+							<option value="3300">Byggmaterial</option>
+							<option value="3400">Verktyg</option>
+							<option value="3500">Virke</option>
+							<option value="3900">Övrigt / Blandat</option>
+						<option value="" disabled="disabled"></option>
+						<option value="" disabled="disabled">Kläder och leksaker</option>
+							<option value="5100">Herrkläder</option>
+							<option value="5200">Damkläder</option>
+							<option value="5300">Barnkläder</option>
+							<option value="5400">Leksaker och barnartiklar</option>
+							<option value="5900">Övrigt / Blandat</option>
+						<option value="" disabled="disabled"></option>
+						<option value="" disabled="disabled">Sport och fritid</option>
+							<option value="4100">Sport</option>
+							<option value="4200">Musik</option>
+							<option value="4300">Film</option>
+							<option value="4400">Böcker</option>
+							<option value="4500">Spel</option>
+							<option value="4600">Samlarsaker</option>
+							<option value="4900">Övrigt / Blandat</option>
+						<option value="" disabled="disabled"></option>
+						<option value="" disabled="disabled">Djur och tillbehör</option>
+							<option value="6010">Fiskar</option>
+							<option value="6020">Fåglar</option>
+							<option value="6030">Gnagare</option>
+							<option value="6040">Hundar</option>
+							<option value="6050">Hästar</option>
+							<option value="6060">Illrar</option>
+							<option value="6070">Insekter</option>
+							<option value="6080">Kaniner</option>
+							<option value="6090">Katter</option>
+							<option value="6100">Marsvin</option>
+							<option value="6110">Reptiler</option>
+							<option value="6120">Svin</option>
+							<option value="6900">Övrigt</option>
+					</select>
+					<!-- <button onclick="laggtillUploadAnnons();" id="laggtillklarbtn" style="background-color: #4486c3 !important; color: white !important;" >Klar</button>  -->
+					<div id="laggtill_uploadstatus"></div>
+					<button onclick="laggtillUploadAnnons();" id="laggtillklarbtn" class="dwgbtnblue" data-i18n="[html]add.2donebtn">Klar</button>
+				</div>
+				
+				
+				<div id="laggtilldivwhendone">
+					<div style="width: 100% !important; text-align: center !important;">
+						<img src="img/dwg_ok.svg" style="width: 70% !important;">
+						<p data-i18n="[html]add.3thanksfor1">Din annons är nu upplagd och synlig bland annonserna.</p>
+						<!-- <button onclick="laggtillBorjaOm();" id="laggtillborjaombtn" style="background-color: #60915e !important; color: white !important;" >Lägg till en ny</button> -->
+						<!-- <button onclick="laggtillBorjaOm();" id="laggtillborjaombtn" >Lägg till en ny annons</button> -->
+						<button class=" ui-btn ui-btn-a ui-shadow ui-corner-all" data-theme="a" data-form="ui-btn-up-a" onclick="laggtillBorjaOm();"  id="laggtillborjaombtn">Lägg till en ny annons</button>
+					</div>
+				</div>
+				<div id="laggtillonskasdivwhendone">
+					<div style="width: 100% !important; text-align: center !important;">
+						<img src="img/dwg_ok.svg" style="height: 40% !important;">
+						<p>Din annons är nu upplagd och synlig bland annonserna.</p>
+						<button class=" ui-btn ui-btn-a ui-shadow ui-corner-all" data-theme="a" data-form="ui-btn-up-a" onclick="laggtillBorjaOm();"  id="laggtillborjaombtn">Lägg till en ny annons</button>
+					</div>
+				</div>
+
+				
+				<div data-role="popup" id="laggtillpopupMenu" data-theme="a">
+					<ul data-role="listview" data-inset="true" style="min-width:210px;">
+						<li data-role="list-divider">Ett annat foto</li>
+						<li><a href="#" onclick="getPhoto(Camera.PictureSourceType.CAMERA);" data-rel="back">Ta ett nytt foto med kamera</a></li>
+						<li><a href="#" onclick="getPhoto(Camera.PictureSourceType.PHOTOLIBRARY);" data-rel="back" data-transition="flow">Välj ett befintligt foto</a></li>
+						<li><a href="#" data-rel="back" data-transition="flow">Avbryt</a></li>
+					</ul>
+				</div>
+				
+			</div>
+			
+			<div data-role="footer" data-id="footerbtns" data-position="fixed" data-theme="a" class="dwgfooter">
+				<div data-role="navbar" class="dwgnavbar">
+					<ul class="dwgnavbarul">
+						<li><a href="#laggtill" data-icon="edit" class="ui-btn-active ui-state-persist" data-i18n="[html]navbar.add">Lägg till</a></li>
+						<li><a href="#home" data-icon="search" class="dwgnavbarbtn" data-i18n="[html]navbar.home">Annonser</a></li>
+						<li><a href="#naramig" id="navnaramigbtn" data-icon="location" class="dwgnavbarbtn" data-i18n="[html]navbar.map">På karta</a></li>
+						<li><a href="#mittkonto" data-icon="user" class="dwgnavbarbtn" data-i18n="[html]navbar.profile">Min profil</a></li>
+					</ul>
+				</div><!-- /navbar -->
+			</div><!-- /footer -->
+		</div><!-- /page laggtill -->
+
+		
+		
+<!-- page mittkonto --------------------------------------------------------------------------- -->
+		<div id="mittkonto" data-role="page">
+			<!-- <div data-role="panel" id="panelomoss" data-position="left" data-display="reveal" style="background-image:url('img/bg_grass.jpg');background-size: cover; background-attachment: fixed; background-repeat: no-repeat; height: 100% !important"> --> <!-- En liten hemlig panel som kör effekten att skjuta ut (om oss) -->
+			<div data-role="panel" id="panelomoss" data-position="left" data-display="reveal"> <!-- En liten hemlig panel som kör effekten att skjuta ut (om oss) -->
+				<!-- panel content goes here -->
+				<div data-role="content" id="panelomosscontent">
+					<h3 style="color: silver !important;">Om Bortskänkes.se</h3>
+					<p></p>
+				</div>
+			</div><!-- /panel -->
+			<div data-role="panel" id="panelrisros" data-position="right" data-display="reveal"> <!-- En liten hemlig panel som kör effekten att skjuta ut (om oss) -->
+				<!-- panel content goes here -->
+				<div data-role="content">
+					<h3 style="color: silver !important;">Ris eller ros</h3>
+					<p>Här kan du ge information kring vad du tycker om oss. Vi välkomnar både beröm, bra erfarenheter och sådant som borde förbättras eller göras på annat sätt.</p>
+					<textarea id="risrosbodytext" style="height: 150px !important;" placeholder="Formulera din kritik/beröm här..."></textarea>
+					<button onclick="skickaRisRos();" id="risrosklar" style="background-color: #60915e !important; color: white !important;" >Skicka</button>
+				</div>
+			</div><!-- /panel -->
+		
+		
+			<div data-role="popup" id="mittkontoannonsdelpopup" data-theme="a" data-overlay-theme="b" style="max-width:340px; padding:1em;">
+				<h3>Stäng annons</h3>
+				<p>Är du säker på att du vill stänga din annons?</p>
+				<a href="#" onClick="closeSelectedAnnonsID('1');" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-check ui-btn-icon-left ui-mini">Ärende lyckat! Stäng!</a>
+				<a href="#" onClick="closeSelectedAnnonsID('0');" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-check ui-btn-icon-left ui-mini">Ärende ej klart! Stäng ändå!</a>
+				<a href="#" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-mini">Avbryt</a>
+			</div>
+
+
+			<div data-role="header" class="dwgheader">
+				<h1 id="mittkontotitle" data-i18n="[html]profile.title">Min profil</h1>
+				<a href="#panelomoss" class="ui-btn-left ui-btn ui-btn-icon-notext ui-corner-all ui-shadow ui-icon-info"></a>
+				<a href="#panelrisros" class="ui-btn-right ui-btn ui-btn-icon-notext ui-corner-all ui-shadow ui-icon-comment"></a>
+			</div><!-- /header -->		
+
+			<div role="main" class="ui-content">
+				<div id="divminaannonseretc" >
+					<!-- Denna div fylls med dina annonser etc... -->
+				</div><!-- slut på divminaannonseretc -->
+				
+				
+				
+				<!-- <fieldset data-role="collapsible" data-inset="false" id="mittkontoinstallningar"> -->
+				<!-- <legend>Mina uppgifter</legend> -->
+				
+				<!-- <form role="form" action="javascript:setuserdata();" style="margin-top: 10px !important;"> -->
+				<div id="alluserinfo">
+					<p style="color: silver !important; font-size:12px !important;" data-i18n="[html]profile.yourprofile">
+						<b style="color:black !important;">Dina kontaktuppgifter</b><br>
+						Bortsett från email som inte visas blir dessa uppgifter synliga kontaktuppgifter på dina annonser.
+					</p>
+				
+					<label for="dwgusernamn" style="margin-bottom: -6px !important;" data-i18n="[html]profile.lblname"><b>Namn</b><span style="color:green !important;">*</span></label>
+					<input name="dwgusernamn" id="dwgusernamn"  maxlength="64" data-i18n="[placeholder]profile.name" placeholder="Ditt namn..." value="" type="text" required>
+					<label for="dwguseremail" style="margin-bottom: -6px !important;" data-i18n="[html]profile.lblemail"><b>Email</b><span style="color:green !important;">*</span></label>
+					<div> <!-- To protect entire bg to be set green if something something happends too fast. Then this is parent.div instead of higher up -->
+					<!--	<input name="dwguseremail" id="dwguseremail" onClick="warnchangeemail()" onChange="checkChangedEmail()" maxlength="63" placeholder="Din email..." value="" type="email" required> -->
+						<input name="dwguseremail" id="dwguseremail" onClick="warnchangeemail()" maxlength="63" data-i18n="[placeholder]profile.email" placeholder="Din email..." value="" type="email" required>
+					</div>
+					<div id="mittkontoemailconfirmedtext" data-role="none" style="margin-top:0px !important; padding-top:0 !important; color: silver !important; font-size:12px !important;"></div>
+					<label for="dwgusermobil" style="margin-bottom: -6px !important;" data-i18n="[html]profile.lblmobile">Mobil</label>
+					<input data-clear-btn="true" name="dwgusermobil" id="dwgusermobil" maxlength="31" data-i18n="[placeholder]profile.mobile" placeholder="Ditt mobilnummer..." value="" type="tel">
+					<label for="dwgusertelefon" style="margin-bottom: -6px !important;" data-i18n="[html]profile.lbltel">Telefon</label>
+					<input data-clear-btn="true" name="dwgusertelefon" id="dwgusertelefon" maxlength="31" data-i18n="[placeholder]profile.tel" placeholder="Ditt telefonnummer..." value="" type="tel">
+					<label for="dwguserpostnr" style="margin-bottom: -6px !important;" data-i18n="[html]profile.lblpostal"><b>Postnr</b><span style="color:green !important;">*</span></label>
+					<!-- <input name="dwguserpostnr" id="dwguserpostnr" pattern="\d{5}" value="" type="number" required> -->
+					<div> <!-- To protect entire bg to be set green if something something happends too fast. Then this is parent.div instead of higher up -->					
+						<!-- <input name="dwguserpostnr" id="dwguserpostnr" value="" maxlength="6" data-i18n="[placeholder]profile.postal" placeholder="Ditt postnr..." inputmode="numeric" pattern="[0-9\s]*" type="tel"> -->
+						<input name="dwguserpostnr" id="dwguserpostnr" value="" onKeyup="changingPostNr();" maxlength="12" data-i18n="[placeholder]profile.postal" placeholder="Ditt postnr..." type="tel">
+					</div>
+					<div id="mittkontoplatstext"></div>
+					<div id="latlongtext"></div>
+												
+												
+												
+												
+					<div id="placetext" style="margin-top:-6px !important; padding-top:0 !important; margin-bottom: 20px !important; color: silver !important; font-size:12px !important;">
+					</div>
+					<div id="divlankommun" style="display: none; margin-bottom: 25px !important;">
+						<div class="panel panel-info">
+							<div class="panel-heading" style="padding: 4px 0px 4px 0px;" data-i18n="[html]profile.alsochooseplace">
+								Vänligen välj också plats:
+							</div>
+							<div class="panel-body">
+								<label for="lan" style="margin-bottom: -6px !important;" class="control-label" data-i18n="[html]profile.lbllan"><b>Län</b><span style="color:green !important;">*</span></label>
+								<select class="form-control" id="lan" name="lan" onChange="valjerLan();">			
+									<option value="0">Välj län...</option>
+									<option value="20">Blekinge län2</option>
+									<option value="6">Dalarnas län2</option>
+									<option value="5">Gävleborgs län</option>
+									<option value="16">Gotlands län</option>
+									<option value="19">Hallands län</option>
+									<option value="3">Jämtlands län</option>
+									<option value="14">Jönköpings län</option>
+									<option value="18">Kalmar län</option>
+									<option value="17">Kronobergs län</option>
+									<option value="1">Norrbottens län</option>
+									<option value="11">Örebro län</option>
+									<option value="13">Östergötlands län</option>
+									<option value="21">Skåne län</option>
+									<option value="12">Södermanlands län</option>
+									<option value="10">Stockholms län</option>
+									<option value="7">Uppsala län</option>
+									<option value="8">Värmlands län</option>
+									<option value="2">Västerbottens län</option>
+									<option value="4">Västernorrlands län</option>
+									<option value="9">Västmanlands län</option>
+									<option value="15">Västra Götalands län</option>
+								</select>
+								
+								<label for="kommun" style="margin-bottom: -6px !important;" class="control-label" data-i18n="[html]profile.lblkommun"><b>Kommun</b><span style="color:green !important;">*</span></label> 
+								<select id="kommun" name="kommun"  onChange="valjerKommun();" class="form-control"><option value="0">Välj först ett län...</option></select>
+								
+								<label for="ort" style="margin-bottom: -6px !important;" class="control-label" data-i18n="[html]profile.lblort"><b>Ort</b><span style="color:green !important;">*</span></label> 
+								<select id="ort" name="ort" class="form-control"><option value="0">Välj först en kommun...</option></select>
+								
+								
+							</div>
+						</div>
+					</div>
+					
+					
+					
+					<!-- <button onclick="setuserdata();" data-theme="a">Spara inställningar</button> -->
+					<!-- <a href="#" class="ui-btn ui-corner-all" data-role="button" data-theme="a" onclick="setuserdata();">Spara inställningar</a> -->
+					<button class="ui-btn dwgbtnblue ui-shadow ui-corner-all" onclick="saveuserdata()">Spara inställningar</button>
+					<p style="color:green !important; font-size:12px !important; margin-top:0px !important; padding-top:0 !important;"><i>* Obligatoriska fält för att lägga till egna annonser och viss övrig funktionalitet.</i></p>
+				</div>
+					<!-- <button type="submit" name="submit" value="submit" data-theme="a">Spara inställningar</button> -->
+				<!-- </form> -->
+				
+				<!-- <legend>Beta information</legend>
+				<div class="ui-body ui-body-b" id="dwgdeviceinfodiv">
+					<p>Din enhet vill inte dela med sig av detaljer.</p>
+				</div> -->
+				
+				
+			</div>
+			
+			<div data-role="footer" data-id="footerbtns" data-position="fixed" data-theme="a" class="dwgfooter">
+				<div data-role="navbar" class="dwgnavbar">
+					<ul class="dwgnavbarul">
+						<li><a href="#laggtill" data-icon="edit" class="dwgnavbarbtn" data-i18n="[html]navbar.add">Lägg till</a></li>
+						<li><a href="#home" data-icon="search" class="dwgnavbarbtn" data-i18n="[html]navbar.home">Annonser</a></li>
+						<li><a href="#naramig" id="navnaramigbtn" data-icon="location" class="dwgnavbarbtn" data-i18n="[html]navbar.map">På karta</a></li>
+						<li><a href="#mittkonto" data-icon="user" class="ui-btn-active ui-state-persist" data-i18n="[html]navbar.profile">Min profil</a></li>
+					</ul>
+				</div><!-- /navbar -->
+			</div><!-- /footer -->
+		</div><!-- /page mittkonto -->
+		
+		
+		
+		
+<!-- page NaraMig --------------------------------------------------------------------------- -->
+		<div id="naramig" data-role="page">
+			<div role="main" class="ui-content_NOTHX" style="padding: 0px !important;" id="naramigmain">
+				<!-- Annonser som ligger inom 0.2 lat/long kan anses inom nära mig tycker jag (täcker hela gbg) -->
+								
+				<!-- Att lägga till data-role="none" verkar inte ge något -->
+				<div id="dwgmap" 
+					style="display:block;
+							position: absolute; 
+							top: 0px; left: 0px;
+							border:0px solid #aaaaaa;
+							width: 100%;
+							background: white;">
+				</div>
+				<div style="position: absolute; top: 55px; left: 10px; opacity: 1.0;">
+					<img onClick="gotoMyLocation();" src="css/images/icons-svg/location-white.svg" style="width: 30px;" id="mapbtngotome">
+				</div>
+				<div style="position: absolute; top: 10px; left: 10px; opacity: 1.0;">
+					<img onClick="showSeaOfThumbsBoundaries();" src="css/images/icons-svg/grid-white.svg" style="width: 30px;"  id="mapbtnshowthumbsea">
+				</div>
+				<div id="mapinfodiv" style="position: absolute; top: 35px; left: 30px; height: 30px; opacity: 0.5;"></div>
+
+				<div id="over_map" style="position: absolute; top: -10px; right: 20px; z-index: 999; -webkit-transform: translateZ(10px); -webkit-transform: translate3d(0,0,0); "> <!-- Problem att den hamnar bakom kartan: https://github.com/Leaflet/Leaflet/issues/335 -->			
+					<div onClick="hideMarkersButThisCategory(1,true);" id="mapkatbtn1" style="float: left; margin-right: 15px;  width: 20px; height: 30px; -moz-border-radius: 0px 0px 10px 10px; -webkit-border-radius: 0px 0px 10px 10px; background-color: #d1cabc; border: 2px solid white;"></div>
+					<div onClick="hideMarkersButThisCategory(2,true);" id="mapkatbtn2" style="float: left; margin-right: 15px;  width: 20px; height: 30px; -moz-border-radius: 0px 0px 10px 10px; -webkit-border-radius: 0px 0px 10px 10px; background-color: #8db6fd; border: 2px solid white;"></div>
+					<div onClick="hideMarkersButThisCategory(3,true);" id="mapkatbtn3" style="float: left; margin-right: 15px;  width: 20px; height: 30px; -moz-border-radius: 0px 0px 10px 10px; -webkit-border-radius: 0px 0px 10px 10px; background-color: #96d970; border: 2px solid white;"></div>
+					<div onClick="hideMarkersButThisCategory(4,true);" id="mapkatbtn4" style="float: left; margin-right: 15px;  width: 20px; height: 30px; -moz-border-radius: 0px 0px 10px 10px; -webkit-border-radius: 0px 0px 10px 10px; background-color: #e9bab5; border: 2px solid white;"></div>
+					<div onClick="hideMarkersButThisCategory(5,true);" id="mapkatbtn5" style="float: left; margin-right: 15px;  width: 20px; height: 30px; -moz-border-radius: 0px 0px 10px 10px; -webkit-border-radius: 0px 0px 10px 10px; background-color: #ffc000; border: 2px solid white;"></div>
+					<div onClick="hideMarkersButThisCategory(6,true);" id="mapkatbtn6" style="float: left; margin-right: 15px;  width: 20px; height: 30px; -moz-border-radius: 0px 0px 10px 10px; -webkit-border-radius: 0px 0px 10px 10px; background-color: #7f6000; border: 2px solid white;"></div>
+				</div>
+				<div id="fadepop" style="position: absolute; top: 30%; left: 0px; width: 100%; z-index: 999; text-align: center; font: 14pt bold verdana !important; color: white; opacity: 0;"><p style="padding: 20px;"></p></div>
+				<div id="infobox" style="position: absolute; bottom: 55px; height: 28px; border: 0px solid white; left: 0px; width: 100%; z-index: 999;"><div onClick="lasaAnvandarVillkor();" style="position: absolute; bottom: 3px; right: 7px; height: 8px; width: 57px; border: 0px solid white;"></div></div>
+			</div>	
+			
+			
+			<div id="dwgnativescrollfiller"> </div>
+			
+			<!-- <div data-role="footer" data-id="footerbtns" data-position="fixed" data-theme="a" class="dwgfooter" id="gmapfooter"> -->
+			<div data-role="footer" data-id="footerbtns" data-position="fixed" data-tap-toggle="false" data-theme="a" class="dwgfooter" id="gmapfooter">
+				<div data-role="navbar" class="dwgnavbar">
+					<ul class="dwgnavbarul">
+						<li><a href="#laggtill" data-icon="edit" class="dwgnavbarbtn" data-i18n="[html]navbar.add">Lägg till</a></li>
+						<li><a href="#home" data-icon="search" class="dwgnavbarbtn" data-i18n="[html]navbar.home">Annonser</a></li>
+						<li><a href="#naramig" id="navnaramigbtn" data-icon="location" class="ui-btn-active ui-state-persist" data-i18n="[html]navbar.map">På karta</a></li>
+						<li><a href="#mittkonto" data-icon="user" class="dwgnavbarbtn" data-i18n="[html]navbar.profile">Min profil</a></li>
+					</ul>
+				</div><!-- /navbar -->
+			</div><!-- /footer -->
+		</div><!-- /page NaraMig -->
+
+		
+		
+		
+<!-- page PageVisaPaKarta (Används bara av Panels View av annons) --------------------------------------------------------------------------- -->
+		<div data-role="page" id="pagevisapakarta">
+			<div data-role="header" data-add-back-btn="true">
+				<h1>Visa på karta</h1>
+			</div>
+			<div role="main" class="ui-content_NOTHX" style="padding: 0px !important;">				
+				<div id="pagevisapakartacontent" style="display:block;
+														overflow:hidden;
+														position:relative;
+														border:0px solid #aaaaaa;
+														width: 100%;
+														min-height: 300px !important;
+														background: white;">
+				</div>
+			</div>
+		</div><!-- /page PageVisaPaKarta -->
+		
+<!-- page PageSkickaMail (Används bara av Panels View av annons) --------------------------------------------------------------------------- -->
+		<div data-role="page" id="pageskickamail">
+			<div data-role="header" data-add-back-btn="true">
+				<h1 id="pageskickamailtitle">Skicka mail</h1>
+			</div>
+			<div role="main" class="ui-content" id="pageskickamailcontent">
+				<div style="width: 100% !important; max-height: 100px;">
+					<!-- <img src="http://www.bortskankes.se/foton/thumbs/30444_20140418_11_125440.jpg" style="vertical-align:top !important; float:left !important;"> -->
+					<h3 id="pageskickamailsubject"></h3>
+				</div>
+				<!-- <input name="dwgmailditttelefon" id="dwgmaildinemail" placeholder="Ditt telefonnummer..." type="text"> -->
+				<!-- <input name="dwgmaildinemail" id="dwgmaildinemail" placeholder="Din email..." type="email" value="danny_wap@hotmail.com" disabled required> -->
+				<textarea id="skickamailbody" placeholder="Skriv ditt mail här: Berätta gärna först vem du är, ställ sedan dina frågor och avsluta mailet artigt..." style="min-height: 150px !important;"></textarea>
+				<input type="hidden" id="skickamailmailstamp" value="kjdkjdkdjkdj">
+				<input type="hidden" id="skickamailid" value="873873">
+				<button onclick="skickamail();" style="background-color: #60915e !important; color: white !important;" id="pageskickamailsubmit">Skicka</button>
+			</div>
+			<div id="pageskickamailskickat" style="margin: 10px;">
+				<div style="width: 100% !important; text-align: center !important;">
+					<img src="img/dwg_ok.svg" style="width: 70% !important;">
+					<p>Ditt mail är nu skickat.</p>
+					<!-- <button onclick="laggtillBorjaOm();" id="laggtillborjaombtn" style="background-color: #60915e !important; color: white !important;" >Lägg till en ny</button> -->
+				</div>
+			</div>
+
+		</div><!-- /page PageSkickaMail -->
+
+<!-- page BrowserPage (Används för att visa blandat externt material t.ex. Djurskyddet info) NIX Behövde ALDRIG DENNA --------------------------------------------------------------------------- -->
+		<div data-role="page" id="pagevisaexternt">
+			<div data-role="header" data-add-back-btn="true">
+				<h1>Bortskänkes info</h1>
+			</div>
+			<div role="main" class="ui-content_NOTHX" style="padding: 0px !important;" id="pagevisaexterntmain">
+			</div>
+		</div><!-- /page VisaPaKarta -->
+
+<!-- page FullScreenPhoto (Används för att visa bilder i fullskarm--------------------------------------------------------------------------- -->
+		<div data-role="page" id="pagefullscreenphoto" style="background-color: black !important;" data-theme="b">
+			<div data-role="header" data-position="fixed" data-fullscreen="true" data-theme="b" id="fullscreenphotoheader" style="background-color: none !important; border: 0px solid black !important;">
+				<h1> </h1>
+				<!-- <a onClick="history.back();" class="ui-btn ui-btn-right ui-icon-back ui-btn-icon-notext ui-corner-all" data-icon="back" data-theme="b"></a> -->
+				<a onClick="history.back();" class="ui-btn-right" style="border: 2px solid white; padding: 3px; color: white; float: right !important;">Stäng</a>
+			</div>
+			<div role="main" class="ui-content_NOTHX" style="padding: 0px !important; background-color: black; height: 100% !important; width: 100% !important;" id="pagefullscreenphotomain">
+			</div>
+		</div><!-- /page FullScreenPhoto -->
+		
+<!-- page SeaOfThumbs (Används för att visa bilder i fullskarm--------------------------------------------------------------------------- -->
+		<div data-role="page" id="pageseaofthumbs" style="background-color: white !important; margin-top: -2px;" data-theme="b">
+<!--			<div data-role="header" data-position="fixed" data-theme="b" id="seaofthumbsheader" style="background-color: white !important; border: 0px solid white !important;"> -->
+
+				<!-- <div style="float:left; margin: 2px 2px 2px 10px; font: bold 18px Verdana !important; color: #888 !important; text-shadow: none !important;"><a style="color: #888 !important;" data-transition="slide" onClick="history.back();"><img src="css/images/icons-svg/carat-l-black.svg" style="opacity: 0.5;"> Tillbaka</a></div> -->
+				<!-- <a onClick="history.back();" class="ui-btn ui-btn-left ui-icon-back ui-btn-icon-notext ui-corner-all" data-icon="back" data-theme="b"></a> -->
+<!--			</div> -->
+
+			<div class="ui-content_NOTHX" style="width:100% !important; padding: 0px !important; margin: 0px !important;" id="seaofthumbsmain">
+				<h3 style="color: silver; margin:5px 5px 5px 5px !important;text-shadow: none !important;"><a href="#" style="color:silver; text-decoration: none;" onClick="history.back();"><img style="opacity: 0.5;" src="css/images/icons-svg/carat-l-black.svg" style="height:16px;"> Tillbaka</a></h3>
+			</div>
+		</div><!-- /page FullScreenPhoto -->
+
+
+<!-- page ViewID Istället för Panels provar vi pages --->
+		<div data-role="page" id="pageview" data-iscroll-fixed="" data-position-fixed="true" data-position="right" data-display="overlay" data-animate="true" data-theme="a">
+			<!-- <div id="pageviewloadintowrapper" data-iscroll="" style="width:100% !important; position: absolute; top: 1px; left: 0; right: 0px; bottom: 0px;"> -->
+			<!-- <div id="pageviewloadintowrapper" data-iscroll='{"hScroll":false,"vScroll":true,"resizeEvents":"orientationchange"}' style="width:100% !important; padding: 0px !important; margin: 0px !important;"> -->
+			<div id="pageviewloadintowrapper" data-iscroll="" style="width:100% !important; padding: 0px !important; margin: 0px !important;">
+				<div id="pageviewloadinto">
+					<h2 style="color: silver !important; margin: 5px !important;" data-i18n="[html]home.html_view_loading">Laddar detaljer...<h2>
+				</div>
+			</div><!-- /wrapper for iscroll -->
+		</div><!-- /page -->
+
+		
+		
+</body>
+</html>
