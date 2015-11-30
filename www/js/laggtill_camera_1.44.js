@@ -665,13 +665,15 @@ $(document).on('pageshow', '#laggtill', function (event) {
 			// $("#laggtilldivfirstbuttons").hide();   <<  Bara jobbigt. Isåfall måste jag senare hantera kontroller för att se om div 2 show then hide div1 etc... 
 			// $("#laggtilldivhiddenuntilphoto").hide(); 
 			// $("#laggtilldivwhendone").hide();
-			if(!userwebactivated){
-				dwgalert($.t("add.msg_please_first_register5")); //"Vänligen, fyll först i kontaktuppgifter under 'Min Profil' och bekräfta din email!");
-			}else if(!userwebpostnrisok){
-				dwgalert($.t("add.msg_please_first_check_postal")); //"Vänligen, kontrollera att du har angivit ett korrekt POSTNR under 'Min Profil'.");
-			}else{
-				dwgalert($.t("add.msg_please_first_register6")); //"Vänligen, fyll först i kontaktuppgifter under 'Min Profil' eller kontakta support@bortskankes.se om du har fortsatta problem.");
-			}
+			setTimeout(function(){
+				if(!userwebactivated){
+					dwgalert($.t("add.msg_please_first_register5")); //"Vänligen, fyll först i kontaktuppgifter under 'Min Profil' och bekräfta din email!");
+				}else if(!userwebpostnrisok){
+					dwgalert($.t("add.msg_please_first_check_postal")); //"Vänligen, kontrollera att du har angivit ett korrekt POSTNR under 'Min Profil'.");
+				}else{
+					dwgalert($.t("add.msg_please_first_register6")); //"Vänligen, fyll först i kontaktuppgifter under 'Min Profil' eller kontakta support@bortskankes.se om du har fortsatta problem.");
+				}
+			},600);
 			// jQuery.mobile.navigate("#mittkonto");
 			$.mobile.pageContainer.pagecontainer( "change", "#mittkonto",{ allowSamePageTransition: true });
 		}else{

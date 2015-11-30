@@ -82,6 +82,19 @@ var postnrmaxchars=10;
 var postnrminchars=4;
 var autoselcategory={};
 
+// Lite sträng variabler vi vill sätta i "pagebeforecreate" direkt efter i18 istället för att ha i funktionerna (för att kunna återanvända krånglig kod från hemsidan RWD2015).
+var selectnowlan=''; // 'Välj län...';
+var selectnowkommun=''; // 'Välj nu kommun...';
+var selectnowort=''; // 'Välj nu ort...';
+var selectfirstlan=''; // 'Välj först län...';
+var selectfirstkommun=''; // 'Välj först kommun...';
+var isthisaddressincorrect='';
+var pleaseverifypostnrformat=''; // 'Vänligen kontrollera postnummer.'
+var smssomeonedwg_ipad_warning = '';
+
+
+
+
 
 // var aboutus='<img src="img/bortskankes_se_logo.png" style="width: 100%"><p>Sedan 2004 har Bortskänkes.se bedrivit sin verksamhet i syfte att minska Sveriges avfall och därmed också förbrukningen av jordens begränsade resurser.<br> \
 	// Allt avfall innebär idag en enorm belastning på vår planet och bidrar ofta till förgiftade och förstörda områden. Att skapa en ny produkt bidrar också till en viss förgiftning och förstörelse med energi från kolkraftverk eller giftiga ämnen vid tillverkningen.<br>\
@@ -98,7 +111,7 @@ var autoselcategory={};
 	// <p>Facebook:<br>\
 	// <a href="#" onClick="openExtLink(\'http://facebook.com/bortskankes\')">http://facebook.com/bortskankes</a></p>\
 	// ';
-var aboutus=	'<img src="img/bortskankes_se_logo.png" style="width: 100%"><p><b>VÄLKOMMEN HIT</b><br>' +
+var aboutus2=	'<img src="img/bortskankes_se_logo.png" style="width: 100%"><p><b>VÄLKOMMEN HIT</b><br>' +
 'Vi hoppas du skall ha en trevlig upplevelse när du strosar runt kring våra annonser och letar efter sådant som kan passa just dig. Här finns det mesta du kan tänka dig för att inreda en lya helt gratis, möbler har vi ett ordentligt överskott på. Men det finns också ibland riktiga guldkorn för de som söker lite flottare saker så som en segelbåt, bil, platt-TV, playstation eller märkeskläder. Skulle du stöta på en annons som känns otrevligt eller stötande bör du rapportera detta med rapportknappen i annonsen.</p>'+
 '<p>Även om det mesta är gratis kommer du nog lägga märka till att djur har en liten prislapp på sig. Detta är den ”symboliska kostnaden” du måste betala för att visa att du tänker engagera dig i att ta hand om krabaten också. Alla levande djur måste ha en sådan och därför har vi tillsammans med Djurskyddet kommit fram till vad de minsta beloppen kan vara för att fortfarande kunna säga att man förutom detta belopp skänker djuret och inte har ett vinstintresse vid överlämnandet.</p>'+
 '<p>Syftet med vår verksamhet är också att minska mängden skräp som hamnar på soptippen och istället förmedla en medveten konsumption för samhället där vi lär oss sluta slänga fungerande saker. På detta sätt kan vi utöka varors livslängd och därmed minska konsumptionen samt det förtärande det annars innebär av vår jords begränsade resurser.</p>'+
@@ -113,7 +126,8 @@ var aboutus=	'<img src="img/bortskankes_se_logo.png" style="width: 100%"><p><b>V
 '<a href="#" onClick="openExtLink(\'http://www.bortskankes.se\')">http://www.bortskankes.se</a>'+
 '<p>Facebook:<br>'+
 '<a href="#" onClick="openExtLink(\'http://facebook.com/bortskankes\')">http://facebook.com/bortskankes</a></p>';
-
+var aboutus = '';
+var aboutus_appver='';
 	
 
 
@@ -144,9 +158,6 @@ document.addEventListener('click', function (e) {
 	
 // });
 
-// $('#navnaramigbtn').on('click', function(){
-	// naramigfirstshow=true; // Jag vill tvinga en omladdning varje gång man trycker i navbar, annars laddas den inte om.
-// });
 
 function openExtLink(urlen938){
 	if( /Android/i.test(navigator.userAgent) ) { 
@@ -192,12 +203,172 @@ function getconfig(){
 			postnrmaxchars=data.postnrmaxchars;
 			postnrminchars=data.postnrminchars;
 			autoselcategory=data.autoselcategory;
+			showmapbutton=data.showmapbutton;
+			aboutus=data.aboutus;
+			katdescs=data.katdescs;
+			alert(katdescs);
+
+			// // $(".navpakartabtn").hide();
+			// $(".navpakartabtn").remove();
+			// var tmphtml = $("#annonserfooter").html();
+			if(!showmapbutton){
+			//	setTimeout(function () {
+					// Det räckte INTE att köra remove på knappen och en update av HTML-koden. På något sätt har knapparna fått fasta storlekar då. Även om jag snor html-koden från diven och gör recreate på det så går det inte. Måste omskapa HMTL-koden för navbar helt för att knappar skall få ny bredd för 3 knappar.
+					var newnavbarlaggtill='<div data-role="navbar" class="dwgnavbar"><ul class="dwgnavbarul"><li><a href="#laggtill"  style="background-color: #60915e !important; border-color: #60915e; color: #fff;text-shadow: 0;" data-icon="camera" class="ui-btn-active ui-state-persist">' + $.t("navbar.add") + '</a></li>';
+					newnavbarlaggtill=newnavbarlaggtill+'<li><a href="#home" data-icon="bullets" class="dwgnavbarbtn">' + $.t("navbar.home") + '</a></li>';
+					newnavbarlaggtill=newnavbarlaggtill+'<li><a href="#mittkonto" data-icon="user" class="dwgnavbarbtn">' + $.t("navbar.profile") + '</a></li></ul></div>';
+
+					var newnavbarhome='<div data-role="navbar" class="dwgnavbar"><ul class="dwgnavbarul"><li><a href="#laggtill" data-icon="camera" class="dwgnavbarbtn">' + $.t("navbar.add") + '</a></li>';
+					newnavbarhome=newnavbarhome+'<li><a href="#home" style="background-color: #60915e !important; border-color: #60915e; color: #fff;text-shadow: 0;" data-icon="bullets" class="ui-btn-active ui-state-persist">' + $.t("navbar.home") + '</a></li>';
+					newnavbarhome=newnavbarhome+'<li><a href="#mittkonto" data-icon="user" class="dwgnavbarbtn">' + $.t("navbar.profile") + '</a></li></ul></div>';
+				
+					var newnavbarmittkonto='<div data-role="navbar" class="dwgnavbar"><ul class="dwgnavbarul"><li><a href="#laggtill" data-icon="camera" class="dwgnavbarbtn">' + $.t("navbar.add") + '</a></li>';
+					newnavbarmittkonto=newnavbarmittkonto+'<li><a href="#home" data-icon="bullets" class="dwgnavbarbtn">' + $.t("navbar.home") + '</a></li>';
+					newnavbarmittkonto=newnavbarmittkonto+'<li><a href="#mittkonto" data-icon="user"  style="background-color: #60915e !important; border-color: #60915e; color: #fff;text-shadow: 0;" class="ui-btn-active ui-state-persist">' + $.t("navbar.profile") + '</a></li></ul></div>';
+
+					$("#dwgfootlaggtill").html(newnavbarlaggtill).trigger("create");//.refresh();				
+					$("#dwgfoothome").html(newnavbarhome).trigger("create");//.refresh();
+					$("#dwgfootmittkonto").html(newnavbarmittkonto).trigger("create");//.refresh();
+					//$(".dwgnavbar").trigger("create");//.refresh();
+					//	$("#annonserfooter").html('<div data-role="navbar" class="dwgnavbar"><ul class="dwgnavbarul"><li><a href="#laggtill" data-icon="camera" class="dwgnavbarbtn" data-i18n="[html]navbar.add">Lägg till</a></li><li><a href="#home" data-icon="bullets" class="ui-btn-active ui-state-persist"  data-i18n="[html]navbar.home">Annonser</a></li><li><a href="#mittkonto" data-icon="user" class="dwgnavbarbtn" data-i18n="[html]navbar.profile">Min profil</a></li></ul></div>').trigger("create");//.refresh();
+					// $(".dwgnavbarul").listview('refresh');//.refresh();
+			//	},100);
+			}
 		}, // --end success
 		error: function (jqXHR, textStatus, errorThrown) {
 			dwgalert($.t("profile.msg_could_not_conn6")); //"Vi verkar inte kunna nå servern just nu. Prova igen om en stund eller kontakta support@bortskankes.se om problemet kvarstår.");
 		} // --end error
 	}); // --end ajax
 }
+
+// A dynamic way to make navbar icons to highlight when clicked. But not needed as I have it static in pages + using ui-state-persist. Still not working. - Known bug.
+// $(document).on( "pagecontainerchange", function() {
+	// var current = $( ".ui-page-active" ).prop("id");   
+	// // Remove active class from nav buttons
+	// $( "[data-role='navbar'] a.ui-btn-active" ).removeClass( "ui-btn-active" );
+	// // Add active class to current nav button
+	// $( "[data-role='navbar'] a" ).each(function() {
+		// var href = $( this ).prop("href");
+		// if ( href.indexOf(current, href.length - current.length) !== -1 ) {
+			// $( this ).addClass( "ui-btn-active" ).trigger('refresh');
+		// }
+	// });
+// });
+
+function getPanelPlatser(){
+	// var popularalan = document.getElementById('popularalan');
+	// var allalan = document.getElementById('allalan');
+	// popularLans.options.length = 0;
+	$("#popularalan").empty();
+	$("#allalan").empty();
+	var nocachex=dwgguid();
+	$.ajax({
+		type: "GET",
+		dataType: "text",	// Kan också vara "text" och parsea i success istället om man vill. Men lyckas det inte är det nog för att man får [{}] istället för {} från PHP pga pushdata() till array.
+		//url: "<?=L::app_weburl;?>/include/ajaxpostnr.php?postnr=" + postnr,  <-- NEJ DETTA SKAPAR CROSS SITE SCRIPTING PROBLEMS I RÄTT KONFADE BROWSERS! 
+		url: weburl+"/include/get_kommun_ajax.php?nocachex="+nocachex,
+		success: function (data) {
+			// alert(data);
+			var lanen=data.split('|');
+			var appendpopulararlan="";
+			var appendallalan="";
+			for (i=1; i<lanen.length; i++) {
+				var id_lan=lanen[i].split(';'); // We send values as |23;Goteborg|24;Stockholm|...etc
+				// var opt = document.createElement('option');
+				// opt.value = id_lan[0];
+				// opt.innerHTML = id_lan[1];
+				// lanSelect.appendChild(opt);
+				appendallalan = appendallalan + '<li><a href="#" onclick="doupdatelankat2('+id_lan[0]+',adkat);" data-rel="close">'+id_lan[1]+'</a></li>';
+				if(id_lan[2]==true){
+					appendpopulararlan = appendpopulararlan + '<li><a href="#" onclick="doupdatelankat2('+id_lan[0]+',adkat);" data-rel="close">'+id_lan[1]+'</a></li>';
+				}
+			}
+			// $('#popularalan').append('<li><a href="#" onclick="doupdatelankat2(10,adkat);" data-rel="close">Nära Stockholm2</a></li>').listview('refresh');
+			$('#popularalan').append(appendpopulararlan).listview('refresh');
+			$('#allalan').append(appendallalan).listview('refresh');
+			// setTimeout(function () {$("#lan").closest('div').addClass('highlightdiv'); }, 600);
+			// setTimeout(function () {$("#lan").closest('div').removeClass('highlightdiv'); }, 2000);
+		}, // --end success
+		error: function (jqXHR, textStatus, errorThrown) {
+		} // --end error
+	});
+	// // $("pnlkats").append('<h3>kalle</h3>');
+	// // $("pnlkats").append('<div data-role="collapsible"><h3>kalle</h3></div>');
+	// // TEST::
+	// $("#pnlkats").append('<div data-role="collapsible"><h3>Hem och hushåll2</h3><ul data-role="listview" id="allafordon234" class="allafordon9877"><li><a href="#" onclick="doupdatelankat2(adlan,\'1000\');" data-rel="close">Alla fordon234</a></li></ul></div>').collapsibleset("refresh");
+	// setTimeout( function(){ $(".allafordon9877").listview("refresh"); },1000);
+	// // $("#pnlkats").destroy();
+	// // $("#pnlkats").empty().destroy();
+	// // $("#pnlkats").append('<div data-role="collapsible"><h3>Hem och hushåll2</h3><ul data-role="listview"><li><a href="#" onclick="doupdatelankat2(adlan,\'1000\');" data-rel="close">Alla fordon</a></li></ul></div>');
+	// // $("#pnlkats").collapsible("create");
+	// // $( "#pnlkats" ).collapsibleset( "option", "enhanced", true );
+	// // $("pnlkats").append('<div data-role="collapsible"><h3>Hem och hushåll2</h3><ul data-role="listview"><li><a href="#" onclick="doupdatelankat2(adlan,\'1000\');" data-rel="close">Alla fordon</a></li></ul></div>').collapsibleset( "refresh" );
+	// $("#divkategorier").empty();
+	// $("#divkategorier").html('<div id="kat1" onclick="showhide(\'#kat1data\');"><b>Open fordon</b></div><div id="kat1data"><ul data-role="listview" id="allafordon234" class="allafordon9877"><li><a href="#" onclick="doupdatelankat2(adlan,\'1000\');" data-rel="close">Alla fordon234</a></li></ul></div>').trigger("create");
+	//setTimeout( function(){ $(".allafordon9877").listview("refresh"); },400);
+
+	
+
+}
+
+function getPanelKategorier(){
+	var nocachex=dwgguid();
+	$.ajax({
+		type: "GET",
+		dataType: "json",	// Kan också vara "text" och parsea i success istället om man vill. Men lyckas det inte är det nog för att man får [{}] istället för {} från PHP pga pushdata() till array.
+		//url: "<?=L::app_weburl;?>/include/ajaxpostnr.php?postnr=" + postnr,  <-- NEJ DETTA SKAPAR CROSS SITE SCRIPTING PROBLEMS I RÄTT KONFADE BROWSERS! 
+		url: weburl+"/include/get_kategori_ajax.php?nocachex="+nocachex,
+		success: function (data) {
+			// alert(data);
+			var divkategorihtml='';
+			var i=0;
+			for(var key in data) {
+				if(data[key].kategori==''){ // Om kategori är tomt har vi en huvudkategor
+					i++;
+					if(i>1){divkategorihtml=divkategorihtml+'</ul></div>';} // Om inte första så stäng föregående kategori.
+					// divkategorihtml+='<div data-role="collapsibleset" data-collapsed-icon="carat-r" data-expanded-icon="carat-d" data-inset="true" data-corners="false" data-theme="a" data-content-theme="a" id="pnlkats">  <div data-role="collapsible" id="katjhdjdh'+ i +'data">   <h3 onclick="showhide(\'#kat'+ i +'data\');" id="katjhd8378kkk'+ i +'data">'+ data[key].huvudkategori +'</h3> </div></div>'      + '<div id="kat'+ i +'data" style="display: none;"><ul data-role="listview">' +   '<li><a href="#" onclick="doupdatelankat2(adlan,\''+ data[key].id +'\');" data-rel="close">'+ data[key].huvudkategori +'</a></li>';
+					divkategorihtml=divkategorihtml+'<div class="huvudkategoribtn" onclick="showhidekat(\''+ i +'\');"><b>'+ data[key].huvudkategori +'</b></div><div id="kat'+ i +'data" style="display: none;"><ul data-role="listview">' +   '<li><a href="#" onclick="doupdatelankat2(adlan,\''+ data[key].id +'\');" data-rel="close">'+ data[key].huvudkategori +'</a></li>';
+					// alert('<div onclick="showhide(\'#kat'+ i +'data\');"><b>'+ data[key].huvudkategori +'</b></div><div id="kat'+ i +'data"><ul data-role="listview">');
+				}else{
+					divkategorihtml=divkategorihtml+'<li><a href="#" onclick="doupdatelankat2(adlan,\''+ data[key].id +'\');" data-rel="close">'+ data[key].kategori +'</a></li>';
+					// alert(divkategorihtml);
+				}
+			}
+			if(i>1){divkategorihtml=divkategorihtml+'</ul></div>';} // Om vi hade träffar stäng nu också sista kategorin.
+			// alert("text:"+divkategorihtml);
+			$("#divkategorier").html(divkategorihtml).trigger("create");
+			setTimeout(function () { 
+				$('#panelkategorierwrapper').iscrollview("resizeWrapper");
+				$('#panelkategorierwrapper').iscrollview("refresh");
+			},300);
+
+
+		}, // --end success
+		error: function (jqXHR, textStatus, errorThrown) {
+		} // --end error
+		
+	});
+		
+	// // $("pnlkats").append('<h3>kalle</h3>');
+	// // $("pnlkats").append('<div data-role="collapsible"><h3>kalle</h3></div>');
+	// // TEST::
+	// $("#divkategorier").append('<div data-role="collapsible"><h3>Hem och hushåll2222</h3><ul data-role="listview" id="allafordon234" class="allafordon9877"><li><a href="#" onclick="doupdatelankat2(adlan,\'1000\');" data-rel="close">Alla fordon234</a></li></ul></div>').collapsibleset("refresh");
+	// setTimeout( function(){ $(".allafordon9877").append('<li><a href="#" onclick="doupdatelankat2(adlan,\'1000\');" data-rel="close">Ingafordon2342</a></li>').listview("refresh"); },1000);
+	
+	// // $("#pnlkats").destroy();
+	// // $("#pnlkats").empty().destroy();
+	// // $("#pnlkats").append('<div data-role="collapsible"><h3>Hem och hushåll2</h3><ul data-role="listview"><li><a href="#" onclick="doupdatelankat2(adlan,\'1000\');" data-rel="close">Alla fordon</a></li></ul></div>');
+	// // $("#pnlkats").collapsible("create");
+	// // $( "#pnlkats" ).collapsibleset( "option", "enhanced", true );
+	// // $("pnlkats").append('<div data-role="collapsible"><h3>Hem och hushåll2</h3><ul data-role="listview"><li><a href="#" onclick="doupdatelankat2(adlan,\'1000\');" data-rel="close">Alla fordon</a></li></ul></div>').collapsibleset( "refresh" );
+	// $("#divkategorier").empty();
+	
+	
+	// $("#divkategorier").html('<div id="kat1" onclick="showhide(\'#kat1data\');"><b>Open fordon</b></div><div id="kat1data"><ul data-role="listview" id="allafordon234" class="allafordon9877"><li><a href="#" onclick="doupdatelankat2(adlan,\'1000\');" data-rel="close">Alla fordon234</a></li></ul></div>').trigger("create");
+	//setTimeout( function(){ $(".allafordon9877").listview("refresh"); },400);
+
+}
+
 
 
 function dwgalert(dwgAlertMsg){
@@ -510,7 +681,7 @@ function viewAds2(dwgaddurl,dwgpage){
 			}
 
 		}
-		//timeout:7000  // <-- Detta blev aldrig bra.. Blev alltid bara att det hängde och timeout slog aldrig till.
+		// timeout:7000  // <-- Detta blev aldrig bra.. Blev alltid bara att det hängde och timeout slog aldrig till.
 	});
 }
 
@@ -614,6 +785,29 @@ function viewIdAjax(id){
 	
 	// Här bet den försent...
 	// 2014-05-06: $.mobile.silentScroll(currentscrollpos)
+}
+
+function showhidekat(thisitem){
+		//#kat1data
+		// Dölja alla andra när man togglar sin kategori
+		for(i=1;i<7;i++){
+			var hidethis="#kat"+i+"data";
+			if(i!=thisitem){$(hidethis).hide(100);}
+		}	
+		// $(thisthing).toggle(300,"swing");
+		var thisthing="#kat"+thisitem+"data";
+		$(thisthing).toggle(100);
+		
+		setTimeout(function () { 
+			$('#panelkategorierwrapper').iscrollview("resizeWrapper");
+			$('#panelkategorierwrapper').iscrollview("refresh");
+		},300);
+
+}
+
+function showhide(thisthing){
+		// $(thisthing).toggle(300,"swing");
+		$(thisthing).toggle(100);
 }
 function showhideShareOnSocial(){
 	$("#scamreportdiv").hide(100);
@@ -757,6 +951,27 @@ function shareEmail(subject, body){
 function shareGooglePlus(url, text){
 	openExtLink("https://plus.google.com/share?url=" + url + "&text=" + text);
 }
+
+// *************************  SMSa ett nummer:
+function smsSomeoneDWg(number,msg){
+	if( /iPad|iPod/i.test(navigator.userAgent) ) {   // NEJ! JAG KAN INTE DÖMA UT iPad då DE KAN ha telefoner i sig!!!!! :(
+		if(showonceiPodSimCardMessage==false){
+			dwgalert(smssomeonedwg_ipad_warning); //"Notera att det endast går att ringa med din iPad/iPod om den har levererats med ett SIM-kort.");
+			showonceiPodSimCardMessage=true;
+		}
+	}
+	if(navigator.userAgent.toLowerCase().match(/android|iemobile/i)) {
+		document.location.href = 'sms:'+number+'?body='+msg;
+	// } else if(navigator.userAgent.toLowerCase().match(/iphone/i) || navigator.userAgent.toLowerCase().match(/ipad/i)) {
+		// document.location.href = 'sms:'+number+'&body='+msg;
+	// } else {
+		// dwgalert($.t("home.msg_call_adverter_on", {number: number} )); //"SMSa annonsören på tel: "+number+".");
+	// }
+	} else {
+		document.location.href = 'sms:'+number+'&body='+msg;
+	}
+}
+
 
 
 
@@ -933,6 +1148,9 @@ function doupdatelankat2(lan,kat){
 		}
 		adlan=lan;
 	}
+	$("#panelplatser").panel("close");  // eftersom data-rel="close" inte fungerar i dynamiskt tillagda il-records. Men det är helt ok. en petitess. 
+	$("#panelkategorier").panel("close");// eftersom data-rel="close" inte fungerar i dynamiskt tillagda il-records. Men det är helt ok. en petitess. 
+
 	if(kat){adkat=kat;}
 	addurl='&lan=' + adlan+'&kat=' + adkat;
 	// alert(addurl);
@@ -950,6 +1168,7 @@ function doshowhideclosed(){
 		addurl='&lan=' + adlan+'&kat=' + adkat;
 		// alert("adhideclosed:"+adhideclosed+" val:"+$("#showclosedadsselectswitch").val());
 		setTimeout(function () { viewAds2(addurl); },300); // Så att animationen av flipswitchen inte hackar.
+		setTimeout(function () { $("#panelkategorier").panel("close"); },1000);
 	}
 }
 function closingview(){
@@ -1073,44 +1292,44 @@ function skickamail(){
 
 
 
+// REPLACED WITH getPanelPlatser()
+// function loadPanelPlatser(){  // Denna måste köras i pagebeforecreate. Då fungerar iscrollview med panelen. Men det går INTE att fixa dynamiskt senare. Tro mig!
+	// // var platsernashtml="<div data-iscroll=\"\" id=\"dynamicpanelplatser\"><p><a href=\"#\" onclick=\"doupdatelankat2('0',adkat);\" data-rel=\"close\" data-role=\"button\">All of U.K. 33</a> </p><p><a href=\"#\" onclick=\"doupdatelankat2('latlong',adkat);\" data-rel=\"close\" data-role=\"button\" data-icon=\"navigation\" data-iconpos=\"left\">Near me</a></p><p><ul data-role=\"listview\" data-inset=\"true\"><li><a href=\"#\" onclick=\"doupdatelankat2(7,adkat);\" data-rel=\"close\">Near London</a></li><li><a href=\"#\" onclick=\"doupdatelankat2(5,adkat);\" data-rel=\"close\">Near Birmingham</a></li><li><a href=\"#\" onclick=\"doupdatelankat2(3,adkat);\" data-rel=\"close\">Near Leeds</a></li></ul></p><p><ul data-role=\"listview\" data-inset=\"true\">";
+	// // "<li><a href=\"#\" onclick=\"doupdatelankat2(4,adkat);\" data-rel=\"close\">East Midlands</a></li><li><a href=\"#\" onclick=\"doupdatelankat2(6,adkat);\" data-rel=\"close\">East of England</a></li><li><a href=\"#\" onclick=\"doupdatelankat2(7,adkat);\" data-rel=\"close\">London</a></li><li><a href=\"#\" onclick=\"doupdatelankat2(1,adkat);\" data-rel=\"close\">North East</a></li><li><a href=\"#\" onclick=\"doupdatelankat2(2,adkat);\" data-rel=\"close\">North West</a></li><li><a href=\"#\" onclick=\"doupdatelankat2(12,adkat);\" data-rel=\"close\">Northern Ireland</a></li><li><a href=\"#\" onclick=\"doupdatelankat2(11,adkat);\" data-rel=\"close\">Scotland</a></li><li><a href=\"#\" onclick=\"doupdatelankat2(8,adkat);\" data-rel=\"close\">South East</a></li><li><a href=\"#\" onclick=\"doupdatelankat2(9,adkat);\" data-rel=\"close\">South West</a></li><li><a href=\"#\" onclick=\"doupdatelankat2(10,adkat);\" data-rel=\"close\">Wales</a></li><li><a href=\"#\" onclick=\"doupdatelankat2(5,adkat);\" data-rel=\"close\">West Midlands3</a></li><li><a href=\"#\" onclick=\"doupdatelankat2(3,adkat);\" data-rel=\"close\">Yorkshire and The Humber3</a></li></ul></p><p><br><br></p>";
 
-function loadPanelPlatser(){  // Denna måste köras i pagebeforecreate. Då fungerar iscrollview med panelen. Men det går INTE att fixa dynamiskt senare. Tro mig!
-	// var platsernashtml="<div data-iscroll=\"\" id=\"dynamicpanelplatser\"><p><a href=\"#\" onclick=\"doupdatelankat2('0',adkat);\" data-rel=\"close\" data-role=\"button\">All of U.K. 33</a> </p><p><a href=\"#\" onclick=\"doupdatelankat2('latlong',adkat);\" data-rel=\"close\" data-role=\"button\" data-icon=\"navigation\" data-iconpos=\"left\">Near me</a></p><p><ul data-role=\"listview\" data-inset=\"true\"><li><a href=\"#\" onclick=\"doupdatelankat2(7,adkat);\" data-rel=\"close\">Near London</a></li><li><a href=\"#\" onclick=\"doupdatelankat2(5,adkat);\" data-rel=\"close\">Near Birmingham</a></li><li><a href=\"#\" onclick=\"doupdatelankat2(3,adkat);\" data-rel=\"close\">Near Leeds</a></li></ul></p><p><ul data-role=\"listview\" data-inset=\"true\">";
-	// "<li><a href=\"#\" onclick=\"doupdatelankat2(4,adkat);\" data-rel=\"close\">East Midlands</a></li><li><a href=\"#\" onclick=\"doupdatelankat2(6,adkat);\" data-rel=\"close\">East of England</a></li><li><a href=\"#\" onclick=\"doupdatelankat2(7,adkat);\" data-rel=\"close\">London</a></li><li><a href=\"#\" onclick=\"doupdatelankat2(1,adkat);\" data-rel=\"close\">North East</a></li><li><a href=\"#\" onclick=\"doupdatelankat2(2,adkat);\" data-rel=\"close\">North West</a></li><li><a href=\"#\" onclick=\"doupdatelankat2(12,adkat);\" data-rel=\"close\">Northern Ireland</a></li><li><a href=\"#\" onclick=\"doupdatelankat2(11,adkat);\" data-rel=\"close\">Scotland</a></li><li><a href=\"#\" onclick=\"doupdatelankat2(8,adkat);\" data-rel=\"close\">South East</a></li><li><a href=\"#\" onclick=\"doupdatelankat2(9,adkat);\" data-rel=\"close\">South West</a></li><li><a href=\"#\" onclick=\"doupdatelankat2(10,adkat);\" data-rel=\"close\">Wales</a></li><li><a href=\"#\" onclick=\"doupdatelankat2(5,adkat);\" data-rel=\"close\">West Midlands3</a></li><li><a href=\"#\" onclick=\"doupdatelankat2(3,adkat);\" data-rel=\"close\">Yorkshire and The Humber3</a></li></ul></p><p><br><br></p>";
-
-	var nocachex=dwgguid();
-	return $.ajax({  // by adding "return" we must wait for ajax to end. Detta behövdes här för att panelen skulle byggas i pagebeforecreate 
-		type: "GET",
-		dataType: "text",	// Kan också vara "text" och parsea i success istället om man vill. Men lyckas det inte är det nog för att man får [{}] istället för {} från PHP pga pushdata() till array.
-		//url: "<?=L::app_weburl;?>/include/ajaxpostnr.php?postnr=" + postnr,  <-- NEJ DETTA SKAPAR CROSS SITE SCRIPTING PROBLEMS I RÄTT KONFADE BROWSERS! 
-		url: weburl+"/include/get_kommun_ajax.php?nocachex="+nocachex,
-		success: function (data) {
-			panelPlatserHtml="<div data-iscroll=\"\" id=\"dynamicpanelplatser\"><p><a href=\"#\" onclick=\"doupdatelankat2('0',adkat);\" data-rel=\"close\" data-role=\"button\">All of U.K. 44</a> </p><p><a href=\"#\" onclick=\"doupdatelankat2('latlong',adkat);\" data-rel=\"close\" data-role=\"button\" data-icon=\"navigation\" data-iconpos=\"left\">Near me</a></p><p><ul data-role=\"listview\" data-inset=\"true\"><li><a href=\"#\" onclick=\"doupdatelankat2(7,adkat);\" data-rel=\"close\">Near London</a></li><li><a href=\"#\" onclick=\"doupdatelankat2(5,adkat);\" data-rel=\"close\">Near Birmingham</a></li><li><a href=\"#\" onclick=\"doupdatelankat2(3,adkat);\" data-rel=\"close\">Near Leeds</a></li></ul></p><p><ul data-role=\"listview\" data-inset=\"true\">";
+	// var nocachex=dwgguid();
+	// return $.ajax({  // by adding "return" we must wait for ajax to end. Detta behövdes här för att panelen skulle byggas i pagebeforecreate 
+		// type: "GET",
+		// dataType: "text",	// Kan också vara "text" och parsea i success istället om man vill. Men lyckas det inte är det nog för att man får [{}] istället för {} från PHP pga pushdata() till array.
+		// //url: "<?=L::app_weburl;?>/include/ajaxpostnr.php?postnr=" + postnr,  <-- NEJ DETTA SKAPAR CROSS SITE SCRIPTING PROBLEMS I RÄTT KONFADE BROWSERS! 
+		// url: weburl+"/include/get_kommun_ajax.php?nocachex="+nocachex,
+		// success: function (data) {
+			// panelPlatserHtml="<div data-iscroll=\"\" id=\"dynamicpanelplatser\"><p><a href=\"#\" onclick=\"doupdatelankat2('0',adkat);\" data-rel=\"close\" data-role=\"button\">All of U.K. 44</a> </p><p><a href=\"#\" onclick=\"doupdatelankat2('latlong',adkat);\" data-rel=\"close\" data-role=\"button\" data-icon=\"navigation\" data-iconpos=\"left\">Near me</a></p><p><ul data-role=\"listview\" data-inset=\"true\"><li><a href=\"#\" onclick=\"doupdatelankat2(7,adkat);\" data-rel=\"close\">Near London</a></li><li><a href=\"#\" onclick=\"doupdatelankat2(5,adkat);\" data-rel=\"close\">Near Birmingham</a></li><li><a href=\"#\" onclick=\"doupdatelankat2(3,adkat);\" data-rel=\"close\">Near Leeds</a></li></ul></p><p><ul data-role=\"listview\" data-inset=\"true\">";
 			
-			var lanen=data.split('|');
-			for (i=1; i<lanen.length; i++) {
-				var id_lan=lanen[i].split(';'); // We send values as |23;Goteborg|24;Stockholm|...etc
-				panelPlatserHtml = panelPlatserHtml+"<li><a href=\"#\" onclick=\"doupdatelankat2("+id_lan[0]+",adkat);\" data-rel=\"close\">"+id_lan[1]+"4</a></li>";
-			}
+			// var lanen=data.split('|');
+			// for (i=1; i<lanen.length; i++) {
+				// var id_lan=lanen[i].split(';'); // We send values as |23;Goteborg|24;Stockholm|...etc
+				// panelPlatserHtml = panelPlatserHtml+"<li><a href=\"#\" onclick=\"doupdatelankat2("+id_lan[0]+",adkat);\" data-rel=\"close\">"+id_lan[1]+"4</a></li>";
+			// }
 			
-			panelPlatserHtml = panelPlatserHtml+"</ul></p><p><br><br></p></div>";
-		}, // --end success
-		error: function (jqXHR, textStatus, errorThrown) {
-		} // --end error
-	});
-}
-function generatePanelPlatser(){  // Denna måste köras i pagebeforecreate. Då fungerar iscrollview med panelen. Men det går INTE att fixa dynamiskt senare. Tro mig!
+			// panelPlatserHtml = panelPlatserHtml+"</ul></p><p><br><br></p></div>";
+		// }, // --end success
+		// error: function (jqXHR, textStatus, errorThrown) {
+		// } // --end error
+	// });
+// }
+// function generatePanelPlatser(){  // Denna måste köras i pagebeforecreate. Då fungerar iscrollview med panelen. Men det går INTE att fixa dynamiskt senare. Tro mig!
 			
-	$("#panelplatserwrapper").empty().append(panelPlatserHtml).trigger("create");
-	// $(document).trigger("updateLayout");
-	// $(document).trigger("refresh");
-	//$("#dynamicpanelplatser").iscrollview("resizeWrapper").trigger("create");
-	setTimeout( function(){ $("#dynamicpanelplatser").iscrollview("resizeWrapper").trigger("create");}, 300);
-	
-	// $("#panelplatserwrapper").html(platsernashtml).trigger("create").iscrollview("resizeWrapper"); // Detta fungerar men den blir stel och ger ej att scrolla så vi behöver:
-	// $("#panelplatserwrapper").empty().append(platsernashtml).trigger("create").trigger("updateLayout");
+	// $("#panelplatserwrapper").empty().append(panelPlatserHtml).trigger("create");
+	// // $(document).trigger("updateLayout");
+	// // $(document).trigger("refresh");
+	// //$("#dynamicpanelplatser").iscrollview("resizeWrapper").trigger("create");
 	// setTimeout( function(){ $("#dynamicpanelplatser").iscrollview("resizeWrapper").trigger("create");}, 300);
-}
+	
+	// // $("#panelplatserwrapper").html(platsernashtml).trigger("create").iscrollview("resizeWrapper"); // Detta fungerar men den blir stel och ger ej att scrolla så vi behöver:
+	// // $("#panelplatserwrapper").empty().append(platsernashtml).trigger("create").trigger("updateLayout");
+	// // setTimeout( function(){ $("#dynamicpanelplatser").iscrollview("resizeWrapper").trigger("create");}, 300);
+// }
 
 
 
@@ -1138,6 +1357,7 @@ $(document).on("pagecreate", function() {
 		$('head').append('<meta name="viewport" content="width=300,initial-scale=1.1,maximum-scale=1.1,user-scalable=no">');
 		$(document).trigger( "updatelayout" );
 	}
+	
 });
 
 
@@ -1158,6 +1378,9 @@ $(document).on("pagecreate", function() {
 
 $(document).on("pagebeforecreate", function () {
 	// loadEntireHome();
+	
+	// $('.navpakartabtn').remove();
+
 	
 // $(document).on("pagecontainerbeforetransition", function () {  // https://jqmtricks.wordpress.com/2014/03/26/jquery-mobile-page-events/
 // $(document).on("mobileinit", function () {  http://www.gajotres.net/page-events-order-in-jquery-mobile-version-1-4-update/
@@ -1191,6 +1414,7 @@ $(document).on("pagebeforecreate", function () {
 			weburl=$.t("app.weburl");  // Vi laddar den här också eftersom obfuscate kanske döper om variabeln och den som görs i index head blir pointless. (Men det har vi nu bekräftat den inte gör. Lugnt oavsett)
             $("html").i18n();  // <--- Jättesnyggt men för långsamt. Det blinkar till innan man ser nya språket. INTE LÄNGRE! LÖSNING: i18n.init i en mobileinit mellan script blocken jQuery och JQM i index.html
 
+			
 // Skapa panelen platser från dynamiskt data från servern. (Alla län) Denna MÅSTE köras från pagebeforecreate, annars fungerar inte iscrollview i panelen. (iscrollview klarar inte paneler dynaiskt)
 //$.when( generatePanelPlatser() ).done(); // Vänta in...
 
@@ -1210,6 +1434,27 @@ $(document).on("pagebeforecreate", function () {
 		// Nedan slår direkt, det betyder att i18next är för långsam:
 		// $(".dwgnavbarbtn").html("test");
 		// $('[data-role="navbar"]').navbar();
+		
+		// Vi försökte köra detta i en ".on("iscroll_init", function()" men då hade inte i18n laddat ännu. Men att köra detta här i verkade fungera finfint!  =)
+		$.mobile.iscrollview.prototype.options.pullDownResetText = $.t("home.pulldownresettext"); 		// "Dra ner för att uppdatera..."
+		$.mobile.iscrollview.prototype.options.pullDownPulledText = $.t("home.pulldownpulledtext");				// "Släpp för att uppdatera..."
+		$.mobile.iscrollview.prototype.options.pullDownLoadingText = $.t("home.pulldownloadingtext");	// "Uppdaterar..."
+		$.mobile.iscrollview.prototype.options.pullUpResetText = $.t("home.pullupresettext");					// " "
+		$.mobile.iscrollview.prototype.options.pullUpPulledText = $.t("home.pulluppulledtext");		// "Släpp så skall jag leta fler..."
+		$.mobile.iscrollview.prototype.options.pullUpLoadingText = $.t("home.pulluploadingtext");				// "Letar..."
+
+		
+		selectnowlan=$.t("profile.lan"); // 'Välj län...';
+		selectnowkommun=$.t("profile.nowkommun"); // 'Välj nu kommun...';
+		selectnowort=$.t("profile.nowort"); // 'Välj nu ort...';
+		selectfirstlan=$.t("profile.kommun"); // 'Välj först län...';
+		selectfirstkommun=$.t("profile.ort"); // 'Välj först kommun...';
+		isthisaddressincorrect='(Är detta fel?)';
+		pleaseverifypostnrformat=$.t("profile.pleaseverifypostal"); // 'Vänligen kontrollera postnummer.'
+		
+		smssomeonedwg_ipad_warning = $.t("home.msg_ipad_pod_might_not_have_sim");
+
+		
     }
 });
 
@@ -1221,12 +1466,53 @@ $(document).bind("mobileinit", function(){
 	// $.mobile.transitionFallbacks.slideout = "none";
 		
 	// http://www.gajotres.net/page-events-order-in-jquery-mobile-version-1-4-update/
-	loadPanelPlatser();
+	// loadPanelPlatser();	
+
 
 }); 
+
+// // $(document).on("iscrollview_init", function() {
+// $(document).on("iscroll_init", function() {
+	// // $.mobile.iscrollview.prototype.options.refreshDelay = 100;
+	// // $("#iscrollwrapper").iscrollview("option", "pullDownResetText", "So nice downa...");
+	// // $("#iscrollwrapper").iscrollview("option", "pullDownPulledText", "Yeahh...");
+	// // $("#iscrollwrapper").iscrollview("option", "pullDownLoadingText", "Oaahh...");
+	// // $("#iscrollwrapper").iscrollview("option", "pullUpResetText", "Oaeeeahh...");
+	// // $("#iscrollwrapper").iscrollview("option", "pullUpPulledText", "Oauuuahh...");
+	// // $("#iscrollwrapper").iscrollview("option", "pullUpLoadingText", "Oaooiodahh...");
+	
+	// // $.mobile.iscrollview("option", "pullDownResetText", "So nice downa...");
+	// // $.mobile.iscrollview("option", "pullDownPulledText", "Yeahh...");
+	// // $.mobile.iscrollview("option", "pullDownLoadingText", "Oaahh...");
+	// // $.mobile.iscrollview("option", "pullUpResetText", "Oaeeeahh...");
+	// // $.mobile.iscrollview("option", "pullUpPulledText", "Oauuuahh...");
+	// // $.mobile.iscrollview("option", "pullUpLoadingText", "Oaooiodahh...");
+	// $.mobile.iscrollview.prototype.options.pullDownResetText = $.t("home.pulldownresettext"); 		// "Dra ner för att uppdatera..."
+	// $.mobile.iscrollview.prototype.options.pullDownPulledText = $.t("home.pulldownpulledtext");				// "Släpp för att uppdatera..."
+	// $.mobile.iscrollview.prototype.options.pullDownLoadingText = $.t("home.pulldownloadingtext");	// "Uppdaterar..."
+	// $.mobile.iscrollview.prototype.options.pullUpResetText = $.t("home.pullupresettext");					// " "
+	// $.mobile.iscrollview.prototype.options.pullUpPulledText = $.t("home.pulluppulledtext");		// "Släpp så skall jag leta fler..."
+	// $.mobile.iscrollview.prototype.options.pullUpLoadingText = $.t("home.pulluploadingtext");				// "Letar..."
+// });
+
+
 $(document).on('pageshow', '#home', function (event) {
 	lastPageClicked='home';
 	pushurlhist();
+	
+	getPanelPlatser();
+	getPanelKategorier();
+	
+	// $("#iscrollwrapper").iscrollview("option", "pullDownResetText", "So nice downa...");
+	// $("#iscrollwrapper").iscrollview("option", "pullDownPulledText", "Yeahh...");
+	// $("#iscrollwrapper").iscrollview("option", "pullDownLoadingText", "Oaahh...");
+	// $("#iscrollwrapper").iscrollview("option", "pullUpResetText", "Oaeeeahh...");
+	// $("#iscrollwrapper").iscrollview("option", "pullUpPulledText", "Oauuuahh...");
+	// $("#iscrollwrapper").iscrollview("option", "pullUpLoadingText", "Oaooiodahh...");
+
+
+
+	
 	
 	// Skapa panelen platser från dynamiskt data från servern. (Alla län) Denna MÅSTE köras från pagebeforecreate, annars fungerar inte iscrollview i panelen. (iscrollview klarar inte paneler dynaiskt)
 	// generatePanelPlatser();
@@ -1400,13 +1686,13 @@ $(document).ready(function () {   // <--- Denna sker bara en gång <) pageshow-s
 		setTimeout( function () { onetimeconverttowebdata(); }, 3000);  // ONCE WE UPGRADE THEN DELETE LOCAL STORAGE VALUE usernamn
 	}
 	loaduserwebdata();  // Vi hämtar från webben direkt (och försöker var 3e sek x 3 om error)
-	setTimeout(function () { viewAds2(''); },700); 
+	setTimeout(function () { viewAds2(''); },1700); 
 	
 	// LOADUSERDATA laddar det lokala data som behövs för att hämta webuserdata (email+deviceuuid)
 	setTimeout(function () { loaduserdata(); },500); // För att ge mer responskänsla i navbar
 	
 	// GETCONFIG hämtar maxlat, minpostnr, visaort etc från GLOBAL CONFIG
-	setTimeout(function () { getconfig(); },1000); // För att ge mer responskänsla i navbar
+	setTimeout(function () { getconfig(); },50); // För att ge mer responskänsla i navbar
 	setTimeout(function () { getKategorier(); },1300); // Hämta alla kategorier som skall visas i Lägg till selecten endast en gång vid uppstart. Då den är statisk. För att ge mer responskänsla i navbar
 	
 				
@@ -1476,11 +1762,12 @@ function onDeviceReady() {
 				// 'Device Version: '  + device.version  + '<br />';
 	devinfo= ' ('  + device.cordova + ')<br />' + 
 				'OS: ' + device.platform + ' ' + device.version  + '<br />' +
-				'Telefon: '    + device.model     + '<br />' + 
+				'Telephone: '    + device.model     + '<br />' + 
 				'UUID: '     + device.uuid     + '<br />';
 	// Dessa kan först börja lyssnas här enligt: http://docs.phonegap.com/en/3.4.0/cordova_events_events.md.html#menubutton
 	
-	aboutus=aboutus+'<p style="color: silver !important; font-size:10px !important;">App version: '+appver+' '+devinfo+'</p>';
+	aboutus_appver='<p style="color: silver !important; font-size:10px !important;">App version: '+appver+' '+devinfo+'</p>';
+
 	
 	document.addEventListener("pause", onPause, false);
 	document.addEventListener("resume", onResume, false);

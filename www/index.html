@@ -231,6 +231,10 @@
 			border-bottom: 0px;
 			text-shadow: 0px -2px #2980B9;
 			color: 					#cce /*{a-bup-color}*/;
+			/* box-shadow: 0 0 8px #00F; */ // glow
+			-webkit-box-shadow: 0px 0px 3px #00F;
+			-moz-box-shadow: 0px 0px 3px #00F;
+			box-shadow: 0px 0px 3px #00F;
 		}
 		
 		/* GRAY BUTTON */
@@ -272,14 +276,14 @@
 			margin:5px 5px 5px 5px !important;
 			text-decoration: none !important;
 		}
-		.adviewtitle2 a :active {
+		.adviewtitle2 a:active {
 			color: red !important; 
 			text-decoration: underline !important;
 		}
 		
 		/* Detta är navbar on click */
 		.ui-bar-a a:active {
-			color: silver !important; 
+			color: white !imortant; /* #3498DB !important; */ /* silver !important; */
 		}
 		/* Denna slår bara på speciella länkar */
 		.ui-body-a a:active {
@@ -624,7 +628,17 @@
 	  border-color: #dca7a7; */
 	  color: #883333 !important;
 	}
-
+	.huvudkategoribtn{
+		padding: 15px;
+		font-size: 18px;
+		color: white;
+		background-color: #97a99d;
+		margin-top: 1px;
+	}
+	.huvudkategoribtnclicked{
+		color: white;
+		background-color: #3498DB;
+	}
 		
 	</style>
 
@@ -711,24 +725,24 @@
 			</div>
 			
 			<!-- "A panel must be a sibling to the header,content and footer INSIDE the page element: https://api.jquerymobile.com/panel/#entry-examples -->
-			<div data-role="panel" id="panelplatser" data-iscroll-fixed="" data-position-fixed="true" transition="slide" data-swipe-close="true" data-position="left" data-display="overlay" style="background-color: rgba(255,255,255,0.9);">
-				<div id="panelplatserwrapper" data-i18n="[html]home.panelplatser" data-iscroll="" style="padding: 0px !important;">
+			<div data-role="panel" id="panelplatser" data-iscroll-fixed="" data-position-fixed="true" transition="slide" data-swipe-close="true" data-position="left" data-display="overlay" data-theme="a" style="background-color: rgba(255,255,255,0.9);">
+				<div id="panelplatserwrapper" data-iscroll="" style="padding: 0px 0px 80px 0px !important;">
 					<p>
 						<!-- <a href="#" onclick="doupdatelankat2('latlong',adkat);" data-rel="close" data-role="button" data-icon="navigation" data-iconpos="notext" data-inline="true">NäraMig</a>  -->
-						<a href="#" onclick="doupdatelankat2('0',adkat);" data-rel="close" data-role="button">Hela Sverige</a> 
+						<a href="#" onclick="doupdatelankat2('0',adkat);" data-rel="close" data-role="button" data-corners="false" data-i18n="home.pnlplc_allcountry">Hela Sverige</a> 
 					</p>
 					<p>
-						<a href="#" onclick="doupdatelankat2('latlong',adkat);" data-rel="close" data-role="button" data-icon="navigation" data-iconpos="left">Närmast mig</a>
+						<a href="#" onclick="doupdatelankat2('latlong',adkat);" data-rel="close" data-role="button" data-icon="navigation" data-iconpos="left" data-corners="false" data-i18n="home.pnlplc_nearme">Närmast mig</a>
 					</p>
 					<p>
-						<ul data-role="listview" data-inset="true">
+						<ul data-role="listview" data-inset="true" data-corners="false" id="popularalan">
 							<li><a href="#" onclick="doupdatelankat2(10,adkat);" data-rel="close">Nära Stockholm</a></li>
 							<li><a href="#" onclick="doupdatelankat2(15,adkat);" data-rel="close">Nära Göteborg</a></li>
 							<li><a href="#" onclick="doupdatelankat2(21,adkat);" data-rel="close">Nära Malmö</a></li>
 						</ul>
 					</p>
 					<p>
-						<ul data-role="listview" data-inset="true">
+						<ul data-role="listview" data-inset="true" data-corners="false" id="allalan">
 							<li><a href="#" onclick="doupdatelankat2(20,adkat);" data-rel="close">Blekinge län</a></li>
 							<li><a href="#" onclick="doupdatelankat2(6,adkat);" data-rel="close">Dalarnas län</a></li>
 							<li><a href="#" onclick="doupdatelankat2(5,adkat);" data-rel="close">Gävleborgs län</a></li>
@@ -755,12 +769,19 @@
 				</div>	
 			</div>
 			
-			<div data-role="panel" id="panelkategorier" data-iscroll-fixed="" data-position-fixed="true" transition="slide" data-swipe-close="true" data-position="right" data-display="overlay" data-theme="a" style="background-color: rgba(255,255,255,0.9);">
+			<div data-role="panel" id="panelkategorier" data-iscroll-fixed="" data-position-fixed="true" transition="slide" data-swipe-close="true" data-position="right" data-display="overlay" data-theme="a" style="background-color: rgba(222,222,222,0.9);">
 				<!-- <div data-role="content"> NOPE Didn't work --> 	
-				<div id="panelkategorierwrapper" data-iscroll="" data-i18n="[html]home.panelkategorier">
-					<a href="#" onclick="doupdatelankat2(adlan,'0');" data-rel="close" data-inset="true"  class="ui-btn ui-icon-bullets ui-btn-icon-left">Alla kategorier</a>
-					<div data-role="collapsibleset" data-collapsed-icon="carat-r" data-expanded-icon="carat-d" data-inset="true" >
-						<div data-role="collapsible">
+				<div id="panelkategorierwrapper" data-iscroll="">
+				
+					<a href="#" onclick="doupdatelankat2(adlan,'0');" data-rel="close" data-inset="true" data-corners="false" class="ui-btn ui-icon-bullets ui-btn-icon-left" data-i18n="home.pnlkat_allcat">Alla kategorier</a>
+					
+					<div id="divkategorier">
+					
+					</div>
+					
+					<!--
+					<div data-role="collapsibleset" data-collapsed-icon="carat-r" data-expanded-icon="carat-d" data-inset="true" data-corners="false" data-theme="a" data-content-theme="a" id="pnlkats">
+						<div data-role="collapsible" id="pnlkat1">
 							<h3 id="katsfordon">Fordon</h3>
 							<ul data-role="listview">
 								<li><a href="#" onclick="doupdatelankat2(adlan,'1000');" data-rel="close">Alla fordon</a></li>
@@ -771,7 +792,7 @@
 								<li><a href="#" onclick="doupdatelankat2(adlan,'1900');" data-rel="close">Övrigt / Blandat</a></li>
 							</ul>
 						</div>
-						<div data-role="collapsible">
+						<div data-role="collapsible" id="pnlkat2">
 							<h3>Elektronik</h3>
 							<ul data-role="listview">
 								<li><a href="#" onclick="doupdatelankat2(adlan,'2000');" data-rel="close">All elektronik</a></li>
@@ -839,12 +860,12 @@
 							</ul>
 						</div>
 						<br><br>
-					</div><!-- /collapsible set -->
-					<div style="text-align: center; background-color: #4CA5FF; color: #eee; padding: 5px;">
-						<label for="showclosedadsselectswitch" style="margin-bottom: -7px !important;"><b><i>Visa dolda annonser:</i></b></label>
+					</div>  --> <!-- /collapsible set -->
+					<div style="text-align: center; background-color: #4CA5FF; color: #eee; padding: 5px; margin: 30px 0px 30px 0px;">
+						<label for="showclosedadsselectswitch" style="margin-bottom: -7px !important;"><b><i data-i18n="home.pnlkat_showhiddenads">Visa dolda annonser:</i></b></label>
 						<select id="showclosedadsselectswitch" data-role="flipswitch" name="showclosedadsselectswitch"  onchange="doshowhideclosed();">
-							<option value="off">Av</option>
-							<option value="on">På</option>
+							<option value="off" data-i18n="home.pnlkat_showhiddenads-off">Av</option>
+							<option value="on" data-i18n="home.pnlkat_showhiddenads-on">På</option>
 						</select>
 					</div>
 					
@@ -861,14 +882,15 @@
 			<!-- /header -->		
 
 			<div id="homeadlist" class="ui-content_nothx_as_i_get_unwanted_padding">
-				<div id="iscrollwrapper" data-iscroll='{"pullDownResetText":"Dra ner för att uppdatera...","pullDownPulledText":"Släpp för att uppdatera...","pullDownLoadingText":"Uppdaterar...","pullUpResetText":" ","pullUpPulledText":"Släpp så skall jag leta fler...","pullUpLoadingText":"Letar..."}'>
+				<!-- <div id="iscrollwrapper" data-iscroll='{"pullDownResetText":"Dra ner för att uppdatera...","pullDownPulledText":"Släpp för att uppdatera...","pullDownLoadingText":"Uppdaterar...","pullUpResetText":" ","pullUpPulledText":"Släpp så skall jag leta fler...","pullUpLoadingText":"Letar..."}'> -->
+				<div id="iscrollwrapper" data-iscroll="">
 				<!-- <div id="iscrollwrapper"> -->
 					<div class="iscroll-pulldown" style="color: silver !important; padding: 15px !important; border: 1px solid silver; width: 85% !important; text-align: center; margin: auto !important; -moz-border-radius: 10px; border-radius: 10px;">
 						<span class="iscroll-pull-icon"></span>
 						<span class="iscroll-pull-label"></span>
 					</div>
 					<div id="annonser">
-						<h3 style="color: silver !important; margin:15px 5px 5px 5px !important;">Laddar annonser...</h3>
+						<h3 style="color: silver !important; margin:15px 5px 5px 5px !important;" data-i18n="home.loadingads"> </h3>
 					</div><!-- /annonser -->
 					<div class="iscroll-pullup" style="color: gray !important; width: 100%; height: 30px; text-align: center;">
 						<span class="iscroll-pull-icon"></span>
@@ -877,16 +899,16 @@
 				</div><!-- iscroll wrapper -->
 			</div><!-- /content -->
 			
-			<div data-role="footer" data-id="footerbtns" data-position="fixed" data-theme="a" class="dwgfooter" id="annonserfooter">
+			<div data-role="footer" data-id="footerbtns" data-position="fixed" data-theme="a" class="dwgfooter" id="dwgfoothome">
 				<div data-role="navbar" class="dwgnavbar">
 					<ul class="dwgnavbarul">
 						<!-- <li><a href="#laggtill" data-transition="slide" data-direction="reverse"  data-icon="edit" class="dwgnavbarbtn">Lägg till</a></li> To have transition of these -->
-						<!-- <li><a href="#laggtill" data-icon="edit" class="dwgnavbarbtn" data-i18n="[html]navbar.add">Lägg till</a></li> -->
-						<li><a href="#laggtill" data-icon="edit" class="dwgnavbarbtn" data-i18n="[html]navbar.add">Lägg till</a></li>
+						<!-- <li><a href="#laggtill" data-icon="edit" class="dwgnavbarbtn" data-i18n="navbar.add">Lägg till</a></li> -->
+						<li><a href="#laggtill" data-icon="camera" class="dwgnavbarbtn" data-i18n="navbar.add"> </a></li>
 						<!-- <li><a href="#home" data-icon="search" class="dwgnavbarbtnclick ui-btn-active ui-state-persist">Annonser</a></li> -->
-						<li><a href="#home" data-icon="search" class="dwgnavbarbtn ui-btn-active ui-state-persist"  data-i18n="[html]navbar.home">Annonser</a></li>
-						<li><a href="#naramig" id="navnaramigbtn" data-icon="location" class="dwgnavbarbtn" data-i18n="[html]navbar.map">På karta</a></li>
-						<li><a href="#mittkonto" data-icon="user" class="dwgnavbarbtn" data-i18n="[html]navbar.profile">Min profil</a></li>
+						<li><a href="#home"  style="background-color: #60915e !important; border-color: #60915e; color: #fff;text-shadow: 0;" data-icon="bullets" class="ui-btn-active ui-state-persist"  data-i18n="navbar.home"> </a></li>
+						<li><a href="#naramig" data-icon="location" class="dwgnavbarbtn" data-i18n="navbar.map"> </a></li>
+						<li><a href="#mittkonto" data-icon="user" class="dwgnavbarbtn" data-i18n="navbar.profile"> </a></li>
 					</ul>
 				</div><!-- /navbar -->
 			</div><!-- /footer -->
@@ -907,7 +929,7 @@
 <!-- page laggtill --------------------------------------------------------------------------- -->
 		<div id="laggtill" data-role="page">
 			<div data-role="header">
-				<h1 data-i18n="[html]add.1title">Ny annons</h1>
+				<h1 data-i18n="add.1title">Ny annons</h1>
 				<a href="#" id="laggtillresetbtn" onClick="laggtillBorjaOm();" class="ui-btn-left ui-btn ui-corner-all ui-btn-icon-notext ui-icon-delete"></a>
 				<!-- <a href="#" id="laggtillresetbtn" onClick="laggtillBorjaOm();" class="ui-btn-left ui-btn ui-btn-icon-notext ui-corner-all ui-shadow ui-icon-dwgtrashbin"></a> -->
 				<!-- <a href="#" id="laggtillresetbtn" onClick="laggtillBorjaOm();"><img border=0 src="img/trashbin.svg" width=32 height=32></a> -->
@@ -917,11 +939,11 @@
 				<div id="laggtilldivfirstbuttons" style="width: 100%; height: 100% !important; vertical-align: middle !mportant;">
 				<!--	<button class=" ui-btn ui-btn-a ui-shadow ui-corner-all" data-theme="a" data-form="ui-btn-up-a" onclick="getPhoto(Camera.PictureSourceType.CAMERA);">Ta nytt foto med kamera</button>
 					<button class=" ui-btn ui-btn-a ui-shadow ui-corner-all" data-theme="a" data-form="ui-btn-up-a" onclick="getPhoto(Camera.PictureSourceType.PHOTOLIBRARY);">Välj ett befintligt foto</button> -->
-					<button class=" ui-btn dwgbtnblue ui-shadow ui-corner-all ui-icon-camera ui-btn-icon-left" data-theme="a" data-form="ui-btn-up-a" onclick="getPhoto(Camera.PictureSourceType.CAMERA);" data-i18n="[html]add.1phototakenew">Ta nytt foto med kamera</button>
-					<button class=" ui-btn dwgbtnblue ui-shadow ui-corner-all ui-icon-grid ui-btn-icon-left" data-theme="a" data-form="ui-btn-up-a" onclick="getPhoto(Camera.PictureSourceType.PHOTOLIBRARY);" data-i18n="[html]add.1photoselectalbum">Välj ett befintligt foto</button>
+					<button class=" ui-btn dwgbtnblue ui-shadow ui-corner-all ui-icon-camera ui-btn-icon-left" data-theme="a" data-form="ui-btn-up-a" onclick="getPhoto(Camera.PictureSourceType.CAMERA);" data-i18n="add.1phototakenew">Ta nytt foto med kamera</button>
+					<button class=" ui-btn dwgbtnblue ui-shadow ui-corner-all ui-icon-grid ui-btn-icon-left" data-theme="a" data-form="ui-btn-up-a" onclick="getPhoto(Camera.PictureSourceType.PHOTOLIBRARY);" data-i18n="add.1photoselectalbum">Välj ett befintligt foto</button>
 					
-					<p id="laggtillfototext" style="font-style: italic !important; color: lightgray !important; margin-top: 30px !important;" data-i18n="[html]add.1poetsayingsdefault">"En annons utan foto är likt en blomma utan dess kronblad."<br>
-					<div style="width: 95% !important; text-align: right !important; font-style: italic !important; color: lightgray !important;" data-i18n="[html]add.1thepoet">-Okänd på Bortskänkes.se </div></p>
+					<p id="laggtillfototext" style="font-style: italic !important; color: lightgray !important; margin-top: 30px !important;" data-i18n="add.1poetsayingsdefault">"En annons utan foto är likt en blomma utan dess kronblad."<br>
+					<div style="width: 95% !important; text-align: right !important; font-style: italic !important; color: lightgray !important;" data-i18n="add.1thepoet">-Okänd på Bortskänkes.se </div></p>
 					<!-- En annons utan foto är som en blomma utan blad.
 						En annons utan foto är som en blomma utan blad eller doft.
 						En annons utan foto är som en vacker blomma utan vare sig blad eller doft.
@@ -1024,14 +1046,14 @@
 					</select>
 					<!-- <button onclick="laggtillUploadAnnons();" id="laggtillklarbtn" style="background-color: #4486c3 !important; color: white !important;" >Klar</button>  -->
 					<div id="laggtill_uploadstatus"></div>
-					<button onclick="laggtillUploadAnnons();" id="laggtillklarbtn" class="dwgbtnblue" data-i18n="[html]add.2donebtn">Klar</button>
+					<button onclick="laggtillUploadAnnons();" id="laggtillklarbtn" class="dwgbtnblue" data-i18n="add.2donebtn">Klar</button>
 				</div>
 				
 				
 				<div id="laggtilldivwhendone">
 					<div style="width: 100% !important; text-align: center !important;">
 						<img src="img/dwg_ok.svg" style="width: 70% !important;">
-						<p data-i18n="[html]add.3thanksfor1">Din annons är nu upplagd och synlig bland annonserna.</p>
+						<p data-i18n="add.3thanksfor1">Din annons är nu upplagd och synlig bland annonserna.</p>
 						<!-- <button onclick="laggtillBorjaOm();" id="laggtillborjaombtn" style="background-color: #60915e !important; color: white !important;" >Lägg till en ny</button> -->
 						<!-- <button onclick="laggtillBorjaOm();" id="laggtillborjaombtn" >Lägg till en ny annons</button> -->
 						<button class=" ui-btn ui-btn-a ui-shadow ui-corner-all" data-theme="a" data-form="ui-btn-up-a" onclick="laggtillBorjaOm();"  id="laggtillborjaombtn">Lägg till en ny annons</button>
@@ -1048,22 +1070,22 @@
 				
 				<div data-role="popup" id="laggtillpopupMenu" data-theme="a">
 					<ul data-role="listview" data-inset="true" style="min-width:210px;">
-						<li data-role="list-divider">Ett annat foto</li>
-						<li><a href="#" onclick="getPhoto(Camera.PictureSourceType.CAMERA);" data-rel="back">Ta ett nytt foto med kamera</a></li>
-						<li><a href="#" onclick="getPhoto(Camera.PictureSourceType.PHOTOLIBRARY);" data-rel="back" data-transition="flow">Välj ett befintligt foto</a></li>
-						<li><a href="#" data-rel="back" data-transition="flow">Avbryt</a></li>
+						<li data-role="list-divider" data-i18n="add.photochg">Ett annat foto</li>
+						<li data-icon="camera"><a href="#" onclick="getPhoto(Camera.PictureSourceType.CAMERA);" data-rel="back" data-i18n="add.photochg-btncam">Ta ett nytt foto med kamera</a></li>
+						<li data-icon="grid"><a href="#" onclick="getPhoto(Camera.PictureSourceType.PHOTOLIBRARY);" data-rel="back" data-transition="flow" data-i18n="add.photochg-btnlib">Välj ett befintligt foto</a></li>
+						<li data-icon="false" ><a href="#" data-rel="back" data-transition="flow" data-i18n="add.photochg-btncancel">Avbryt</a></li>
 					</ul>
 				</div>
 				
 			</div>
 			
-			<div data-role="footer" data-id="footerbtns" data-position="fixed" data-theme="a" class="dwgfooter">
+			<div data-role="footer" data-id="footerbtns" data-position="fixed" data-theme="a" class="dwgfooter" id="dwgfootlaggtill">
 				<div data-role="navbar" class="dwgnavbar">
 					<ul class="dwgnavbarul">
-						<li><a href="#laggtill" data-icon="edit" class="ui-btn-active ui-state-persist" data-i18n="[html]navbar.add">Lägg till</a></li>
-						<li><a href="#home" data-icon="search" class="dwgnavbarbtn" data-i18n="[html]navbar.home">Annonser</a></li>
-						<li><a href="#naramig" id="navnaramigbtn" data-icon="location" class="dwgnavbarbtn" data-i18n="[html]navbar.map">På karta</a></li>
-						<li><a href="#mittkonto" data-icon="user" class="dwgnavbarbtn" data-i18n="[html]navbar.profile">Min profil</a></li>
+						<li><a href="#laggtill"  style="background-color: #60915e !important; border-color: #60915e; color: #fff;text-shadow: 0;" data-icon="camera" class="ui-btn-active ui-state-persist" data-i18n="navbar.add"> </a></li>
+						<li><a href="#home" data-icon="bullets" class="dwgnavbarbtn" data-i18n="navbar.home"> </a></li>
+						<li><a href="#naramig" data-icon="location" class="dwgnavbarbtn" data-i18n="navbar.map"> </a></li>
+						<li><a href="#mittkonto" data-icon="user" class="dwgnavbarbtn" data-i18n="navbar.profile"> </a></li>
 					</ul>
 				</div><!-- /navbar -->
 			</div><!-- /footer -->
@@ -1084,25 +1106,25 @@
 			<div data-role="panel" id="panelrisros" data-position="right" data-display="reveal"> <!-- En liten hemlig panel som kör effekten att skjuta ut (om oss) -->
 				<!-- panel content goes here -->
 				<div data-role="content">
-					<h3 style="color: silver !important;">Ris eller ros</h3>
-					<p>Här kan du ge information kring vad du tycker om oss. Vi välkomnar både beröm, bra erfarenheter och sådant som borde förbättras eller göras på annat sätt.</p>
-					<textarea id="risrosbodytext" style="height: 150px !important;" placeholder="Formulera din kritik/beröm här..."></textarea>
-					<button onclick="skickaRisRos();" id="risrosklar" style="background-color: #60915e !important; color: white !important;" >Skicka</button>
+					<h3 style="color: silver !important;" data-i18n="profile.risrostitle">Ris eller ros</h3>
+					<p data-i18n="profile.risrosbody">Här kan du ge information kring vad du tycker om oss. Vi välkomnar både beröm, bra erfarenheter och sådant som borde förbättras eller göras på annat sätt.</p>
+					<textarea id="risrosbodytext" style="height: 150px !important;" placeholder="Formulera din kritik/beröm här..." data-i18n="[placeholder]profile.risros-placeholder"></textarea>
+					<button onclick="skickaRisRos();" id="risrosklar" style="background-color: #60915e !important; color: white !important;" data-i18n="profile.risrossend">Skicka</button>
 				</div>
 			</div><!-- /panel -->
 		
 		
 			<div data-role="popup" id="mittkontoannonsdelpopup" data-theme="a" data-overlay-theme="b" style="max-width:340px; padding:1em;">
-				<h3>Stäng annons</h3>
-				<p>Är du säker på att du vill stänga din annons?</p>
-				<a href="#" onClick="closeSelectedAnnonsID('1');" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-check ui-btn-icon-left ui-mini">Ärende lyckat! Stäng!</a>
-				<a href="#" onClick="closeSelectedAnnonsID('0');" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-check ui-btn-icon-left ui-mini">Ärende ej klart! Stäng ändå!</a>
-				<a href="#" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-mini">Avbryt</a>
+				<h3 data-i18n="profile.closeadtitle">Stäng annons</h3>
+				<p data-i18n="profile.closeadbody">Är du säker på att du vill stänga din annons?</p>
+				<a href="#" onClick="closeSelectedAnnonsID('1');" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-check ui-btn-icon-left ui-mini" data-i18n="profile.closead-btngood">Ärende lyckat! Stäng!</a>
+				<a href="#" onClick="closeSelectedAnnonsID('0');" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-icon-check ui-btn-icon-left ui-mini" data-i18n="profile.closead-btnbad">Ärende ej klart! Stäng ändå!</a>
+				<a href="#" data-rel="back" class="ui-shadow ui-btn ui-corner-all ui-btn-b ui-mini" data-i18n="profile.closead-btncancel">Avbryt</a>
 			</div>
 
 
 			<div data-role="header" class="dwgheader">
-				<h1 id="mittkontotitle" data-i18n="[html]profile.title">Min profil</h1>
+				<h1 id="mittkontotitle" data-i18n="profile.title">Min profil</h1>
 				<a href="#panelomoss" class="ui-btn-left ui-btn ui-btn-icon-notext ui-corner-all ui-shadow ui-icon-info"></a>
 				<a href="#panelrisros" class="ui-btn-right ui-btn ui-btn-icon-notext ui-corner-all ui-shadow ui-icon-comment"></a>
 			</div><!-- /header -->		
@@ -1132,9 +1154,9 @@
 						<input name="dwguseremail" id="dwguseremail" onClick="warnchangeemail()" maxlength="63" data-i18n="[placeholder]profile.email" placeholder="Din email..." value="" type="email" required>
 					</div>
 					<div id="mittkontoemailconfirmedtext" data-role="none" style="margin-top:0px !important; padding-top:0 !important; color: silver !important; font-size:12px !important;"></div>
-					<label for="dwgusermobil" style="margin-bottom: -6px !important;" data-i18n="[html]profile.lblmobile">Mobil</label>
+					<label for="dwgusermobil" style="margin-bottom: -6px !important;" data-i18n="profile.lblmobile">Mobil</label>
 					<input data-clear-btn="true" name="dwgusermobil" id="dwgusermobil" maxlength="31" data-i18n="[placeholder]profile.mobile" placeholder="Ditt mobilnummer..." value="" type="tel">
-					<label for="dwgusertelefon" style="margin-bottom: -6px !important;" data-i18n="[html]profile.lbltel">Telefon</label>
+					<label for="dwgusertelefon" style="margin-bottom: -6px !important;" data-i18n="profile.lbltel">Telefon</label>
 					<input data-clear-btn="true" name="dwgusertelefon" id="dwgusertelefon" maxlength="31" data-i18n="[placeholder]profile.tel" placeholder="Ditt telefonnummer..." value="" type="tel">
 					<label for="dwguserpostnr" style="margin-bottom: -6px !important;" data-i18n="[html]profile.lblpostal"><b>Postnr</b><span style="color:green !important;">*</span></label>
 					<!-- <input name="dwguserpostnr" id="dwguserpostnr" pattern="\d{5}" value="" type="number" required> -->
@@ -1152,7 +1174,7 @@
 					</div>
 					<div id="divlankommun" style="display: none; margin-bottom: 25px !important;">
 						<div class="panel panel-info">
-							<div class="panel-heading" style="padding: 4px 0px 4px 0px;" data-i18n="[html]profile.alsochooseplace">
+							<div style="padding: 4px 0px 4px 0px; font-style: italic;" data-i18n="profile.alsochooseplace">
 								Vänligen välj också plats:
 							</div>
 							<div class="panel-body">
@@ -1197,8 +1219,8 @@
 					
 					<!-- <button onclick="setuserdata();" data-theme="a">Spara inställningar</button> -->
 					<!-- <a href="#" class="ui-btn ui-corner-all" data-role="button" data-theme="a" onclick="setuserdata();">Spara inställningar</a> -->
-					<button class="ui-btn dwgbtnblue ui-shadow ui-corner-all" onclick="saveuserdata()">Spara inställningar</button>
-					<p style="color:green !important; font-size:12px !important; margin-top:0px !important; padding-top:0 !important;"><i>* Obligatoriska fält för att lägga till egna annonser och viss övrig funktionalitet.</i></p>
+					<button class="ui-btn dwgbtnblue ui-shadow ui-corner-all" onclick="saveuserdata()" data-i18n="profile.btn-savesettings">Spara inställningar</button>
+					<p style="color:green !important; font-size:12px !important; margin-top:0px !important; padding-top:0 !important;"><i data-i18n="profile.infotxt-obligatoryfields">* Obligatoriska fält för att lägga till egna annonser och viss övrig funktionalitet.</i></p>
 				</div>
 					<!-- <button type="submit" name="submit" value="submit" data-theme="a">Spara inställningar</button> -->
 				<!-- </form> -->
@@ -1211,13 +1233,13 @@
 				
 			</div>
 			
-			<div data-role="footer" data-id="footerbtns" data-position="fixed" data-theme="a" class="dwgfooter">
+			<div data-role="footer" data-id="footerbtns" data-position="fixed" data-theme="a" class="dwgfooter" id="dwgfootmittkonto">
 				<div data-role="navbar" class="dwgnavbar">
 					<ul class="dwgnavbarul">
-						<li><a href="#laggtill" data-icon="edit" class="dwgnavbarbtn" data-i18n="[html]navbar.add">Lägg till</a></li>
-						<li><a href="#home" data-icon="search" class="dwgnavbarbtn" data-i18n="[html]navbar.home">Annonser</a></li>
-						<li><a href="#naramig" id="navnaramigbtn" data-icon="location" class="dwgnavbarbtn" data-i18n="[html]navbar.map">På karta</a></li>
-						<li><a href="#mittkonto" data-icon="user" class="ui-btn-active ui-state-persist" data-i18n="[html]navbar.profile">Min profil</a></li>
+						<li><a href="#laggtill" data-icon="camera" class="dwgnavbarbtn" data-i18n="navbar.add"> </a></li>
+						<li><a href="#home" data-icon="bullets" class="dwgnavbarbtn" data-i18n="navbar.home"> </a></li>
+						<li><a href="#naramig" data-icon="location" class="dwgnavbarbtn" data-i18n="navbar.map"> </a></li>
+						<li><a href="#mittkonto" data-icon="user" style="background-color: #60915e !important; border-color: #60915e; color: #fff;text-shadow: 0;" class="ui-btn-active ui-state-persist" data-i18n="navbar.profile"> </a></li>
 					</ul>
 				</div><!-- /navbar -->
 			</div><!-- /footer -->
@@ -1267,10 +1289,10 @@
 			<div data-role="footer" data-id="footerbtns" data-position="fixed" data-tap-toggle="false" data-theme="a" class="dwgfooter" id="gmapfooter">
 				<div data-role="navbar" class="dwgnavbar">
 					<ul class="dwgnavbarul">
-						<li><a href="#laggtill" data-icon="edit" class="dwgnavbarbtn" data-i18n="[html]navbar.add">Lägg till</a></li>
-						<li><a href="#home" data-icon="search" class="dwgnavbarbtn" data-i18n="[html]navbar.home">Annonser</a></li>
-						<li><a href="#naramig" id="navnaramigbtn" data-icon="location" class="ui-btn-active ui-state-persist" data-i18n="[html]navbar.map">På karta</a></li>
-						<li><a href="#mittkonto" data-icon="user" class="dwgnavbarbtn" data-i18n="[html]navbar.profile">Min profil</a></li>
+						<li><a href="#laggtill" data-icon="camera" class="dwgnavbarbtn" data-i18n="navbar.add"> </a></li>
+						<li><a href="#home" data-icon="bullets" class="dwgnavbarbtn" data-i18n="navbar.home"> </a></li>
+						<li><a href="#naramig"  style="background-color: #60915e !important; border-color: #60915e; color: #fff;text-shadow: 0;" data-icon="location" class="ui-btn-active ui-state-persist" data-i18n="navbar.map"> </a></li>
+						<li><a href="#mittkonto" data-icon="user" class="dwgnavbarbtn" data-i18n="navbar.profile"> </a></li>
 					</ul>
 				</div><!-- /navbar -->
 			</div><!-- /footer -->
@@ -1282,7 +1304,7 @@
 <!-- page PageVisaPaKarta (Används bara av Panels View av annons) --------------------------------------------------------------------------- -->
 		<div data-role="page" id="pagevisapakarta">
 			<div data-role="header" data-add-back-btn="true">
-				<h1>Visa på karta</h1>
+				<h1 data-i18n="map.visapakarta">Visa på karta</h1>
 			</div>
 			<div role="main" class="ui-content_NOTHX" style="padding: 0px !important;">				
 				<div id="pagevisapakartacontent" style="display:block;
@@ -1364,7 +1386,7 @@
 			<!-- <div id="pageviewloadintowrapper" data-iscroll='{"hScroll":false,"vScroll":true,"resizeEvents":"orientationchange"}' style="width:100% !important; padding: 0px !important; margin: 0px !important;"> -->
 			<div id="pageviewloadintowrapper" data-iscroll="" style="width:100% !important; padding: 0px !important; margin: 0px !important;">
 				<div id="pageviewloadinto">
-					<h2 style="color: silver !important; margin: 5px !important;" data-i18n="[html]home.html_view_loading">Laddar detaljer...<h2>
+					<h2 style="color: silver !important; margin: 5px !important;" data-i18n="home.html_view_loading">Laddar detaljer...<h2>
 				</div>
 			</div><!-- /wrapper for iscroll -->
 		</div><!-- /page -->

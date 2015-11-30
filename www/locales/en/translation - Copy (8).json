@@ -29,33 +29,24 @@
 		"pnlplc_allcountry": "All of U.K.",
 		"pnlplc_nearme": "Near me",
 		"pnlkat_allcat": "All categories",
-		"pnlkat_showhiddenads":"Show hidden ads:",
-		"pnlkat_showhiddenads-on":"On",
-		"pnlkat_showhiddenads-off":"Off",
 		"msg_upgradelocprof_noconn": "We'd like to upgrade your local profile to a new version but can't reach the server. Please verify internet connection and restart the app",
 		"msg_app_is_upgraded_to_v": "App ha been upgraded to v__appver__.",
 		"msg_could_non_connect1": "There's a problem communicating with server. Please try again later...",
 		"msg_could_not_fetch_more_ads": "Did not succeed fetching more ads. Please try again later...",
-		"msg_please_first_register": "Please first register under 'My page' (both email and postal code).",
+		"msg_please_first_register": "Please first register under 'My profile' (both email and postal code).",
 		"msg_thanks_for_keeping_clean": "Thanks for helping out keeping clean. Thx Freetocollect.co.uk",
 		"msg_could_not_connect2": "Right now we could not reach the server. Please try again soon!",
 		"msg_gps_not_avail_using_profile": "Your mobile coordinates could not be located. Using your profile settings instead.",
-		"msg_no_pos_avail_please_conf_profile": "Your coordinates are not yet found. Please fill out your profile in 'My page' for a general location.",
+		"msg_no_pos_avail_please_conf_profile": "Your coordinates are not yet found. Please fill out your profile in 'My Profile' for a general location.",
 		"msg_ipad_pod_might_not_have_sim": "Note you can only call with an iPad/iPod if it is fitted with a SIM-card.",
 		"msg_call_adverter_on": "Call advertiser on number: __number__.",
 		"msg_please_formulate_with_more_words": "Please formulate a few more words...",
 		"msg_could_non_connect3": "Connection failed! Please, verify internet connection and try again.",
-		"msg_please_first_register3": "Please, first register your email and postal code in 'My page' before contacting advertisers.",
+		"msg_please_first_register3": "Please, first register your email and postal code in 'My Profile' before contacting advertisers.",
 		"loadingads": "Loading ads...",
 		"html_adlist_no_conn": "<h3 style=\"color: silver !important; margin:15px 5px 5px 5px !important;\">Could not connect. Please try again soon... </h3> <a href=\"#\" data-role=\"button\" data-icon=\"refresh\" data-inline=\"false\" onClick=\"viewIdAjax(__id__);\">Refresh</a> ",
 		"html_view_loading": "<h3 style=\"color: silver !important; margin:15px 5px 5px 5px !important;\">Loading details...</h3>",
-		"html_view_failed_load": "<h3 style=\"color: silver !important; margin:15px 5px 5px 5px !important;\">Failed to load, try again...</h3> <a href=\"#\" data-role=\"button\" data-icon=\"refresh\" data-inline=\"false\" onClick=\"viewIdAjax(__id__);\">Refresh</a> <a href=\"#\" data-role=\"button\" data-icon=\"back\" data-inline=\"false\" onClick=\"history.back();\">Go back</a> ",
-		"pulldownresettext":"Pull down to update...",
-		"pulldownpulledtext":"Release to update...",
-		"pulldownloadingtext":"Updating...",
-		"pullupresettext":" ",
-		"pulluppulledtext":"Release and I will load some more...",
-		"pulluploadingtext":"Loading..."
+		"html_view_failed_load": "<h3 style=\"color: silver !important; margin:15px 5px 5px 5px !important;\">Failed to load, try again...</h3> <a href=\"#\" data-role=\"button\" data-icon=\"refresh\" data-inline=\"false\" onClick=\"viewIdAjax(__id__);\">Refresh</a> <a href=\"#\" data-role=\"button\" data-icon=\"back\" data-inline=\"false\" onClick=\"history.back();\">Go back</a> "
 	},
 	"add":
 	{	
@@ -92,11 +83,7 @@
 		"msg_conn_canc_try_again": "Connection was terminated. Please try again.",
 		"msg_please_first_register5": "Please, first edit your details in 'My Page' and confirm your email!",
 		"msg_please_first_check_postal": "Please, verify you stated a correct POSTAL CODE in 'My Page'.",
-		"msg_please_first_register6": "Please fill out your contact information under 'My page' or contact our support if you still experience problem.",
-		"photochg": "Change photo",
-		"photochg-btncam": "Take new with Camera",
-		"photochg-btnlib": "Choose from library",
-		"photochg-btncancel": "Cancel"
+		"msg_please_first_register6": "Please fill out your contact information under 'My Profile' or contact our support if you still experience problem."
 	},
 	"map":
 	{	
@@ -104,12 +91,11 @@
 		"some2": "variable2",
 		"msg_could_not_conn5": "Could not create a connection. Try again!",
 		"msg_gps_location_failed": "Could not verify your position",
-		"html_categ_filter": "<p style=\"padding: 20px;\">Category filter: __katdescskat__</p>",
-		"visapakarta": "Show on map"
+		"html_categ_filter": "<p style=\"padding: 20px;\">Category filter: __katdescskat__</p>"
 	},
 	"profile":
 	{
-		"title": "My page",
+		"title": "My profile",
 		"yourprofile": "<b style=\"color:black !important;\">Your contact info</b><br>Apart from 'Email' this is the contact information that will be visible on your ads.",
 		"lblname": "<b>Name</b><span style=\"color:green !important;\">*</span>",
 		"name": "Your name...",
@@ -122,7 +108,7 @@
 		"lblpostal": "<b>Postal code</b><span style=\"color:green !important;\">*</span>",
 		"postal": "Your postal code...",
 		"pleaseverifypostal": "Please verify your postal code",
-		"alsochooseplace": "Also select location details:",
+		"alsochooseplace": "<i>Also select location details:</i>",
 		"lbllan": "<b>Region</b><span style=\"color:green !important;\">*</span>",
 		"lan": "Choose Region",
 		"lblkommun": "<b>County</b><span style=\"color:green !important;\">*</span>",
@@ -131,12 +117,10 @@
 		"lblort": "<b>Area</b><span style=\"color:green !important;\">*</span>",
 		"ort": "First choose a county",
 		"nowort": "Now choose an area",
-		"btn-savesettings": "Save settings",
-		"infotxt-obligatoryfields": "* Mandatory fields.",
 		"Vanligen_fyll_i_Namn_Email_och_Postnummer": "Please state your Name, Email and Postal code.",
 		"msg_mob_lack_webstorage_supp": "Your cellphone lack the Storage support. Please report this to our support.",
 		"msg_restored_loc_values": "Restored local settings.",
-		"msg_please_enter_req_fields": "Please state your Name, Email and Postal code.",
+		"msg_please_enter_req_fields": "Please state your Name, Email and Postal code. __testeee__",
 		"msg_please_verify_email": "Please verify Email is a correct email address.",
 		"msg_please_verify_postal": "Please verify your ZIP code is correct.",
 		"msg_you_will_get_email_please_confirm": "You will now recieve a confirmation email. Open this email to confirm your email address.",
@@ -151,15 +135,6 @@
 		"html_email_sent_pls_conf": "<p>An email has been sent to you. Click on the link in this email to confirm that you are owner of this email address. <a href=\"#\" onClick=\"checksetemailconfirm2(true);\">Resend this email</a></p>",
 		"msg_email_resent": "You should now recieve an email. Please verify you inbox and spam box.",
 		"html_email_confirmed": "<p style=\"color: silver !important; margin-top:-8px !important; padding-top:0 !important;\"> Emailaddress confirmed.</p>",
-		"html_email_not_conf_please_save": "<p>The email has not been confirmed. Press Save button to proceed.</p>",
-		"risrostitle": "Criticism or praise",
-		"risrosbody": "Please keep us updated about what you would like us to change or do in another way. We'd love to know your thoughts. =)",
-		"risros-placeholder": "Formulate your words here...",
-		"risrossend": "Send",
-		"closeadtitle": "Close Ad",
-		"closeadbody": "Are you sure you want to close this ad?",
-		"closead-btngood": "Ad successful, OK close",
-		"closead-btnbad": "Ad failed, OK close",
-		"closead-btncancel": "Cancel"
+		"html_email_not_conf_please_save": "<p>The email has not been confirmed. Press Save button to proceed.</p>"
 	}
 }

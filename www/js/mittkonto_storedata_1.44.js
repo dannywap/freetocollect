@@ -254,7 +254,6 @@ function saveuserdata(){
 		
 		if(dwgempty(document.getElementById('dwgusernamn').value) || dwgempty(document.getElementById('dwguseremail').value) || dwgempty(document.getElementById('dwguserpostnr').value)){
 			// dwgalert($.t("Vänligen fyll i Namn, Email och Postnummer"));  // Funkar men då måste man ta bort punkter eller göra om keyspacechar och i18next är inte gjort för detta riktigt. Better safe:
-			var testeee = "secret message is this!!!!";
 			dwgalert($.t("profile.msg_please_enter_req_fields")); //$.t("profile.msg_please_enter_req_fields",{testeee:testeee}));
 			return false;
 			if(dwgempty(document.getElementById('dwgusernamn').value)){
@@ -746,7 +745,7 @@ function checksetemailconfirm2(resendmail){
 	// }
 	
 	
-	if(resendmail){resendmail=1; dwgalert($.t("profile.msg_email_resent"));}
+	if(!dwgempty(resendmail)){resendmail=1; dwgalert($.t("profile.msg_email_resent"));}
 	if(!userwebactivated || startpollemailconfirmation){ // Det kan vara så att vi fortfarande pollar och startar upp appen som blivit emailbekräftad under tiden.
 		var nocachex=dwgguid();
 		var checkData = {
@@ -924,17 +923,7 @@ function funcreturnfalse(){
 						// $('#divlankommun').trigger("create");
 						// $('#divlankommun').trigger("refresh");
 
-	selectnowlan=$.t("profile.lan"); // 'Välj län...';
-	selectnowkommun=$.t("profile.nowkommun"); // 'Välj nu kommun...';
-	selectnowort=$.t("profile.nowort"); // 'Välj nu ort...';
-	selectfirstlan=$.t("profile.kommun"); // 'Välj först län...';
-	selectfirstkommun=$.t("profile.ort"); // 'Välj först kommun...';
-	// usingort=true;
-	postnrminchars=4;
-	postnrmaxchars=10;
-	isthisaddressincorrect='(Är detta fel?)';
-	pleaseverifypostnrformat=$.t("profile.pleaseverifypostal"); // 'Vänligen kontrollera postnummer.'
-			/* ---------- Select boxes ----------- */	
+ /* ---------- Select boxes ----------- */	
 			
 		function getLan(){
 			var lanSelect = document.getElementById('lan');
@@ -1254,6 +1243,7 @@ function loadPostnr(){
 $(document).on('pageshow', '#mittkonto', function (event) {
 	lastPageClicked='mittkonto';
 	
+	
 	// DETTA ÄR EN MYCKET VIKTIGT TEST SOM BEKRÄFTAR KONSEKVENT KORREKT HANTERING AV BOOLESKA FUNKTIONER. NÅGOT JAG VAR MYCKET OROLIG INTE VAR KONSEKVENT ETT TAG.
 	// RESULTATEN HAR VISAT ATT JS ÄR MYCKET KONSEKVENT OCH JAG KAN LITA PÅ BOOLESKA OPERATIONER OCH MIN NYA EMPTY() FUNC.
 	// var vartrue=true;
@@ -1369,7 +1359,14 @@ $(document).on('pageshow', '#mittkonto', function (event) {
 	
 	
 	// Oavsett så skall paneler synas och fixas till...
-	$("#panelomosscontent").html(aboutus);
+	// aboutus = '<img src="img/_logo.png" style="width: 100%">' + aboutus;
+	// aboutus = aboutus + $.t("profile.aboutusbody");
+	// aboutus = aboutus + '<p>'+$.t("profile.aboutushemsida")+':<br>';
+	// aboutus = aboutus + '<a href="#" onClick="openExtLink(\''+$.t("app.weburl")+'\')">'+$.t("app.weburl")+'</a>';
+	// aboutus = aboutus + '<p>Facebook:<br>'+
+	// aboutus = aboutus + '<a href="#" onClick="openExtLink(\'http://facebook.com/bortskankes\')">http://facebook.com/bortskankes</a></p>';
+
+	$("#panelomosscontent").html(aboutus + aboutus_appver);
 	$("#panelomosscontent").trigger("create");
 	$("#panelomosscontent").trigger("refresh");
 	
