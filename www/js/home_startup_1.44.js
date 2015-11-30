@@ -185,6 +185,12 @@ function pushurlhist(){
 	var tmpurl=$(location).attr('hash'); 
 	urlhist.push(tmpurl); // Eftersom vi kör en "onepage view" behöver vi bara xyz efter .html?xyz
 }
+function goback(){
+	// $.mobile.pageContainer.pagecontainer( "change", "#"+lastPageClicked,{ allowSamePageTransition: true });
+	var navtothis="#"+lastPageClicked;
+	jQuery.mobile.navigate(navtothis);
+}
+
 
 function getconfig(){
 	// var nocachex=dwgguid();
@@ -206,7 +212,6 @@ function getconfig(){
 			showmapbutton=data.showmapbutton;
 			aboutus=data.aboutus;
 			katdescs=data.katdescs;
-			alert(katdescs);
 
 			// // $(".navpakartabtn").hide();
 			// $(".navpakartabtn").remove();

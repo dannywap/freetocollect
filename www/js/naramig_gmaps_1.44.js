@@ -18,7 +18,7 @@ var clusterMarkers = false;
 var prevMapCenter = null;
 var markersColorFilter = 0;
 var katcolor = ["#555555", "#d1cabc", "#8db6fd", "#96d970", "#e9bab5", "#ffc000", "#7f6000"];
-var katdescs = ["Av", "Fordon", "Elektronik", "Hem & Hushåll", "Kläder & Leksaker", "Sport & Fritid", "Djur"];
+var katdescs = ["Av", "Fordon", "Elektronik", "Hem & Hushåll", "Kläder & Leksaker", "Sport & Fritid", "Djur"];  // Dessa hämtas pånytt i getconfig från hemsidan.
 var lastValidCenter = null; // För att se till att hålla användaren inom Sverige... Hjälpa honom ifall han råkar dra hit o dit...
 var skipCurrentCenterChanges=0;
 var stillLoadingMarkers=false;
@@ -926,8 +926,9 @@ $(document).on('pageshow', '#pageseaofthumbs', function (event) {  // WE WANT TH
 			success    : function(dwgdata5) {
 				var seaofthumbshtml=dwgdata5;
 				// $("#seaofthumbsmain").html(header+seaofthumbshtml).trigger("create").enhanceWithin();
-				$("#seaofthumbsmain").html('');
-				$( seaofthumbshtml ).appendTo( "#seaofthumbsmain" ).enhanceWithin();
+				// $("#seaofthumbsmain").html('');
+				// $( seaofthumbshtml ).appendTo( "#seaofthumbsmain" ).enhanceWithin();
+				$("#seaofthumbsmain").html(seaofthumbshtml).trigger("create").trigger("refresh").enhanceWithin();
 			},
 			error      : function() {
 				dwgalert('Kunde inte skapa en anslutning. Prova igen!');                  
