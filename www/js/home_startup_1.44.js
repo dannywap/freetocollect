@@ -170,25 +170,29 @@ function openExtLink(urlen938){
 	}
 }
 
-function popurlhist(){
-	// return urlhist.pop();
-	urlhist.pop(); // first remove current page that has been pushed. 
-	var goback=urlhist.pop();
-	alert("goback hash:"+goback);
-	// window.location.href=goback;
-	// window.location.hash=goback;
-	$(location).attr('hash')=goback; 
-}
-function pushurlhist(){
-	// urlhist.push(window.location.href);
-	// urlhist.push(window.location.hash); // Eftersom vi kör en "onepage view" behöver vi bara xyz efter .html?xyz
-	var tmpurl=$(location).attr('hash'); 
-	urlhist.push(tmpurl); // Eftersom vi kör en "onepage view" behöver vi bara xyz efter .html?xyz
-}
+// function popurlhist(){
+	// // return urlhist.pop();
+	// urlhist.pop(); // first remove current page that has been pushed. 
+	// var goback=urlhist.pop();
+	// alert("goback hash:"+goback);
+	// // window.location.href=goback;
+	// // window.location.hash=goback;
+	// $(location).attr('hash')=goback; 
+// }
+// function pushurlhist(){
+	// // urlhist.push(window.location.href);
+	// // urlhist.push(window.location.hash); // Eftersom vi kör en "onepage view" behöver vi bara xyz efter .html?xyz
+	// var tmpurl=$(location).attr('hash'); 
+	// urlhist.push(tmpurl); // Eftersom vi kör en "onepage view" behöver vi bara xyz efter .html?xyz
+// }
 function goback(){
-	// $.mobile.pageContainer.pagecontainer( "change", "#"+lastPageClicked,{ allowSamePageTransition: true });
 	var navtothis="#"+lastPageClicked;
-	jQuery.mobile.navigate(navtothis);
+	// jQuery.mobile.navigate(navtothis);
+	$.mobile.pageContainer.pagecontainer( "change", navtothis,{ allowSamePageTransition: true });
+}
+
+function sayhi(){
+	alert("hi!");
 }
 
 
@@ -199,6 +203,9 @@ function getconfig(){
 		dataType: 'json',	// Kan också vara "text" och parsea i success istället om man vill. Men lyckas det inte är det nog för att man får [{}] istället för {} från PHP pga pushdata() till array.
 		url: weburl+"/mob_"+appver+"/get_settings.php", // + nocachex,
 		// data: sendData, // Skicka nycklar som låser upp och hämtar userwebdata
+		// crossDomain:true,
+		// async: false,
+		// cache: false, 
 		success: function (data) {
 			usingort=data.usingort;  // Set default nevertheless when declaring
 			insertorter=data.insertorter;
@@ -475,6 +482,8 @@ function loaduserwebdata(refreshmittkontobuttonsnow){
 		dataType: 'json',	// Kan också vara "text" och parsea i success istället om man vill. Men lyckas det inte är det nog för att man får [{}] istället för {} från PHP pga pushdata() till array.
 		url: weburl+"/mob_"+appver+"/mittkonto_loaduserwebdata.php?cachx=" + nocachex,
 		data: keyData, // Skicka nycklar som låser upp och hämtar userwebdata
+		// async: false,
+		// cache: false, 
 		success: function (data) {
 			if(data.isok || data.isok=="true"){
 				// alert(data); // Sätt dataType: 'text', så kan man läsa detta i klartext. Men isåfall får man jsonData = $.parseJSON(data) istället . 
@@ -629,6 +638,7 @@ function viewAds2(dwgaddurl,dwgpage){
 		url: dwgurl,
 		type: 'GET',
 		dataType: "text",  // Måste speca att detta är txt annars är default json...
+		cache: false, 
 		error: function (x,t,m){ 
 			if(t=="timeout"){
 				dwgalert($.t("home.msg_could_non_connect1")); //	"Det verkar vara problem med att kontakta server. Vänligen försök igen om en stund.");
@@ -1440,24 +1450,33 @@ $(document).on("pagebeforecreate", function () {
 		// $(".dwgnavbarbtn").html("test");
 		// $('[data-role="navbar"]').navbar();
 		
-		// Vi försökte köra detta i en ".on("iscroll_init", function()" men då hade inte i18n laddat ännu. Men att köra detta här i verkade fungera finfint!  =)
-		$.mobile.iscrollview.prototype.options.pullDownResetText = $.t("home.pulldownresettext"); 		// "Dra ner för att uppdatera..."
-		$.mobile.iscrollview.prototype.options.pullDownPulledText = $.t("home.pulldownpulledtext");				// "Släpp för att uppdatera..."
-		$.mobile.iscrollview.prototype.options.pullDownLoadingText = $.t("home.pulldownloadingtext");	// "Uppdaterar..."
-		$.mobile.iscrollview.prototype.options.pullUpResetText = $.t("home.pullupresettext");					// " "
-		$.mobile.iscrollview.prototype.options.pullUpPulledText = $.t("home.pulluppulledtext");		// "Släpp så skall jag leta fler..."
-		$.mobile.iscrollview.prototype.options.pullUpLoadingText = $.t("home.pulluploadingtext");				// "Letar..."
+		// setTimeout(function(){
+			// Vi försökte köra detta i en ".on("iscroll_init", function()" men då hade inte i18n laddat ännu. Men att köra detta här i verkade fungera finfint!  =)
+			$.mobile.iscrollview.prototype.options.pullDownResetText = $.t("home.pulldownresettext"); 		// "Dra ner för att uppdatera..."
+			$.mobile.iscrollview.prototype.options.pullDownPulledText = $.t("home.pulldownpulledtext");				// "Släpp för att uppdatera..."
+			$.mobile.iscrollview.prototype.options.pullDownLoadingText = $.t("home.pulldownloadingtext");	// "Uppdaterar..."
+			$.mobile.iscrollview.prototype.options.pullUpResetText = $.t("home.pullupresettext");					// " "
+			$.mobile.iscrollview.prototype.options.pullUpPulledText = $.t("home.pulluppulledtext");		// "Släpp så skall jag leta fler..."
+			$.mobile.iscrollview.prototype.options.pullUpLoadingText = $.t("home.pulluploadingtext");				// "Letar..."
 
-		
-		selectnowlan=$.t("profile.lan"); // 'Välj län...';
-		selectnowkommun=$.t("profile.nowkommun"); // 'Välj nu kommun...';
-		selectnowort=$.t("profile.nowort"); // 'Välj nu ort...';
-		selectfirstlan=$.t("profile.kommun"); // 'Välj först län...';
-		selectfirstkommun=$.t("profile.ort"); // 'Välj först kommun...';
-		isthisaddressincorrect='(Är detta fel?)';
-		pleaseverifypostnrformat=$.t("profile.pleaseverifypostal"); // 'Vänligen kontrollera postnummer.'
-		
-		smssomeonedwg_ipad_warning = $.t("home.msg_ipad_pod_might_not_have_sim");
+			
+			selectnowlan=$.t("profile.lan"); // 'Välj län...';
+			selectnowkommun=$.t("profile.nowkommun"); // 'Välj nu kommun...';
+			selectnowort=$.t("profile.nowort"); // 'Välj nu ort...';
+			selectfirstlan=$.t("profile.kommun"); // 'Välj först län...';
+			selectfirstkommun=$.t("profile.ort"); // 'Välj först kommun...';
+			isthisaddressincorrect='(Är detta fel?)';
+			pleaseverifypostnrformat=$.t("profile.pleaseverifypostal"); // 'Vänligen kontrollera postnummer.'
+			
+			smssomeonedwg_ipad_warning = $.t("home.msg_ipad_pod_might_not_have_sim");
+		// },250);
+		// Nu när vi har "weburl" ladda då dynamiskt js-filen från web för Disaster Recover situationen. 
+		// setTimeout(function () {
+			// var fileref=document.createElement('script');
+			// fileref.setAttribute("type","text/javascript");
+			// fileref.setAttribute("src", weburl+'/mob_'+appver+"/generic_functions.js");
+			// document.getElementsByTagName("head")[0].appendChild(fileref);
+		// }, 2000);
 
 		
     }
@@ -1503,10 +1522,10 @@ $(document).bind("mobileinit", function(){
 
 $(document).on('pageshow', '#home', function (event) {
 	lastPageClicked='home';
-	pushurlhist();
+	// pushurlhist();
 	
 	getPanelPlatser();
-	getPanelKategorier();
+	setTimeout(getPanelKategorier,800);
 	
 	// $("#iscrollwrapper").iscrollview("option", "pullDownResetText", "So nice downa...");
 	// $("#iscrollwrapper").iscrollview("option", "pullDownPulledText", "Yeahh...");
@@ -1629,9 +1648,9 @@ $(document).on('pageshow', '#pageskickamail', function (event) {
 	}
 });
 
-$(document).on('pageshow', '#pageview', function (event) {
-		pushurlhist();
-});
+// $(document).on('pageshow', '#pageview', function (event) {
+		// // pushurlhist();
+// });
 
 // $( document ).on( "pageinit", function( event ) {   
 	// // Nej, Denna rocka inte bra med Navbar som ibland åkte ner pga av detta. Provar pluginen istället! :)
@@ -1686,18 +1705,18 @@ $(document).ready(function () {   // <--- Denna sker bara en gång <) pageshow-s
 	// $("img").unveil();
 	
 	// Satte viewAds2 i on pageshow-#home men då laddades annonserna om varje gång man klickade knappen. Vill nog inte ha det. Refresh skall ha ett syfte.
-	oldprofile = storageReadData("usernamn");
-	if(!dwgempty(oldprofile)){
-		setTimeout( function () { onetimeconverttowebdata(); }, 3000);  // ONCE WE UPGRADE THEN DELETE LOCAL STORAGE VALUE usernamn
-	}
+	// oldprofile = storageReadData("usernamn");
+	// if(!dwgempty(oldprofile)){
+		// setTimeout( function () { onetimeconverttowebdata(); }, 3000);  // ONCE WE UPGRADE THEN DELETE LOCAL STORAGE VALUE usernamn
+	// }
 	loaduserwebdata();  // Vi hämtar från webben direkt (och försöker var 3e sek x 3 om error)
 	setTimeout(function () { viewAds2(''); },1700); 
 	
 	// LOADUSERDATA laddar det lokala data som behövs för att hämta webuserdata (email+deviceuuid)
-	setTimeout(function () { loaduserdata(); },500); // För att ge mer responskänsla i navbar
+	setTimeout(function () { loaduserdata(); },800); // För att ge mer responskänsla i navbar
 	
 	// GETCONFIG hämtar maxlat, minpostnr, visaort etc från GLOBAL CONFIG
-	setTimeout(function () { getconfig(); },50); // För att ge mer responskänsla i navbar
+	setTimeout(function () { getconfig(); },350); // För att ge mer responskänsla i navbar
 	setTimeout(function () { getKategorier(); },1300); // Hämta alla kategorier som skall visas i Lägg till selecten endast en gång vid uppstart. Då den är statisk. För att ge mer responskänsla i navbar
 	
 				

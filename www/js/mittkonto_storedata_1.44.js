@@ -763,6 +763,7 @@ function checksetemailconfirm2(resendmail){
 			url: weburl+'/mob_'+appver+"/app_mittkonto_emailtomobile.php?cachx=" + nocachex,
 			type: 'POST',
 			data: checkData,
+			// crossDomain:true,
 			dataType: 'text',
 			error: function (){ 
 				// Vi bör nog reagera här
