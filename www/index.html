@@ -5,6 +5,18 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="format-detection" content="telephone=no" />
 	<!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+
+	<meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: file: https://ssl.gstatic.com https://maps.googleapis.com https://* http://* file://* 'unsafe-eval' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; media-src *">
+
+	<!-- WHITELISTING! Läs här: https://github.com/apache/cordova-plugin-whitelist ÄNDRA DENNA PER APP???? !!!  :-P  
+	https://github.com/jessemonroy650/top-phonegap-mistakes/blob/master/new-to-Phonegap.md
+	https://github.com/jessemonroy650/top-phonegap-mistakes/blob/master/the-whitelist-system.md    < -- updated: 2015-12-01
+	-->
+	
+	<!-- Allow everything but only from the same origin and foo.com -->
+	<!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' http://*" /> -->
+	<!-- <meta http-equiv="Content-Security-Policy" content="default-src *; style-src * 'self' 'unsafe-inline' 'unsafe-eval'; script-src * 'self' 'unsafe-inline' 'unsafe-eval';"> -->
+
 	<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
 	<!--
 		Fick aldrig detta att fungera....
@@ -40,6 +52,9 @@
 		</style> 
 	-->
 	<title>Mobile</title>
+	
+
+	
 	
 	
 	<!-- WARNING: Webkit-cache!!! -->
@@ -644,12 +659,13 @@
 
 	
 
-	<script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+	<!-- <script type="text/javascript" charset="utf-8" src="cordova.js"></script> -->
 	<script type="text/javascript" charset="utf-8" src="js/jquery-1.10.2.js"></script>
 	<script type="text/javascript" charset="utf-8" src="js/i18next-1.8.0.js"></script>
-	<script>
+	<script type="text/javascript">
 		var weburl='';
-		$( document ).on( "mobileinit", function() {
+		// http://www.gajotres.net/page-events-order-in-jquery-mobile-version-1-4-update/
+		$(document).on("mobileinit", function() {	
 			var i18nOpts = { resGetPath: 'locales/en/translation.json' };
 			i18n.init(i18nOpts).done(function(){
 				// weburl=$.t("app.weburl");
@@ -658,18 +674,29 @@
 			
 				// PGA iOS9 bugg (data-native-menu=false på select i lägg till (kategorin) gör att den hoppar ut till home när man klickar och den öppnas. Typ auto back-history. Samma problem finns i popups
 				// $.mobile.hashListeningEnabled = false;
+				// alert("i18n done!");
 			});
+			
+			// Cross Site Scripting problemet i nyare browsers:
+			// $.support.cors = true;					// Buggar verkar det som - Nix
+			// $.mobile.allowCrossDomainPages = true;	// Buggar verkar det som - Nix
+		
+			$.mobile.hashListeningEnabled=false; // Fix ios9-bug with history back buttons and popups: // Detta skall ligga innan vi läser in jqm.
+
 		});
 	</script>
+	
+	
+	
 	<!-- <access origin="*"/>
 	<meta http-equiv="Access-Control-Allow-Origin" content="*"/> -->
 	
-	<script  type="text/javascript" charset="utf-8">
+	<!-- <script  type="text/javascript" charset="utf-8">
 		// Fix ios9-bug with back buttons and popups:
-		$(document).bind("mobileinit", function(){
-			$.mobile.hashListeningEnabled=false;
-		});
-	</script>
+		// $(document).bind("mobileinit", function(){  "bind" är samma sak som "on", fast "on" är numera preferred method sedan v1.7.
+		// 	$.mobile.hashListeningEnabled=false;
+		// });
+	</script> -->
 	<script type="text/javascript" charset="utf-8" src="js/jquery.mobile-1.4.2.js"></script> 
 	
 
@@ -707,7 +734,8 @@
 	
 
 </head>
-<body id="thebody" onload="onLoad()"> 
+<!-- <body id="thebody" onload="onLoad()">  -->
+<body id="thebody"> 
 
 <!-- page home --------------------------------------------------------------------------- -->
 		<div id="home" data-role="page" style="background: none; width: 100%;">
@@ -913,14 +941,12 @@
 				</div><!-- /navbar -->
 			</div><!-- /footer -->
 
-			
+			<!--
 			<script type="text/javascript">
 				app.initialize();
 			</script>
+			-->
 
-			<script type="text/javascript">
-				
-			</script>
 				
 		</div><!-- /page home -->
 			
@@ -1392,6 +1418,6 @@
 		</div><!-- /page -->
 
 		
-		
+    <script type="text/javascript" src="cordova.js"></script>	
 </body>
 </html>

@@ -570,8 +570,8 @@ function initiatemap(){
 
 		// var dwgtmplat=57.707616;
 		// var dwgtmplong=11.972690;
-		var dwgtmplat=51.510051;
-		var dwgtmplong=-0.1349;
+		var dwgtmplat=defaultlat;
+		var dwgtmplong=defaultlong;
 		// ---- Fixa till en latlong på något sätt.
 		if(!dwgempty(userlat)){
 			// alert("i have latlong");

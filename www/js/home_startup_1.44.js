@@ -78,6 +78,8 @@ var minlat=0;
 var maxlat=360;
 var minlong=0;
 var maxlong=360;
+var defaultlat=57.707616; // Dessa skall aldrig användas då getconfig hämtar ny default lat long beroende på land. Men om ALLT failar är detta roligare än i Atlanten (0,0).
+var defaultlong=11.972690;  // Där mina ögon för första gång såg Jacq i riktiga livet.
 var postnrmaxchars=10;
 var postnrminchars=4;
 var autoselcategory={};
@@ -213,6 +215,8 @@ function getconfig(){
 			maxlat=data.maxlat;
 			minlong=data.minlong;
 			maxlong=data.maxlong;
+			defaultlat=data.defaultlat;
+			defaultlong=data.defaultlong;
 			postnrmaxchars=data.postnrmaxchars;
 			postnrminchars=data.postnrminchars;
 			autoselcategory=data.autoselcategory;
@@ -638,7 +642,7 @@ function viewAds2(dwgaddurl,dwgpage){
 		url: dwgurl,
 		type: 'GET',
 		dataType: "text",  // Måste speca att detta är txt annars är default json...
-		cache: false, 
+		// cache: false,   // AV NÅGON ANLEDNING FAILAR HELA STARTEN AV APPEN OM DENNA ÄR PÅ. 
 		error: function (x,t,m){ 
 			if(t=="timeout"){
 				dwgalert($.t("home.msg_could_non_connect1")); //	"Det verkar vara problem med att kontakta server. Vänligen försök igen om en stund.");
@@ -1484,17 +1488,6 @@ $(document).on("pagebeforecreate", function () {
 
 
 
-
-$(document).bind("mobileinit", function(){
-	// apply overrides here
-	// $.mobile.transitionFallbacks.slideout = "none";
-		
-	// http://www.gajotres.net/page-events-order-in-jquery-mobile-version-1-4-update/
-	// loadPanelPlatser();	
-
-
-}); 
-
 // // $(document).on("iscrollview_init", function() {
 // $(document).on("iscroll_init", function() {
 	// // $.mobile.iscrollview.prototype.options.refreshDelay = 100;
@@ -1773,11 +1766,36 @@ $(document).on('pageshow', '#pagevisapakarta', function (event) {
 var dwgdevice='No info...';
 // Wait for Cordova to load
 // http://docs.phonegap.com/en/3.1.0/cordova_events_events.md.html#deviceready
-function onLoad() {
-	document.addEventListener("deviceready", onDeviceReady, false);
-}
+// function onLoad() {
+	// document.addEventListener("deviceready", onDeviceReady, false);
+// }
+document.addEventListener("deviceready", onDeviceReady);
+// $(document).on("deviceready", function () {
+	// onDeviceReady();
+	// alert("deviceready");
+	// var success = function(status) {
+		// alert('Message: ' + status);
+	// }
+	// var error = function(status) {
+		// alert('Error: ' + status);
+	// }
+	// window.cache.clear( success, error );
+// }
 
 function onDeviceReady() {
+	// CLEAR THE WEBVIEW CACHE!
+	// http://stackoverflow.com/questions/30358408/phonegap-disable-caching
+	// https://github.com/moderna/cordova-plugin-cache
+	var success = function(status) {
+		// alert('Message: ' + status);
+	}
+	var error = function(status) {
+		// alert('Error: ' + status);
+	}
+	window.cache.clear( success, error );
+
+	
+	
 	getlatlong();
 	// devinfo= 'Device Cordova: '  + device.cordova + '<br />' + 
 				// 'Device Platform: ' + device.platform + '<br />' + 
