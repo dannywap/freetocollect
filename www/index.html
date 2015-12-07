@@ -1177,7 +1177,7 @@
 					<label for="dwguseremail" style="margin-bottom: -6px !important;" data-i18n="[html]profile.lblemail"><b>Email</b><span style="color:green !important;">*</span></label>
 					<div> <!-- To protect entire bg to be set green if something something happends too fast. Then this is parent.div instead of higher up -->
 					<!--	<input name="dwguseremail" id="dwguseremail" onClick="warnchangeemail()" onChange="checkChangedEmail()" maxlength="63" placeholder="Din email..." value="" type="email" required> -->
-						<input name="dwguseremail" id="dwguseremail" onClick="warnchangeemail()" maxlength="63" data-i18n="[placeholder]profile.email" placeholder="Din email..." value="" type="email" required>
+						<input name="dwguseremail" id="dwguseremail" onClick="warnchangeemail()" maxlength="63" data-i18n="[placeholder]profile.email" placeholder="Din email..." value="" type="email"  autocapitalize="off" autocorrect="off" required>
 					</div>
 					<div id="mittkontoemailconfirmedtext" data-role="none" style="margin-top:0px !important; padding-top:0 !important; color: silver !important; font-size:12px !important;"></div>
 					<label for="dwgusermobil" style="margin-bottom: -6px !important;" data-i18n="profile.lblmobile">Mobil</label>
@@ -1188,7 +1188,7 @@
 					<!-- <input name="dwguserpostnr" id="dwguserpostnr" pattern="\d{5}" value="" type="number" required> -->
 					<div> <!-- To protect entire bg to be set green if something something happends too fast. Then this is parent.div instead of higher up -->					
 						<!-- <input name="dwguserpostnr" id="dwguserpostnr" value="" maxlength="6" data-i18n="[placeholder]profile.postal" placeholder="Ditt postnr..." inputmode="numeric" pattern="[0-9\s]*" type="tel"> -->
-						<input name="dwguserpostnr" id="dwguserpostnr" value="" onKeyup="changingPostNr();" maxlength="12" data-i18n="[placeholder]profile.postal" placeholder="Ditt postnr..." type="text">
+						<input name="dwguserpostnr" id="dwguserpostnr" value="" onKeyup="changingPostNr();" maxlength="12" data-i18n="[placeholder]profile.postal" placeholder="Ditt postnr..." type="text" novalidate required>
 					</div>
 					<div id="mittkontoplatstext"></div>
 					<div id="latlongtext"></div>
