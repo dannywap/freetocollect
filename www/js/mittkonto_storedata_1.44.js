@@ -1367,9 +1367,9 @@ $(document).on('pageshow', '#mittkonto', function (event) {
 	// aboutus = aboutus + '<p>Facebook:<br>'+
 	// aboutus = aboutus + '<a href="#" onClick="openExtLink(\'http://facebook.com/bortskankes\')">http://facebook.com/bortskankes</a></p>';
 
-	$("#panelomosscontent").html(aboutus + aboutus_appver);
-	$("#panelomosscontent").trigger("create");
-	$("#panelomosscontent").trigger("refresh");
+	$("#panelomosscontent").html(aboutus + aboutus_appver).trigger("create").trigger("refresh");
+	// $("#panelomosscontent").trigger("create");
+	// $("#panelomosscontent").trigger("refresh");
 	
 	// var element = document.getElementById('dwgdeviceinfodiv');
 	// element.innerHTML = devinfo + 
