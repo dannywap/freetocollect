@@ -53,7 +53,8 @@
 		"pulldownloadingtext":"Updating...",
 		"pullupresettext":" ",
 		"pulluppulledtext":"Release and I will load some more...",
-		"pulluploadingtext":"Loading..."
+		"pulluploadingtext":"Loading...",
+		"pagefullscreenphoto_close": "Close"
 	},
 	"add":
 	{	
