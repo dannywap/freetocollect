@@ -189,6 +189,7 @@ function openExtLink(urlen938){
 // }
 function goback(){
 	var navtothis="#"+lastPageClicked;
+	// alert(navtothis);
 	// jQuery.mobile.navigate(navtothis);
 	$.mobile.pageContainer.pagecontainer( "change", navtothis,{ allowSamePageTransition: true });
 }
@@ -1064,7 +1065,8 @@ $(function(){  // Bind the swipeleftHandler callback function to the swipe event
 function showFullScreenPhoto(fotot){
 	htmlgrejs='<img onClick="dblclckzoomphoto();" id="zoomfullscreenphoto" src="'+weburl+'/foton/'+fotot+'" style="width: 100% !important; height: auto !important; position:absolute !important; top:0 !important; bottom:0 !important; margin:auto !important;">';
 	// jQuery.mobile.navigate("#pagefullscreenphoto");
-	$.mobile.pageContainer.pagecontainer( "change", "#pagefullscreenphoto",{ allowSamePageTransition: true });
+	// $.mobile.pageContainer.pagecontainer( "change", "#pagefullscreenphoto",{ allowSamePageTransition: true });
+	$.mobile.pageContainer.pagecontainer( "change", "#pagefullscreenphoto",{ allowSamePageTransition: false });
 
 	// screenheight=$(window).height() + "px";
 	//screenheight=screen.height + "px";
