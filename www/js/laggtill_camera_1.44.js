@@ -523,7 +523,8 @@
 		annonskategori = document.getElementById('dwglaggtillkategorier').value;
 		// annonstyp = 1;
 		annonstyp = $("#annonstypselectswitch").val();
-		annonskommun = userwebplatsid;
+		annonskommunid = userwebkommunid;
+		annonsortid = userwebortid;
 		annonsnamn = userwebnamn;
 		annonsemail = useremail;
 		annonstelefon = userwebtelefon;
@@ -540,7 +541,8 @@
 			beskrivning: annonsbeskrivning,
 			kategori: annonskategori,
 			typ: annonstyp,
-			kommun: annonskommun,
+			kommun: annonskommunid,
+			ort: annonsortid,
 			namn: annonsnamn,
 			email: annonsemail,
 			telefon: annonstelefon,

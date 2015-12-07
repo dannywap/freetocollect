@@ -54,6 +54,8 @@ var userwebpostnrlat='';
 var userwebpostnrlong='';
 var userwebpostnrisok=false;
 var userwebplatsid='';
+var userwebkommunid='';
+var userwebortid='';
 var userwebkommun='';
 var userwebtelefon='';
 var userwebmobil='';
@@ -498,6 +500,8 @@ function loaduserwebdata(refreshmittkontobuttonsnow){
 				userwebmobil=data.mobil;
 				userwebadress=data.adress;
 				userwebplatsid=data.platsid;
+				userwebkommunid=data.kommunid;
+				userwebortid=data.ortid;
 				userwebpostnr=data.postnr;
 				userwebpostnrisok=data.okpostnr;
 				userwebpostnrlat=data.postnrlat;
