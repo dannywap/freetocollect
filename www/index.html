@@ -1350,7 +1350,7 @@
 <!-- page PageSkickaMail (Används bara av Panels View av annons) --------------------------------------------------------------------------- -->
 		<div data-role="page" id="pageskickamail">
 			<div data-role="header" data-add-back-btn="true">
-				<h1 id="pageskickamailtitle">Skicka mail</h1>
+				<h1 id="pageskickamailtitle" data-i18n="sendmail.title">Skicka mail</h1>
 			</div>
 			<div role="main" class="ui-content" id="pageskickamailcontent">
 				<div style="width: 100% !important; max-height: 100px;">
@@ -1359,15 +1359,15 @@
 				</div>
 				<!-- <input name="dwgmailditttelefon" id="dwgmaildinemail" placeholder="Ditt telefonnummer..." type="text"> -->
 				<!-- <input name="dwgmaildinemail" id="dwgmaildinemail" placeholder="Din email..." type="email" value="danny_wap@hotmail.com" disabled required> -->
-				<textarea id="skickamailbody" placeholder="Skriv ditt mail här: Berätta gärna först vem du är, ställ sedan dina frågor och avsluta mailet artigt..." style="min-height: 150px !important;"></textarea>
+				<textarea id="skickamailbody" data-i18n="[placeholder]sendmail.mailbody-placeholder" placeholder="Skriv ditt mail här: Berätta gärna först vem du är, ställ sedan dina frågor och avsluta mailet artigt..." style="min-height: 150px !important;"></textarea>
 				<input type="hidden" id="skickamailmailstamp" value="kjdkjdkdjkdj">
 				<input type="hidden" id="skickamailid" value="873873">
-				<button onclick="skickamail();" style="background-color: #60915e !important; color: white !important;" id="pageskickamailsubmit">Skicka</button>
+				<button onclick="skickamail();" style="background-color: #60915e !important; color: white !important;" id="pageskickamailsubmit" data-i18n="sendmail.mailsend-btn">Skicka</button>
 			</div>
 			<div id="pageskickamailskickat" style="margin: 10px;">
 				<div style="width: 100% !important; text-align: center !important;">
 					<img src="img/dwg_ok.svg" style="width: 70% !important;">
-					<p>Ditt mail är nu skickat.</p>
+					<p data-i18n="sendmail.mailsent">Ditt mail är nu skickat.</p>
 					<!-- <button onclick="laggtillBorjaOm();" id="laggtillborjaombtn" style="background-color: #60915e !important; color: white !important;" >Lägg till en ny</button> -->
 				</div>
 			</div>

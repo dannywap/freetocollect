@@ -1639,7 +1639,8 @@ $(document).on('pageshow', '#pageskickamail', function (event) {
 		// jQuery.mobile.navigate("#mittkonto");
 		$.mobile.pageContainer.pagecontainer( "change", "#mittkonto",{ allowSamePageTransition: true });
 	}else{
-		$("#pageskickamailsubject").text('Svar på: '+skickamailrubrik);
+		// $("#pageskickamailsubject").text('Svar på: '+skickamailrubrik);
+		$("#pageskickamailsubject").text(skickamailrubrik);
 		document.getElementById('skickamailid').value =			skickamailid;
 		document.getElementById('skickamailmailstamp').value = 		skickamailstamp;
 		$("#pageskickamailsubmit").removeAttr("disabled");
