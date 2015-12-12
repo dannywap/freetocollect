@@ -1792,13 +1792,16 @@ function onDeviceReady() {
 	// CLEAR THE WEBVIEW CACHE!
 	// http://stackoverflow.com/questions/30358408/phonegap-disable-caching
 	// https://github.com/moderna/cordova-plugin-cache
-	var success = function(status) {
-		// alert('Message: ' + status);
-	}
-	var error = function(status) {
-		// alert('Error: ' + status);
-	}
-	window.cache.clear( success, error );
+	
+	
+	// 2015-12-11 Lade till denna och testade några ggr men jag tror den kan ställa till det med den lokala backupen jag håller på viss info. Tror också den dödar appen i 5.1.1
+	// var success = function(status) {
+		// // alert('Message: ' + status);
+	// }
+	// var error = function(status) {
+		// // alert('Error: ' + status);
+	// }
+	// window.cache.clear( success, error );
 
 	
 	

@@ -6,7 +6,9 @@
 	<meta name="format-detection" content="telephone=no" />
 	<!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
 
-	<meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: file: https://ssl.gstatic.com https://maps.googleapis.com https://* http://* file://* 'unsafe-eval' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; media-src *">
+	<!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: file://* https://* http://* http:// https://ssl.gstatic.com https://maps.googleapis.com 'unsafe-eval' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; media-src *"> -->
+	<!-- <meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' 'unsafe-inline'; script-src * 'self' 'unsafe-inline' 'unsafe-eval'; media-src *;"> -->
+	<meta http-equiv="Content-Security-Policy" content="default-src *; style-src * 'self' 'unsafe-inline' 'unsafe-eval'; script-src * 'self' 'unsafe-inline' 'unsafe-eval';">
 
 	<!-- WHITELISTING! Läs här: https://github.com/apache/cordova-plugin-whitelist ÄNDRA DENNA PER APP???? !!!  :-P  
 	https://github.com/jessemonroy650/top-phonegap-mistakes/blob/master/new-to-Phonegap.md
@@ -708,7 +710,8 @@
  	<!-- <script type="text/javascript" charset="UTF-8" src="http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=7.0"></script>     
 	<script type="text/javascript" charset="utf-8" src="js/naramig_bing.js"></script> -->
 
-	<script type="text/javascript" src='https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyDMwcQ3Ng5jpIOmUD0Gahe3TFKCKEDa2ag&libraries=drawing'></script>
+	<!-- <script type="text/javascript" src='https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyDMwcQ3Ng5jpIOmUD0Gahe3TFKCKEDa2ag&libraries=drawing'></script> Detta äter upp min geocode curl quota -->
+	<script type="text/javascript" src='https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=drawing'></script>
 	<script type="text/javascript" charset="utf-8" src="js/naramig_gmaps_1.44.js"></script>
 	
 	<!-- https://developers.google.com/maps/documentation/javascript/libraries?hl=FR -->
