@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <widget xmlns   = "http://www.w3.org/ns/widgets"
     xmlns:gap   = "http://phonegap.com/ns/1.0"
-    id          = "uk.co.freetocollect.www"
+    id          = "uk.co.freetocollect"
 	xmlns:android = "http://schemas.android.com/apk/res/android"
-    version     = "1.44" >
+    version     = "1.44.4" >
     <name>FreeToCollect</name>
     <description>
         FreeToCollect

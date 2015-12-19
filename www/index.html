@@ -665,18 +665,37 @@
 	<script type="text/javascript" charset="utf-8" src="js/jquery-1.10.2.js"></script>
 	<script type="text/javascript" charset="utf-8" src="js/i18next-1.8.0.js"></script>
 	<script type="text/javascript">
-		var weburl='';
+		var weburl='http://www.bortskankes.se';
 		// http://www.gajotres.net/page-events-order-in-jquery-mobile-version-1-4-update/
 		$(document).on("mobileinit", function() {	
+			// var i18nOpts = { resGetPath: 'locales/sv/translation.json', debug: true };
 			var i18nOpts = { resGetPath: 'locales/en/translation.json' };
 			i18n.init(i18nOpts).done(function(){
-				// weburl=$.t("app.weburl");
+				weburl=$.t("app.weburl");
+				
+				// --------------------------------------------- Dettta måste köras både här i mobileinit och i pagebeforecreate för att Funka med alla android versioner.  Här i för v4 ocg v5 och i pagebeforecreate för v6.
+			
+				if(!dwgempty($.t("home.pulldownresettext"))){
+					$.mobile.iscrollview.prototype.options.pullDownResetText = $.t("home.pulldownresettext"); 		// "Dra ner för att uppdatera..."
+					$.mobile.iscrollview.prototype.options.pullDownPulledText = $.t("home.pulldownpulledtext");				// "Släpp för att uppdatera..."
+					$.mobile.iscrollview.prototype.options.pullDownLoadingText = $.t("home.pulldownloadingtext");	// "Uppdaterar..."
+					$.mobile.iscrollview.prototype.options.pullUpResetText = $.t("home.pullupresettext");					// " "
+					$.mobile.iscrollview.prototype.options.pullUpPulledText = $.t("home.pulluppulledtext");		// "Släpp så skall jag leta fler..."
+					$.mobile.iscrollview.prototype.options.pullUpLoadingText = $.t("home.pulluploadingtext");				// "Letar..."
+				}	
+
+				$("html").i18n();
+
+				// -----------------------------------------------
+				
+				
+				
 				// var thebase = document.getElementByID("basen123"); 
 				// thebase.href = weburl;
 			
 				// PGA iOS9 bugg (data-native-menu=false på select i lägg till (kategorin) gör att den hoppar ut till home när man klickar och den öppnas. Typ auto back-history. Samma problem finns i popups
 				// $.mobile.hashListeningEnabled = false;
-				// alert("i18n done!");
+				console.log("index - i18n done!"); 
 			});
 			
 			// Cross Site Scripting problemet i nyare browsers:
@@ -1184,7 +1203,7 @@
 					</div>
 					<div id="mittkontoemailconfirmedtext" data-role="none" style="margin-top:0px !important; padding-top:0 !important; color: silver !important; font-size:12px !important;"></div>
 					<label for="dwgusermobil" style="margin-bottom: -6px !important;" data-i18n="profile.lblmobile">Mobil</label>
-					<input data-clear-btn="true" name="dwgusermobil" id="dwgusermobil" maxlength="31" data-i18n="[placeholder]profile.mobile" placeholder="Ditt mobilnummer..." value="" type="tel">
+					<input data-clear-btn="true" name="dwgusermobil" id="dwgusermobil" maxlength="31" data-i18n="[placeholder]profile.mobile" placeholder="2Ditt mobilnummer..." value="" type="tel">
 					<label for="dwgusertelefon" style="margin-bottom: -6px !important;" data-i18n="profile.lbltel">Telefon</label>
 					<input data-clear-btn="true" name="dwgusertelefon" id="dwgusertelefon" maxlength="31" data-i18n="[placeholder]profile.tel" placeholder="Ditt telefonnummer..." value="" type="tel">
 					<label for="dwguserpostnr" style="margin-bottom: -6px !important;" data-i18n="[html]profile.lblpostal"><b>Postnr</b><span style="color:green !important;">*</span></label>
