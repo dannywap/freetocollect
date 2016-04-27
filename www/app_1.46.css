@@ -1,0 +1,596 @@
+
+/* 	CLEAN UP OF JQM SLOWDOWN CRAP SUCH AS ANIMATIONS AND SHADOWS 
+	All jQuery effects, including .fadeIn(), can be turned off globally by setting jQuery.fx.off = true, which effectively sets the duration to 0. For more information, see jQuery.fx.off. 
+*/ 
+ /* Get rid of shadows for performance */
+.ui-bar-a 
+.ui-shadow,
+.ui-btn-up-a,
+.ui-btn-hover-a,
+.ui-btn-down-a,
+.ui-body-b,
+.ui-btn-up-b,
+.ui-btn-hover-b,
+.ui-btn-down-b,
+.ui-bar-c,
+.ui-body-c,
+.ui-btn-up-c,
+.ui-btn-hover-c,
+.ui-btn-down-c,
+.ui-bar-c,
+.ui-body-d,
+.ui-btn-up-d,
+.ui-btn-hover-d,
+.ui-btn-down-d,
+.ui-bar-d,
+.ui-body-e,
+.ui-btn-up-e,
+.ui-btn-hover-e,
+.ui-btn-down-e,
+.ui-bar-e,
+.ui-overlay-shadow,
+.ui-shadow,
+.ui-btn-active,
+.ui-link,
+.ui-body-a {
+	text-shadow: none !important;
+	box-shadow: none !important;
+	-webkit-box-shadow: none !important;
+}
+
+*.ui-listview *.ui-btn-a,
+*.ui-listview *.ui-bar-a,
+*.ui-listview *.ui-btn,
+*.ui-listview *.ui-btn-up-a,
+*.ui-listview *.ui-btn-down-a,
+*.ui-listview *.ui-btn-hover-a,
+*.ui-listview *.ui-btn-up,
+*.ui-listview *.ui-btn-down,
+*.ui-listview *.ui-btn-hover,
+*.ui-listview *.ui-btn-up-b,
+*.ui-listview *.ui-btn-down-b,
+*.ui-listview *.ui-btn-hover-b 
+{
+  /* Copy your .ui-btn-up styles here */
+		text-shadow: none !important;
+}		
+
+
+
+/* 
+	-- END of CLEAN UP OF JQM STANDARDS
+*/ 
+
+
+
+html head + body .ui-btn.ui-btn-a:active {
+	background-color: #60915e /*{a-bdown-background-color}*/;
+	border-color: #659563 /*{a-bdown-border}*/;
+	color: #cbe0ca /*{a-bdown-color}*/;
+	text-shadow: 0 /*{a-bdown-shadow-x}*/ 1px /*{a-bdown-shadow-y}*/ 0 /*{a-bdown-shadow-radius}*/ #f3f3f3 /*{a-bdown-shadow-color}*/;
+	-webkit-box-shadow: 0px 2px 8px 0px rgba(0, 122, 0, 0.4) !important;
+	-moz-box-shadow:    0px 2px 8px 0px rgba(0, 122, 0, 0.4) !important;
+	box-shadow:         0px 2px 8px 0px rgba(0, 122, 0, 0.4) !important;
+}
+
+.fadein, .fadeout {
+	opacity: 0;
+	-moz-transition: opacity 0.2s ease-in-out;
+	-o-transition: opacity 0.2s ease-in-out;
+	-webkit-transition: opacity 0.2s ease-in-out;
+	transition: opacity 0.2s ease-in-out;
+}
+.fadein {
+	opacity: 1;
+}
+
+.has-odd-thumb li a {
+	padding-left: 100px !important;
+}
+.thumbContainer {
+	position: absolute;
+	left: 0; top: 0; bottom: 0;
+	width: 90px;
+	background: url("img/loadingicon.png") no-repeat center;
+	background-size: 100% auto; background-position: center top;
+}
+.thumbContainer img {
+	position: absolute;
+	margin: auto;
+	bottom: 0; left: 0; top: 0; right: 0;
+	width: 90px;
+	height: 90px;
+}	
+		
+		
+/*		.ui-panel.ui-panel-open {
+			position:fixed;
+		}
+		.ui-panel-inner {
+			position: absolute;
+			top: 1px;
+			left: 0;
+			right: 0;
+			bottom: 0px;
+			overflow: scroll;
+			-webkit-overflow-scrolling: touch;
+			-webkit-scrollbar { width: 3px !important;}
+		}
+*/
+		.ui-panel-inner { padding: 0 !important }  /* VIKTIGT: För att iscrollview skall funka med Panels */
+		
+		/* jQuery Mobile Text shadow Remove:
+		Fix:
+		By adding this to your CSS for the text */
+		
+		body .ui-body-c, body .ui-overlay-c, body {
+			text-shadow: 0 0 0 !important;
+		}
+		
+		
+		.dwginputok {
+			background: #dbf8d6 !important;
+		}
+		.dwginputerror {
+			background-color: #f8d6d6 !important;
+		}
+		.dwginputwaiting {
+			background-color: #fff0cc !important;
+		}
+		
+		
+		.dwgfooter {
+			border: 0px 1px 0px 0px !important; padding: 0px !important; margin 0px !important;
+			border-color: #eaeaea !important;  // dfdfdf
+		}
+		.dwgnavbar {
+			border: 0 !important;
+		}
+		.dwgnavbarul {
+			border: 0 !important;
+			text-shadow: none !important;
+			box-shadow: none !important;
+			-webkit-box-shadow: none !important;
+			background-color: #c8edc2;
+		}	
+		.dwgnavbarbtn {
+			border: 0 !important;
+			/ * font-size: 12px !important; * /
+			text-shadow: none !important;
+			box-shadow: none !important;
+			-webkit-box-shadow: none !important;
+		}
+		
+		.dwgbtnMinannonser .ui-btn a,.dwgbtnMinannonser .ui-btn a:visited {
+			background-color: 			#c7ecc1 /*{a-bup-background-color}*/ !important;
+			border-color:	 		#c8edc2 /*{a-bup-border}*/ !important;
+			color: 					#20411a /*{a-bup-color}*/ !important;
+			text-shadow: 0 /*{a-bup-shadow-x}*/ 1px /*{a-bup-shadow-y}*/ 0 /*{a-bup-shadow-radius}*/ #f3f3f3 /*{a-bup-shadow-color}*/ !important;
+		}
+		.dwgbtnMinannonser .ui-btn a:active {
+			background-color: 			#dcf8d8 /*{a-bup-background-color}*/ !important;
+			border-color:	 		#c8edc2 /*{a-bup-border}*/ !important;
+			color: 					#20411a /*{a-bup-color}*/ !important;
+			text-shadow: 0 /*{a-bup-shadow-x}*/ 1px /*{a-bup-shadow-y}*/ 0 /*{a-bup-shadow-radius}*/ #f3f3f3 /*{a-bup-shadow-color}*/ !important;
+		}
+		
+		.ui-btn-a2 a,.ui-btn-a2 a:visited {
+			background-color: 			#c7ecc1 /*{a-bup-background-color}*/ !important;
+			border-color:	 		#ee2222 /*{a-bup-border}*/ !important;
+			color: 					#20411a /*{a-bup-color}*/ !important;
+			text-shadow: 0 /*{a-bup-shadow-x}*/ 1px /*{a-bup-shadow-y}*/ 0 /*{a-bup-shadow-radius}*/ #f3f3f3 /*{a-bup-shadow-color}*/ !important;
+		}
+		.ui-btn2 a:active {
+			background-color: 			#dcf8d8 /*{a-bup-background-color}*/ !important;
+			border-color:	 		#00ee00 /*{a-bup-border}*/ !important;
+			color: 					#20411a /*{a-bup-color}*/ !important;
+			text-shadow: 0 /*{a-bup-shadow-x}*/ 1px /*{a-bup-shadow-y}*/ 0 /*{a-bup-shadow-radius}*/ #f3f3f3 /*{a-bup-shadow-color}*/ !important;
+		}
+		
+		/* BLUE BUTTON */
+		.ui-btn.dwgbtnblue,.ui-btn.dwgbtnblue:visited {
+			background-color: #3498DB;
+			border-top: 0px;
+			border-bottom: 3px solid #2980B9;
+			text-shadow: 0px -2px #2980B9;
+			color: 					#eee /*{a-bup-color}*/;
+		}
+		.ui-btn.dwgbtnblue:active {
+			background-color: #3078bB;
+			border-top: 3px solid #20589B;
+			border-bottom: 0px;
+			text-shadow: 0px -2px #2980B9;
+			color: 					#cce /*{a-bup-color}*/;
+			/* box-shadow: 0 0 8px #00F; */ // glow
+			-webkit-box-shadow: 0px 0px 3px #00F;
+			-moz-box-shadow: 0px 0px 3px #00F;
+			box-shadow: 0px 0px 3px #00F;
+		}
+		
+		/* GRAY BUTTON */
+		.ui-btn.dwgbtngray,.ui-btn.dwgbtngray:visited {
+			background-color: 			#f6f6f6 /*{a-bup-background-color}*/;
+			border-color:	 		#ddd /*{a-bup-border}*/;
+			color: 					#333 /*{a-bup-color}*/;
+			border-top: 0px;
+			border-bottom: 3px solid #ccc;
+			text-shadow: 0px -2px #ccc;
+		}
+		.ui-btn.dwgbtngray:active {
+			background-color: #f0f0f0;
+			border-top: 3px solid #bbb;
+			border-bottom: 0px;
+			text-shadow: 0px -2px #ccc;
+			color: 					#333 /*{a-bup-color}*/;
+		}
+		
+		/* BLACK BUTTON */
+		.ui-btn.dwgbtnblack,.ui-btn.dwgbtnblack:visited {
+			background-color: #222;
+			border-top: 0px;
+			border-bottom: 3px solid #333;
+			text-shadow: 0px -2px #333;
+			color: 					#eee /*{a-bup-color}*/;
+		}
+		.ui-btn.dwgbtnblack:active {
+			background-color: #000;
+			border-top: 3px solid #222;
+			border-bottom: 0px;
+			text-shadow: 0px -2px #333;
+			color: 				#bbb /*{a-bup-color}*/;
+		}
+
+		
+		.adviewtitle2 a, .adviewtitle2 a:visited {
+			color: blue; 
+			margin:5px 5px 5px 5px !important;
+			text-decoration: none !important;
+		}
+		.adviewtitle2 a:active {
+			color: red !important; 
+			text-decoration: underline !important;
+		}
+		
+		/* Detta är navbar on click */
+		.ui-bar-a a:active {
+			color: white !imortant; /* #3498DB !important; */ /* silver !important; */
+		}
+		/* Denna slår bara på speciella länkar */
+		.ui-body-a a:active {
+			color: silver !important; 
+		}
+		/* Detta är alla generella länkar */
+		.ui-page-theme-a a:active {
+			/* color: gray !important; */
+		}
+		/* *.ui-btn-down, *.ui-btn-down, .ui-btn-down, */
+		/* *.ui-btn:active {
+			background-color: #60915e !important;
+			background: #60915e !important;
+			color: white !important;
+		} */
+		
+		/* Detta är titlar på adviews */
+		.ui-page-theme-a .adviewtitle3:active {
+			color: silver !important; 
+		}
+		
+
+		
+		.ui-icon-dwgtrashbin:after {
+			background-image: url("img/trashbin_white.svg");
+			background-size: cover;
+		}
+		/* Fallback */
+		/* .ui-nosvg .ui-icon-dwgtrashbin:after {
+			background-image: url("trashbin2.png");
+		} */
+		
+		/*
+		#ios7statusbar{
+			width:100%;
+			height:20px;
+			background-color:white;
+			position:fixed;
+			z-index:100;
+		}
+		.ios7 .ui-page{
+			margin-top: 20px;
+		}
+		*/
+		
+		
+		
+		.blur-filter {
+			-webkit-filter: blur(2px);
+			-moz-filter: blur(2px);
+			-o-filter: blur(2px);
+			-ms-filter: blur(2px);
+			filter: blur(2px);
+		}
+		.blur-filter-exclude {
+			-webkit-filter: blur(0px) !important;
+			-moz-filter: blur(0px) !important;
+			-o-filter: blur(0px) !important;
+			-ms-filter: blur(0px) !important;
+			filter: blur(0px) !important;
+		}
+		
+  
+  
+   
+  /* 
+	#dwgmap div img[src^='http://www.bortskankes.se/']{  /* Images srcs starting with bortskankes.se/  */
+		width: 38px !important; height: 38px !important;
+		border: 0px solid #ffc000; overflow:hidden;
+        -moz-border-radius: 20px 20px 20px 20px;
+		-webkit-border-radius: 20px 20px 20px 20px;
+		border-radius: 20px;
+	}
+	#dwgmap div < img[src^='http://www.bortskankes.se/']{  /* Only the DIV containing this /  */
+		width: 48px !important; height: 38px !important;
+		border: 2px solid #ffc000; overflow:hidden;
+        -moz-border-radius: 20px 20px 20px 20px;
+		-webkit-border-radius: 20px 20px 20px 20px;
+		border-radius: 20px;
+	}
+	*/ 
+	
+	#over_map div {
+		-moz-box-shadow: 0 0 5px #888 !important;
+		-webkit-box-shadow: 0 0 5px #888 !important;
+		box-shadow: 0 0 5px #888 !important;
+	}
+
+	
+	/* ******************************* PULSING ME Marker ************************ */
+	/* your custom CSS \*/
+	@-moz-keyframes pulsate {
+		from {
+			-moz-transform: scale(1.0);
+			opacity: 1.0;
+		}
+		90% {
+			-moz-transform: scale(5.0);
+			opacity: 0;
+		}
+		to {
+			-moz-transform: scale(1.1);
+			opacity: 0;
+		}
+	}
+	@-webkit-keyframes pulsate {
+		from {
+			-webkit-transform: scale(1.0);
+			opacity: 1.0;
+		}
+		90% {
+			-webkit-transform: scale(5.0);
+			opacity: 0;
+		}
+		to {
+			-webkit-transform: scale(1.1);
+			opacity: 0;
+		}
+	}
+	/* Fade in the thumbs on map: */
+	@-moz-keyframes dwgfadein {
+		from {
+			-moz-transform: scale(0.2); opacity: 0.1;
+		}
+		to {
+			-moz-transform: scale(1.0);	opacity: 1.0;
+		}
+	}
+	@-webkit-keyframes dwgfadein {
+		from {
+			-webkit-transform: scale(0.2);	opacity: 0.1;
+		}
+		to {
+			-webkit-transform: scale(1.0);	opacity: 1.0;
+		}
+	}
+	.mapthumb{
+		/* -moz-border-radius: 20px 20px 20px 20px; -webkit-border-radius: 20px 20px 20px 20px; border-radius: 20px; */
+		-moz-border-radius: 40%; -webkit-border-radius: 40%; border-radius: 40%;
+		-moz-animation: dwgfadein 0.2s ease-in; -webkit-animation: dwgfadein 0.2s ease-in;
+	}
+	
+	@-moz-keyframes dwgrotation {
+		from {
+			-moz-transform: rotate(0deg);
+		}
+		to { 
+			-moz-transform: rotate(360deg);
+		}	
+	}
+	@-webkit-keyframes dwgrotation {
+		from {
+			-webkit-transform: rotate(0deg);
+		}
+		to { 
+			-webkit-transform: rotate(360deg);
+		}	
+	}
+
+	.ui-loader .ui-icon-loading {
+		background-color: transparent;
+	}
+	.ui-icon-loading {
+		background: url("img/recycle_icon.png");
+		no-repeat center; background-size: 100% auto; background-position: center top;
+		-moz-animation: dwgrotation 3s linear infinite; -webkit-animation: dwgrotation 3s linear infinite;
+	}
+	
+	/* Remove styling of Google links from their map as it look terrible when clicked: */
+	/* https://code.google.com/ p /gmaps-api-issues/issues/ detail?  id = 3866  */
+	.gm-rev
+	{
+		display:none;
+	}
+	.gm-website
+	{
+		display:none;
+	}
+	.gm-wsv
+	{
+		display:none;
+	}
+	
+	
+	@-moz-keyframes seathumbzoom {
+		from {
+			-moz-transform: rotate(0deg);
+			-moz-transform: scale(1.0);	opacity: 1;
+		}
+		to { 
+			-moz-transform: rotate(360deg);
+			-moz-transform: scale(5.0);	opacity: 0;
+		}	
+	}
+	@-webkit-keyframes seathumbzoom {
+		/* from {
+			-webkit-transform: scale(1.0);
+			opacity: 1.0;
+			-webkit-box-shadow: 0px 2px 4px 0px rgba(50, 50, 50, 0.3);
+
+		}
+		40% {
+			-webkit-transform-origin: 0px 0px;
+			-webkit-transform: scale(3.0);
+			opacity: 1.0;
+			-webkit-box-shadow: 0px 5px 10px 0px rgba(50, 50, 50, 0.2);
+
+		}
+		to {
+			-webkit-transform: scale(1.1);
+			opacity: 1.0;
+		} */
+
+		from {
+			-webkit-transform: scale(1.0);	
+			opacity: 1;
+		}
+		to { 
+			-webkit-transform: scale(0.1);	
+			opacity: 0; 
+		}
+	}
+	.seathumb{
+		float:left; width: 25%; 
+		-webkit-box-shadow: 0px 2px 4px 0px rgba(50, 50, 50, 0.3);-moz-box-shadow: 0px 2px 4px 0px rgba(50, 50, 50, 0.3);box-shadow: 0px 2px 4px 0px rgba(50, 50, 50, 0.3);
+		border: 0px solid green !important;
+	  -webkit-transition: all 1s ease;
+		 -moz-transition: all 1s ease;
+		   -o-transition: all 1s ease;
+		  -ms-transition: all 1s ease;
+			  transition: all 1s ease;
+	}
+	.seathumbclick{
+		/* -moz-animation: seathumbzoom 2s ease-out; -webkit-animation: seathumbzoom 2s ease-out; */
+		/* -webkit-transform: scale(3.0); */
+		-webkit-transform: scale(0.1, 0.1); // This is the enlarged size scale of the image.
+		-webkit-transition-duration: 1000ms;
+		-webkit-transition-timing-function: ease-out;
+	}
+	/*	.seathumb:focus{
+		border: 3px solid red !important;
+	} */
+	
+	.shrink img {
+	  width: 400px;
+	}
+	
+	
+	
+	
+	#divshowclosedswitch .ui-slider-switch { width: 10em !important; }
+	
+	#annonstypselectswitchstyler .ui-flipswitch.ui-flipswitch-active {
+	  background-image: -webkit-gradient(linear,left top,left bottom,from( #FF6863 ),to( #BE0000 ));
+	  background-image: -webkit-linear-gradient( #FF6863,#BE0000 );
+	  background-image: -moz-linear-gradient( #FF6863,#BE0000 );
+	  background-image: -ms-linear-gradient( #FF6863,#BE0000 );
+	  background-image: -o-linear-gradient( #FF6863,#BE0000 );
+	  background-image: linear-gradient( #FF6863,#BE0000 );
+	  
+	  border-color: #BC8F93/*{a-active-border}*/;  // Annars är det grön ring runt den!! ;) http://code.jquery.com/mobile/1.4.4/jquery.mobile-1.4.4.css
+	}
+	#annonstypselectswitchstyler .ui-flipswitch .ui-flipswitch-on {  text-indent: -3.8em; }
+	#annonstypselectswitchstyler .ui-flipswitch .ui-flipswitch-off { text-indent: -0.2em; }
+	
+	
+	
+	.highlightdiv {
+		-webkit-animation: highlightdivanim 1.5s; /* Chrome, Safari, Opera */
+		animation: highlightdivanim 1.5s;
+	}
+	@-webkit-keyframes highlightdivanim {  	/* Chrome, Safari, Opera */
+		0%   {background:white;}
+		50%  {background:#baf8a9;}
+		100% {background:white;}
+	}
+	@keyframes highlightdivanim {		/* Standard syntax */
+		0%   {background:white;}
+		50%  {background:#baf8a9;}
+		100% {background:white;}
+	}
+	
+	.alert {
+		margin:0px !important; 
+		padding:0 !important; 
+		color: silver !important; 
+		font-size:12px !important;
+	}
+	.alert-success {
+	 /*  background-image: -webkit-linear-gradient(top, #dff0d8 0%, #c8e5bc 100%);
+	  background-image:      -o-linear-gradient(top, #dff0d8 0%, #c8e5bc 100%);
+	  background-image: -webkit-gradient(linear, left top, left bottom, from(#dff0d8), to(#c8e5bc));
+	  background-image:         linear-gradient(to bottom, #dff0d8 0%, #c8e5bc 100%);
+	  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffdff0d8', endColorstr='#ffc8e5bc', GradientType=0);
+	  background-repeat: repeat-x;
+	  border-color: #b2dba1; */
+	  color: #338833 !important;
+	}
+	.alert-info {
+	  background-image: -webkit-linear-gradient(top, #d9edf7 0%, #b9def0 100%);
+	  background-image:      -o-linear-gradient(top, #d9edf7 0%, #b9def0 100%);
+	  background-image: -webkit-gradient(linear, left top, left bottom, from(#d9edf7), to(#b9def0));
+	  background-image:         linear-gradient(to bottom, #d9edf7 0%, #b9def0 100%);
+	  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffd9edf7', endColorstr='#ffb9def0', GradientType=0);
+	  background-repeat: repeat-x;
+	  border-color: #9acfea;
+	  color: #333388 !important;
+	}
+	.alert-warning {
+	  background-image: -webkit-linear-gradient(top, #fcf8e3 0%, #f8efc0 100%);
+	  background-image:      -o-linear-gradient(top, #fcf8e3 0%, #f8efc0 100%);
+	  background-image: -webkit-gradient(linear, left top, left bottom, from(#fcf8e3), to(#f8efc0));
+	  background-image:         linear-gradient(to bottom, #fcf8e3 0%, #f8efc0 100%);
+	  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fffcf8e3', endColorstr='#fff8efc0', GradientType=0);
+	  background-repeat: repeat-x;
+	  border-color: #f5e79e;
+	  color: #883333 !important;
+	}
+	.alert-danger {
+	  /* background-image: -webkit-linear-gradient(top, #f2dede 0%, #e7c3c3 100%);
+	  background-image:      -o-linear-gradient(top, #f2dede 0%, #e7c3c3 100%);
+	  background-image: -webkit-gradient(linear, left top, left bottom, from(#f2dede), to(#e7c3c3));
+	  background-image:         linear-gradient(to bottom, #f2dede 0%, #e7c3c3 100%);
+	  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fff2dede', endColorstr='#ffe7c3c3', GradientType=0);
+	  background-repeat: repeat-x;
+	  border-color: #dca7a7; */
+	  color: #883333 !important;
+	}
+	.huvudkategoribtn{
+		padding: 15px;
+		font-size: 18px;
+		color: white;
+		background-color: #97a99d;
+		margin-top: 1px;
+	}
+	.huvudkategoribtnclicked{
+		color: white;
+		background-color: #3498DB;
+	}
+		
