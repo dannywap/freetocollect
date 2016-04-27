@@ -19,6 +19,7 @@
 	<preference name="webviewbounce" value="false" />
 	<preference name="DisallowOverscroll" value="true" />
 	
+	<plugin name="cordova-plugin-whitelist" source="npm" />
 	<allow-navigation href="*" />
     <allow-intent href="*" />
     <access origin="*" /><!-- Required for iOS9 -->
